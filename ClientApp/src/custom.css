@@ -1,6 +1,7 @@
 /* Provide sufficient contrast against white background */
 body {
   background-color: #3D3D3D;
+  color: white;
 }
 
 a {
