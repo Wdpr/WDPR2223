@@ -1,4 +1,8 @@
 /* Provide sufficient contrast against white background */
+body {
+  background-color: #3D3D3D;
+}
+
 a {
   color: #0366d6;
 }
@@ -11,4 +15,22 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.voorstellingMiniCard > img {
+  max-width: 255;
+  max-height: 300;
+}
+
+.beginBanner {
+  background-image: url('./assets/theaterHomePic.jpg');
+  background-size: cover;
+  height: 420px;
+  color: white;
+}
+
+.VoorstellingCards {
+  display: flex;
+  gap: 30px;
+
 }
