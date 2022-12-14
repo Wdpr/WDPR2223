@@ -12,3 +12,39 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.voorstellingCard{
+  background-color: #94b5d6;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 150px;
+  ;
+}
+
+.voorstellingCard > img{
+  width: 130px;
+  height: 150px;
+}
+
+.cardDatumInfo > ul{
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.cardVoorstellingInfo > ul{
+  text-align: center;
+  list-style-type: none;
+}
+
+.cardInfoPrijs > ul {
+  text-align: center;
+  list-style-type: none;
+}
+
+.pageCardTitel{
+  text-align: left;
+  font-size: 20px;
+  padding-top: 40px;
+}
