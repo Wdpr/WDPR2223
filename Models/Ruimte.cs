@@ -1,7 +1,8 @@
-namespace Laak.Models{
-    public class Ruimte{
-        public const int capaciteit = 30;
 
-        
-    }
+namespace Laak.Models;
+
+public class Ruimte
+{
+    public const int Capaciteit = 30;
+
 }

@@ -25,7 +25,7 @@ public class VoorstellingController : ControllerBase
     [HttpGet("{id}")]
     public Voorstelling GetVoorstelling(int id)
     {
-        return context.Voorstellingen.SingleOrDefault(v => v.id == id);
+        return context.Voorstellingen.SingleOrDefault(v => v.Id == id);
     }
 
     [HttpPost]

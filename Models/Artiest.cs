@@ -3,8 +3,8 @@ namespace Laak.Models;
 
 public class Artiest
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     public string Naam { get; set; }
-    public string img {get; set; }
-    
+    public string Img { get; set; }
+
 }
