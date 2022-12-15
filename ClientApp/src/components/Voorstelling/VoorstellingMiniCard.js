@@ -2,11 +2,9 @@ import React from 'react'
 
 export const VoorstellingMiniCard = (props) => {
     return (
-        <>
-        <a href='/voorstelling' className='voorstellingMiniCard'>
+        <a href={'/voorstelling'+props.id} className='voorstellingMiniCard'>
             <img src={props.img} alt={props.alt} />
-            <span>{props.alt}</span>
-        </a>
-        </>
+            <p>{props.alt}</p>
+        </a >
     )
 }

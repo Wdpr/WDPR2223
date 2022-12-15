@@ -18,20 +18,6 @@ code {
   border-color: #1861ac;
 }
 
-.voorstellingCard{
-  background-color: #94b5d6;
-  display: flex;
-  align-items: center;
-  width: auto;
-  height: 150px;
-  ;
-}
-
-.voorstellingCard > img{
-  width: 130px;
-  height: 150px;
-}
-
 .cardDatumInfo > ul{
   list-style-type: none;
   padding: 0;
@@ -53,20 +39,31 @@ code {
   font-size: 20px;
   padding-top: 40px;
 }
-.voorstellingMiniCard > img {
-  max-width: 255;
-  max-height: 300;
-}
 
 .beginBanner {
   background-image: url('./assets/theaterHomePic.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   height: 420px;
   color: white;
 }
 
-.VoorstellingCards {
-  display: flex;
-  gap: 30px;
+.beginBannerText {
+  text-align: center;
+  padding-top: 180px;
+}
 
+.voorstellingCards {
+  display: flex;
+}
+
+.voorstellingMiniCard > img{
+  width: 190px;
+  height: 285px;
+}
+
+.voorstellingMiniCard {
+  display: inline-block;
+  margin: 0px 10px;
 }

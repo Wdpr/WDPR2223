@@ -9,11 +9,18 @@ export class Home extends Component {
   render() {
     return (
       <>
-        <div className="beginBanner"> 
-          <h4>Theater</h4>
-          <h1>Laak</h1>
+        <div className="beginBanner">
+          <div className="beginBannerText">
+            <h4>Theater</h4>
+            <h1>Laak</h1>
+          </div>
         </div>
-        <div clasName="VoorstellingCards">
+        <br />
+        <br />
+        <br />
+        <div clasName="voorstellingCards">
+          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
+          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
           <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
           <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
         </div>
