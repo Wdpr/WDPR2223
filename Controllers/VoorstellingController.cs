@@ -18,4 +18,17 @@ public class VoorstellingController : ControllerBase {
     public IEnumerable<Voorstelling> GetAlleVoorstelling() {
         return context.Voorstellingen;
     }
+
+    [HttpGet("{id}")]
+    public Voorstelling GetVoorstelling(int id) {
+        return context.Voorstellingen.SingleOrDefault(v => v.id == id);
+    }
+
+    [HttpPost]
+    [Route("niewuweVoorstelling")]
+    public Voorstelling PostVoorstelling(Voorstelling voorstelling) {
+        context.Voorstellingen.Add(voorstelling);
+        context.SaveChanges();
+        return voorstelling;
+    }
 }
