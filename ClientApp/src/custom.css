@@ -1,6 +1,11 @@
 /* Provide sufficient contrast against white background */
+body {
+  background-color: #3D3D3D;
+  color: white;
+}
+
 a {
-  color: #0366d6;
+  color: white;
 }
 
 code {
@@ -75,4 +80,39 @@ code {
   margin-bottom: 2px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
+}
+
+.beginBanner {
+  background-image: url('./assets/theaterHomePic.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 420px;
+  color: white;
+}
+
+.beginBannerText {
+  text-align: center;
+  padding-top: 180px;
+}
+
+.voorstellingMiniCards {
+  display: flex;
+}
+
+.voorstellingMiniCard > img{
+  width: 190px;
+  height: 285px;
+}
+
+.voorstellingMiniCard {
+  display: inline-block;
+  margin: 0px 10px;
+}
+
+.footer {
+  background-color: #222222;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
