@@ -5,7 +5,7 @@ body {
 }
 
 a {
-  color: #0366d6;
+  color: white;
 }
 
 code {
@@ -67,3 +67,11 @@ code {
   display: inline-block;
   margin: 0px 10px;
 }
+
+.footer {
+  background-color: #222222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
