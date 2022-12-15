@@ -1,4 +1,5 @@
 import { Home } from "./components/Home";
+import { OverOns } from "./components/OverOns";
 import { VoorstellingPage } from "./components/Voorstelling/VoorstellingPage";
 
 const AppRoutes = [
@@ -9,6 +10,10 @@ const AppRoutes = [
   {
     path: '/voorstelling',
     element: <VoorstellingPage />
+  },
+  {
+    path: '/overons',
+    element: <OverOns />
   }
 ];
 
