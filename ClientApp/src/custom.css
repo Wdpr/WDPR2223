@@ -18,6 +18,20 @@ code {
   border-color: #1861ac;
 }
 
+.voorstellingCard{
+  background-color: #94b5d6;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 150px;
+  ;
+}
+
+.voorstellingCard > img{
+  width: 130px;
+  height: 150px;
+}
+
 .cardDatumInfo > ul{
   list-style-type: none;
   padding: 0;
@@ -54,7 +68,7 @@ code {
   padding-top: 180px;
 }
 
-.voorstellingCards {
+.voorstellingMiniCards {
   display: flex;
 }
 

@@ -18,7 +18,7 @@ export class Home extends Component {
         <br />
         <br />
         <br />
-        <div clasName="voorstellingCards">
+        <div clasName="voorstellingMiniCards">
           <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
           <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
           <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
