@@ -18,12 +18,21 @@ code {
   border-color: #1861ac;
 }
 
+.bannerFoto{
+  width: 1500px;
+  height: 400px;
+  box-sizing: border-box;
+  
+}
+
 .voorstellingCard{
-  background-color: #94b5d6;
+  background-color: #45505a;
   display: flex;
   align-items: center;
   width: auto;
   height: 150px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  color: white;
   ;
 }
 
@@ -36,6 +45,15 @@ code {
   list-style-type: none;
   padding: 0;
   text-align: center;
+  padding-left: 20px;
+}
+
+.cardVoorstellingInfo{
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  text-align: center;
 }
 
 .cardVoorstellingInfo > ul{
@@ -46,12 +64,22 @@ code {
 .cardInfoPrijs > ul {
   text-align: center;
   list-style-type: none;
+  padding-top: 20px;
+  margin-left: 50px;
+}
+
+.cardInfoPrijs > ul > li > button{
+  background-color: #f0a0a0;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .pageCardTitel{
   text-align: left;
   font-size: 20px;
   padding-top: 40px;
+  margin-bottom: 2px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
 }
 
 .beginBanner {
@@ -88,4 +116,3 @@ code {
   text-align: center;
   padding: 20px;
 }
-
