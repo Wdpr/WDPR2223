@@ -1,4 +1,4 @@
-namespace wdpr;
+namespace Laak;
 
 public class WeatherForecast
 {

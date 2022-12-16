@@ -1,17 +1,11 @@
-namespace Laak.Models
+
+namespace Laak.Models;
+
+public class Ticket
 {
-    public class Ticket
-    {
-        public Voorstelling voorstelling { get; set; }
-        
-        public Zaal zaal { get; set; }
-        
-        public int stoelnmr { get; set; }
+    public int Id { get; set; }
+    public Voorstelling Voorstelling { get; set; }
+    public Zaal Zaal { get; set; }
+    public Stoel Stoel { get; set; }
 
-        public int rij { get; set; }
-
-
-
-
-    }
 }

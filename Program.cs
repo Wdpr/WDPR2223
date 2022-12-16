@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Laak.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlite("Data Source=TheaterDatabase.db"));
+// builder.Services.AddDbContext<AccountDatabase>(options => options.UseSqlite("Data Source=AccountDatabase.db"));  database voor accounts
 
 var app = builder.Build();
 

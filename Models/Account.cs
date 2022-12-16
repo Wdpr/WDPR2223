@@ -1,30 +1,11 @@
-namespace Laak.Models
+
+namespace Laak.Models;
+
+public class Account
 {
-
-    public class Account
-    {
-
-        public string naam{get;set;}
-
-        public  string email{get;set;}
-        
-
-        public string wachtwoord{get;set;}
-
-        public decimal gedoneerd{get;set;}
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
+    public int Id { get; set; }
+    public string Naam { get; set; }
+    public string Email { get; set; }
+    public string Wachtwoord { get; set; }
 
 }

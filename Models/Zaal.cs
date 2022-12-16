@@ -1,5 +1,11 @@
-namespace Laak.Models{
-    public class Zaal{
-        public Array stoelen{get;set;}
-    }
+
+namespace Laak.Models;
+
+public class Zaal
+{
+    public int Id { get; set; }
+    public int? AantalEersteRang { get; set; }
+    public int? AantalTweedeRang { get; set; }
+    public int? AantalDerderRang { get; set; }
+
 }

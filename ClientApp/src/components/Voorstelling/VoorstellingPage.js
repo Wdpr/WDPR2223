@@ -1,36 +1,34 @@
 import React from 'react'
 import { VoorstellingPageCard } from './VoorstellingPageCard';
+import AlleVoorstellingen from './AlleVoorstellingen';
 
-import cardFoto from '../../assets/guido-weijers.jpg';
-import lubachFoto from '../../assets/lubach.jpg';
+import bannerFoto from '../../assets/theaterHomePic.jpg';
 
 export class VoorstellingPage extends React.Component{
     static displayName = VoorstellingPage.name
 
     render(props) {
-        return (
-        <div >
+        const voorstellingElementen = AlleVoorstellingen.map(voorstelling => {
+        return (     
             <VoorstellingPageCard 
-                naamVanVoorstelling='Guido de legend'
-                img={cardFoto}
-                naam='Guido Weijers'
-                locatie='Theater de Laak'
-                datum='Zaterdag 12/12/2020'
-                tijd='20:00'
-                prijs='€ 20'
-                genre='Comedy'
+                naamVanVoorstelling={voorstelling.naamVanVoorstelling}
+                img={voorstelling.img}
+                naam={voorstelling.naam}
+                locatie={voorstelling.locatie}
+                datum={voorstelling.datum}
+                tijd={voorstelling.tijd}
+                prijs={voorstelling.prijs}
+                genre={voorstelling.genre}
             />
-            <VoorstellingPageCard
-                naamVanVoorstelling='Lubach de grote' 
-                img={lubachFoto}
-                naam='Arjen Lubach'
-                locatie='Theater de Laak'
-                datum='Dinsdag 18/10/2022'
-                tijd='22:30'
-                prijs='€ 17,50'
-                genre='Comedy'
-            />
-        </div>
+        )})
+
+        return (
+            <div>
+                <img className='bannerFoto' src={bannerFoto}  alt="Theater" />
+                <div>
+                    {voorstellingElementen}
+                </div>
+            </div>
         )
-    }
+}
 }

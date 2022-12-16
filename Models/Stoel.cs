@@ -1,7 +1,11 @@
-namespace Laak.Models{
-   public class Stoel{
-    public int rijnmr{get;set;}
-    public int stoelnmr{get;set;}
-    public string rang{get;set;}
-   } 
+
+namespace Laak.Models;
+
+public class Stoel
+{
+    public int Id { get; set; }
+    public int RijNr { get; set; }
+    public int StoelNr { get; set; }
+    public string Rang { get; set; }
+
 }
