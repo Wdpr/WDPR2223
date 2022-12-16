@@ -1,6 +1,6 @@
 import React from 'react'
 import { VoorstellingPageCard } from './VoorstellingPageCard';
-import AlleVoorstellingen from './AlleVoorstellingen';
+import AlleVoorstellingen from '../components/Voorstelling/AlleVoorstellingen';
 
 import bannerFoto from '../../assets/theaterHomePic.jpg';
 

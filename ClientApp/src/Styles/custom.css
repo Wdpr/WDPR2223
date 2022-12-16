@@ -83,7 +83,7 @@ code {
 }
 
 .beginBanner {
-  background-image: url('./assets/theaterHomePic.jpg');
+  background-image: url('../assets/theaterHomePic.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
