@@ -1,7 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
-
-
 
 export const VoorstellingPageCard = (props) => {
     return (
@@ -32,6 +29,3 @@ export const VoorstellingPageCard = (props) => {
         </div>
         )  
 }
-
-
-//{`../../assets/${props.img}`}
