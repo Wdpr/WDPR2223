@@ -1,8 +1,8 @@
 import React from 'react'
-import { VoorstellingPageCard } from './VoorstellingPageCard';
+import { VoorstellingBigCard } from '../components/Voorstelling/VoorstellingBigCard';
 import AlleVoorstellingen from '../components/Voorstelling/AlleVoorstellingen';
 
-import bannerFoto from '../../assets/theaterHomePic.jpg';
+import bannerFoto from '../assets/theaterHomePic.jpg';
 
 export class VoorstellingPage extends React.Component{
     static displayName = VoorstellingPage.name
@@ -10,7 +10,7 @@ export class VoorstellingPage extends React.Component{
     render(props) {
         const voorstellingElementen = AlleVoorstellingen.map(voorstelling => {
         return (     
-            <VoorstellingPageCard 
+            <VoorstellingBigCard 
                 naamVanVoorstelling={voorstelling.naamVanVoorstelling}
                 img={voorstelling.img}
                 naam={voorstelling.naam}

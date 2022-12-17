@@ -6,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-// builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlite("Data Source=TheaterDatabase.db"));
-builder.Services.AddDbContext<AccountContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AccountDatabase")));  // database voor accounts
+builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
 
 var app = builder.Build();
 

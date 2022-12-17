@@ -9,5 +9,6 @@ public class TheaterContext : DbContext {
     public TheaterContext(DbContextOptions<TheaterContext> options) : base(options) { } 
 
     public DbSet<Voorstelling> Voorstellingen { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 }
     
