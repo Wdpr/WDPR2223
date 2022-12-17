@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VoorstellingMiniCard } from './Voorstelling/VoorstellingMiniCard';
+import { VoorstellingMiniCard } from '../components/Voorstelling/VoorstellingMiniCard';
 
 import imgCard from '../assets/guido-weijers.jpg';
 
