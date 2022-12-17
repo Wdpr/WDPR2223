@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlite("Data Source=TheaterDatabase.db"));
-// builder.Services.AddDbContext<AccountDatabase>(options => options.UseSqlite("Data Source=AccountDatabase.db"));  database voor accounts
+builder.Services.AddDbContext<AccountContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AccountDatabase")));  // database voor accounts
 
 var app = builder.Build();
 
