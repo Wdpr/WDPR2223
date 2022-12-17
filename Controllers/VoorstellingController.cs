@@ -37,20 +37,10 @@ public class VoorstellingController : ControllerBase
         context.SaveChanges();
         return voorstelling;
     }
-    /* 
+    /*  !!! ik weet niet hoe je met SqlServer een foreign key meegeeft in een post request
     {
-    "Id": 1,
     "Naam": "Lubach de Grote",
     "Img": "img",
-    "Band": {
-        "Id": 1,
-        "Naam": "Arjen Lubach",
-        "Img": "img"
-    },
-    "Zaal": {},         // btw, als je een object zoals Zaal, Artiest, Datum of Tijd leeg laat, moet je hem ook niet in de json zetten. Anders krijg je een error.
-    "Datum": {},            // Door hem niet hier tussen te zetten wordt hij automatisch null.
-    "Artiest": {},
-    "Tijd": {},
     "Prijs": 5,
     "Genre": "Comedy"
     }
