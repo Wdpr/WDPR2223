@@ -13,8 +13,27 @@ git checkout [branchnaam] - verandert je lokale active branch naar gespecifeerde
 ```
 
 ## connectie met database
-Voor het connecten van databases moet je de Connectie String aanpassen in "appsettings.json"
-1. verander de Server naar je eigen Servernaam
-2. verander de Database naam naar de database die gespecifeerd voor die database/context gebruikt moet worden
-Hier na moet je wel de volgende command in terminal uitvoeren: ```dotnet ef database update```
-Controleer ook of de dotnet ef tool up to date is. Dat kan met ```dotnet tool update --global dotnet-ef```
+Hier volgen de stappen die je moet nemen om correct een connectie te maken met SQLServer:
+1. Zorg eerst dat je ssms hebt geinstalleerd en dat je een normale database kunt maken en runnen. Controleer ook of de dotnet ef tool up to date is. Dat kan met ```dotnet tool update --global dotnet-ef```
+2. Controleer of de file "appsettings.json" al bestaat. Zo ja, ga naar stap 4.
+3. Zo niet, maak deze dan aan met de body hieronder gegeven.
+```
+{
+  "Logging": {
+      "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+"AllowedHosts": "*",
+"ConnectionStrings": {
+  "WDPRDatabase": "Server={ServerNaam};Database={DatabaseNaam};Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true"
+}
+}
+```
+4. Maak in SSMS een database aan die je voor dit project wilt gebruiken. 
+5. Bij de "ConnectionStrings" verander de server en database naam die behoren bij jou. De "ServerNaam" is de naam waarmee je als het goed is 
+mee inlogt als je SSMS opstart en klikt op "Connect". De "DatabaseNaam" is de naam die je je database voor dit project hebt genoemt.
+6. Voor de volgende command uit in de terminal: ```dotnet ef database update```
+7. Run het programma met F5 en controleer of het gelukt is door de api te gebruiken met "/api/voorstelling". Je krijgt dan een lege lijst terug.
