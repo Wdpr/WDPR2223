@@ -14,7 +14,7 @@ git checkout [branchnaam] - verandert je lokale active branch naar gespecifeerde
 
 ## connectie met database
 Voor het connecten van databases moet je de Connectie String aanpassen in "appsettings.json"
-1. verander de Server naar
+1. verander de Server naar je eigen Servernaam
 2. verander de Database naam naar de database die gespecifeerd voor die database/context gebruikt moet worden
 Hier na moet je wel de volgende command in terminal uitvoeren: ```dotnet ef database update```
 Controleer ook of de dotnet ef tool up to date is. Dat kan met ```dotnet tool update --global dotnet-ef```
