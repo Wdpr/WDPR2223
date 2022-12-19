@@ -1,8 +1,8 @@
-import { Home } from "./components/Home";
-import { OverOns } from "./components/OverOns";
-import { VoorstellingPage } from "./components/Voorstelling/VoorstellingPage";
-import { LoginPage } from "./components/Login/LoginPage";
-import { CreateAccountPage } from "./components/Login/CreateAccountPage";
+import { Home } from "./Pages/Home";
+import { OverOns } from "./Pages/OverOns";
+import { VoorstellingPage } from "./Pages/VoorstellingPage";
+import { LoginPage } from "./Pages/Login/LoginPage";
+import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
 
 const AppRoutes = [
   {

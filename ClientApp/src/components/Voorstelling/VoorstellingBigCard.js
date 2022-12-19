@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const VoorstellingPageCard = (props) => {
+export const VoorstellingBigCard = (props) => {
     return (
         <div >
         <h1 className='pageCardTitel'>{props.naamVanVoorstelling}</h1>

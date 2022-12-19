@@ -1,11 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 
 namespace Laak.Models;
 
-public class Account
+public class Account : IdentityUser
 {
     public int Id { get; set; }
     public string Naam { get; set; }
-    public string Email { get; set; }
-    public string Wachtwoord { get; set; }
 
 }
