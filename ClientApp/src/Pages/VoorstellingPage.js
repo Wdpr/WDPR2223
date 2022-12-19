@@ -18,18 +18,17 @@ export class VoorstellingPage extends React.Component {
         this.setState({ voorstellingen: data, loading: false });
     }
 
-    render(props) {
-        const voorstellingElementen = this.state.voorstellingen.map(voorstelling => {
-            return (
-                <VoorstellingBigCard naam={voorstelling.naam} tijd={voorstelling.tijd} genre={voorstelling.genre} />
-            )
-        })
-
+    render() {
+        
         return (
             <div>
                 <img className='bannerFoto' src={bannerFoto} alt="Theater" />
                 <div>
-                    {this.state.loading ? "loading..." : voorstellingElementen}
+                    {this.state.loading ? "loading..." : this.state.voorstellingen.map(voorstelling => {
+                        return (
+                            <VoorstellingBigCard key={voorstelling.id} info={voorstelling} />
+                        )
+                    })}
                 </div>
             </div>
         )
