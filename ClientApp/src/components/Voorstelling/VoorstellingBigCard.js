@@ -6,7 +6,7 @@ export function VoorstellingBigCard({info}) {
         <div >
             <h1 className='pageCardTitel'>{info.naam}</h1>
             <div className='voorstellingCard'>
-                {/* <img src={require('../../assets/' + data.img)} alt='Foto van voorstelling' /> */}
+                {/* <img src={require('../../assets/' + info.img)} alt='Foto van voorstelling' /> */}
                 <div className='cardDatumInfo'>
                     <ul>
                         <li>{info.tijd}</li>
