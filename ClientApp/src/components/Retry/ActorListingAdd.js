@@ -12,25 +12,25 @@ export function AddRemoveMultipleInputFields(){
 
     } ]);
  
-    const addInputField = ()=>{
+    // const addInputField = ()=>{
 
-        setInputFields([...inputFields, {
-            naam:'',
-            zaalnummer:'',
-            datum:'',
-            tijd:'',
-            genre: '',
-            band:'',
-            artiest:''
+    //     setInputFields([...inputFields, {
+    //         naam:'',
+    //         zaalnummer:'',
+    //         datum:'',
+    //         tijd:'',
+    //         genre: '',
+    //         band:'',
+    //         artiest:''
 
-        } ])
+    //     } ])
       
-    }
-    const removeInputFields = (index)=>{
-        const rows = [...inputFields];
-        rows.splice(index, 1);
-        setInputFields(rows);
-   }
+    // }
+//     const removeInputFields = (index)=>{
+//         const rows = [...inputFields];
+//         rows.splice(index, 1);
+//         setInputFields(rows);
+//    }
    const handleChange = (index, evnt)=>{
     
     const { name, value } = evnt.target;
@@ -52,24 +52,27 @@ export function AddRemoveMultipleInputFields(){
                           return(
                             <div className="row my-3" key={index}>
                     <div className="col">
-                    <div className="form-group">
-                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={naam} name="fullName" className="form-control"  placeholder="Naam acteur" />
+                    
+                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={naam} name="naam" className="form-control"  placeholder="naam voorstelling" />
+                   
+                    <input type="email" onChange={(evnt)=>handleChange(index, evnt)} value={zaalnummer} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
+                   
+                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={datum} name="datum" className="form-control" placeholder="datum dd-mm-jjjj" />
+                   
+                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={genre} name="genre" className="form-control" placeholder="genre" />
+
+                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={band} name="band" className="form-control" placeholder="band" />
+
+                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={artiest} name="artiest" className="form-control" placeholder="artiest" />
                     </div>
-                    </div>
-                    <div className="col">
-                    <input type="email" onChange={(evnt)=>handleChange(index, evnt)} value={zaalnummer} name="emailAddress" className="form-control" placeholder="Email Address" />
-                    </div>
-                    <div className="col">
-                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={datum} name="genre" className="form-control" placeholder="Genre" />
-                    </div>
-                    <div className="col">
-                    <input type="text" onChange={(evnt)=>handleChange(index, evnt)} value={genre} name="genre" className="form-control" placeholder="Genre" />
-                    </div>
+                
+                    {/* <button className="btn btn-outline-success">+</button>
+                     */}
                     <div className="col">
                 
 
                 
-                 {(inputFields.length!==1)? <button className="btn btn-outline-danger" onClick={removeInputFields}>Remove</button>:''}
+                 {/* {(inputFields.length!==1)? <button className="btn btn-outline-danger" onClick={removeInputFields}>Remove</button>:''} */}
                   
                  
                     </div>
@@ -81,7 +84,7 @@ export function AddRemoveMultipleInputFields(){
                 <div className="row">
                     <div className="col-sm-12">
 
-                    <button className="btn btn-outline-success " onClick={addInputField}>Add New</button>
+                    <button className="btn btn-outline-success">Add</button>
                     </div>
                 </div>
                   </div>
