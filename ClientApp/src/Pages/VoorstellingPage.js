@@ -4,31 +4,33 @@ import AlleVoorstellingen from '../components/Voorstelling/AlleVoorstellingen';
 
 import bannerFoto from '../assets/theaterHomePic.jpg';
 
-export class VoorstellingPage extends React.Component{
+export class VoorstellingPage extends React.Component {
     static displayName = VoorstellingPage.name
 
-    render(props) {
-        const voorstellingElementen = AlleVoorstellingen.map(voorstelling => {
-        return (     
-            <VoorstellingBigCard 
-                naamVanVoorstelling={voorstelling.naamVanVoorstelling}
-                img={voorstelling.img}
-                naam={voorstelling.naam}
-                locatie={voorstelling.locatie}
-                datum={voorstelling.datum}
-                tijd={voorstelling.tijd}
-                prijs={voorstelling.prijs}
-                genre={voorstelling.genre}
-            />
-        )})
+    constructor(props) {
+        super(props);
+        this.state = { voorstellingen: [], loading: true };
+    }
 
+    async componentDidMount() {
+        let response = await fetch('api/Voorstelling');
+        let data = await response.json();
+        this.setState({ voorstellingen: data, loading: false });
+    }
+
+    render() {
+        
         return (
             <div>
-                <img className='bannerFoto' src={bannerFoto}  alt="Theater" />
+                <img className='bannerFoto' src={bannerFoto} alt="Theater" />
                 <div>
-                    {voorstellingElementen}
+                    {this.state.loading ? "loading..." : this.state.voorstellingen.map(voorstelling => {
+                        return (
+                            <VoorstellingBigCard key={voorstelling.id} info={voorstelling} />
+                        )
+                    })}
                 </div>
             </div>
         )
-}
+    }
 }
