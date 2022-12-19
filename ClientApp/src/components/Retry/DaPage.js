@@ -1,6 +1,5 @@
 import React, {useState} from 'react';  
 
-
 export function VoorstellingAdding(){
 
 
@@ -24,16 +23,18 @@ const newList = list.filter((voorstelling) => voorstelling.id !== id);
 setList(newList);
 }
 
+
+
 return(
 <div>
-    <h1>Add a voorstelling
+    <h1>Voeg een voorstelling toe
     </h1>
     <input type='text' 
     value={input}
      placeholder='voer voorstelling naam in'
      onChange={(x)=>setInput(x.target.value)}
      ></input>
-     <button onClick={()=>addVoorstelling(input)}>Add</button>
+     <button onClick={()=>addVoorstelling(input)}>Add</button> 
      <ul>
         {list.map((voorstelling)=>(
         <li key={voorstelling.id}>
