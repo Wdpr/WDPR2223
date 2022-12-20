@@ -33,17 +33,16 @@ public class BezoekerController : ControllerBase
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
         return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
+        // vb van registreer body:
+        /*
+        {
+        "UserName" : "Peter",
+        "Email" : "peter@mail.com",
+        "PasswordHash" : "WDpr123!",
+        "intresse": "Comedy"
+        }
+        */
     }
-
-    // vb van registreer body:
-    /*
-    {
-    "UserName" : "Peter",
-    "Email" : "peter@mail.com",
-    "PasswordHash" : "WDpr123!",
-    "intresse": "Comedy"
-    }
-    */
 
 
     [HttpPost]
@@ -58,6 +57,13 @@ public class BezoekerController : ControllerBase
             return Ok();
         }
         return Unauthorized();
+        // vb van login post body:
+        /*
+        {
+        "naam" : "Peter",
+        "Wachtwoord" : "WDpr123!"
+        }
+        */
     }
 
 
