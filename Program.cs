@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Laak.Context;
+using Laak.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
+// met de volgende stuk code heb ik alle Microsoft services zoals het inloggen en registreren toegevoegd.
+builder.Services.AddIdentity<Bezoeker, IdentityRole>().AddEntityFrameworkStores<TheaterContext>();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
