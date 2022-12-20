@@ -12,10 +12,12 @@ public class BezoekerController : ControllerBase
 {
 
     private UserManager<Bezoeker> userManager;
+    private SignInManager<Bezoeker> signInManager;
 
-    public BezoekerController(UserManager<Bezoeker> userManager)
+    public BezoekerController(UserManager<Bezoeker> userManager, SignInManager<Bezoeker> signInManager)
     {
         this.userManager = userManager;
+        this.signInManager = signInManager;
     }
 
     [HttpGet]
@@ -54,6 +56,8 @@ public class BezoekerController : ControllerBase
         // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
         if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
         {
+            // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
+            await signInManager.SignInAsync(bezoeker, true);
             return Ok();
         }
         return Unauthorized();
