@@ -29,7 +29,7 @@ public class VoorstellingController : ControllerBase
     }
 
     [HttpPost]
-    [Route("niewuweVoorstelling")]
+    [Route("nieuweVoorstelling")]
     public Voorstelling PostVoorstelling(Voorstelling voorstelling)
     {
         Console.WriteLine("Voorstelling toegevoegd");
