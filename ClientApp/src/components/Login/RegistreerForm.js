@@ -19,19 +19,21 @@ export const RegistreerForm = () => {
         return false
     }
 
-    const submitHandler = (e) => {
+    async function submitHandler (e)  {
         e.preventDefault();
 
         if (!emailEnWachtwoordControle(e)) return
 
-        fetch("api/bezoeker/register", {
+        let response = await fetch("api/bezoeker/registeer", {
             method: "POST",
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 UserName: voornaam + " " + achternaam,	
                 Email: email,
                 PasswordHash: wachtwoord
             })
         })
+        console.log(response)
     }
 
     return (
