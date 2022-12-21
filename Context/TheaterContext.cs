@@ -11,5 +11,6 @@ public class TheaterContext : IdentityDbContext {
 
     public DbSet<Voorstelling> Voorstellingen { get; set; }
     public DbSet<Account> Accounts { get; set; }
+    public DbSet<Zaal> Zalen { get; set; }
 }
     

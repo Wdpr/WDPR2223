@@ -3,7 +3,7 @@ import { useState } from "react";
 import StoelKiezen from './StoelKiezen';
 import '../../Styles/StoelenStyle.css';
 
-export function StoelKiezenPage() {
+export function StoelKiezenPage(props) {
 
   return (
     <div>
@@ -19,7 +19,7 @@ export function StoelKiezenPage() {
 
       <div className="container">
         <div>    
-            <StoelKiezen />
+            <StoelKiezen voorstelling={props.voorstelling}/>
           </div>
       </div>
 
