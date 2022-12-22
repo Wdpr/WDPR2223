@@ -1,6 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using Laak.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,18 +21,19 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
+    [Authorize]
     [HttpGet]
-    public int get()
+    public IEnumerable<Bezoeker> get()
     {
-        return 2;
+        return userManager.Users.ToList();
     }
 
     [HttpPost]
     [Route("registreer")]
-    public async Task<IActionResult> registreer(RegistreerModel registreerModel)
+    public async Task<IActionResult> registreer([FromBody] RegistreerModel registreerModel)
     {
         Console.WriteLine(registreerModel.ToString());
-        
+
         var bezoeker = new Bezoeker
         {
             Email = registreerModel.Email,
@@ -44,7 +46,7 @@ public class BezoekerController : ControllerBase
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
-        return resultaat.Succeeded ? StatusCode(201) : BadRequest();
+        return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
         // vb van registreer body:
         /*
         {
@@ -68,7 +70,7 @@ public class BezoekerController : ControllerBase
         {
             // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
             await signInManager.SignInAsync(bezoeker, true);
-            Console.WriteLine("ingelogd als "+ bezoeker.UserName);
+            Console.WriteLine("ingelogd als " + bezoeker.UserName);
             return Ok();
         }
         return Unauthorized();
@@ -93,16 +95,10 @@ public class LoginModel
     [Required(ErrorMessage = "Wachtwoord is verplicht")]
     public string Wachtwoord { get; set; }
 }
+
 public class RegistreerModel {
-    [Required(ErrorMessage = "Email is verplicht")]
-    public string Email { get; set; }
-
-    [Required(ErrorMessage = "Wachtwoord is verplicht")]
-    public string Wachtwoord { get; set; }
-
-    [Required(ErrorMessage = "Gebruikersnaam is verplicht")]
     public string Gebruikersnaam { get; set; }
-
-    [Required(ErrorMessage = "Intresse is verplicht")]
-    public string Intresse { get; set; }
+    public string Email { get; set; }
+    public string Wachtwoord { get; set; }
+    public string Intresse { get; internal set; }
 }

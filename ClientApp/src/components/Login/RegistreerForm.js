@@ -24,7 +24,7 @@ export const RegistreerForm = () => {
         if (!emailEnWachtwoordControle(e)) return
         console.log("email en wachtwoord zijn goed")
 
-        fetch("api/bezoeker/registeer", {
+        fetch("api/bezoeker/registreer", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

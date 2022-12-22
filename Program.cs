@@ -8,7 +8,17 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
 // met de volgende stuk code heb ik alle Microsoft services zoals het inloggen en registreren toegevoegd.
-builder.Services.AddIdentity<Bezoeker, IdentityRole>()
+builder.Services.AddIdentity<Bezoeker, IdentityRole>(
+    options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.User.RequireUniqueEmail = true;
+    }
+)
     .AddEntityFrameworkStores<TheaterContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddAuthentication();
