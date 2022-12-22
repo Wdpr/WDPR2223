@@ -125,7 +125,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerderRang")
+                    b.Property<int?>("AantalDerdeRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -136,7 +136,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zaal");
+                    b.ToTable("Zalen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20221218162218_init database met identity users en context")]
-    partial class initdatabasemetidentityusersencontext
+    [Migration("20221221121017_bla")]
+    partial class bla
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerderRang")
+                    b.Property<int?>("AantalDerdeRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -139,7 +139,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zaal");
+                    b.ToTable("Zalen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -351,6 +351,10 @@ namespace wdpr.Migrations
             modelBuilder.Entity("Laak.Models.Account", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Naam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Account");
                 });

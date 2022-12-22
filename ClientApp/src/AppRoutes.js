@@ -3,6 +3,7 @@ import { OverOns } from "./Pages/OverOns";
 import { VoorstellingPage } from "./Pages/VoorstellingPage";
 import { LoginPage } from "./Pages/Login/LoginPage";
 import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
+import { StoelKiezenPage } from "./Pages/StoelenKiezen/StoelKiezenPage";
 import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 
@@ -27,6 +28,10 @@ const AppRoutes = [
     path: '/CreateAccount',
     element: <CreateAccountPage />
   },
+  {
+    path: '/StoelKiezen',
+    element: <StoelKiezenPage />
+  },  
   {
     path: '/AddVoorstelling',
     element: <VoorstellingAdding />
