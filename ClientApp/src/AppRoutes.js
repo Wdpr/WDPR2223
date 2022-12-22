@@ -3,6 +3,8 @@ import { OverOns } from "./Pages/OverOns";
 import { VoorstellingPage } from "./Pages/VoorstellingPage";
 import { LoginPage } from "./Pages/Login/LoginPage";
 import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
+import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
+import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 
 const AppRoutes = [
   {
@@ -24,6 +26,14 @@ const AppRoutes = [
   {
     path: '/CreateAccount',
     element: <CreateAccountPage />
+  },
+  {
+    path: '/AddVoorstelling',
+    element: <VoorstellingAdding />
+  }, 
+  {
+    path: '/AddArtiest',
+    element: <VoegArtiestToeAanLijst />
   },
   ];
 
