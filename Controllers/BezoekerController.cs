@@ -30,6 +30,7 @@ public class BezoekerController : ControllerBase
     [Route("registreer")]
     public async Task<IActionResult> registreer(Bezoeker bezoeker)
     {
+        Console.WriteLine("test");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
