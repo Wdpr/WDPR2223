@@ -3,6 +3,7 @@ import { OverOns } from "./Pages/OverOns";
 import { VoorstellingPage } from "./Pages/VoorstellingPage";
 import { LoginPage } from "./Pages/Login/LoginPage";
 import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
+import { VoorstellingInfoPage } from "./Pages/VoorstellingInfoPage";
 
 const AppRoutes = [
   {
@@ -24,6 +25,10 @@ const AppRoutes = [
   {
     path: '/CreateAccount',
     element: <CreateAccountPage />
+  },
+  {
+    path: '/voorstellingInfo',
+    element: <VoorstellingInfoPage />
   },
   ];
 
