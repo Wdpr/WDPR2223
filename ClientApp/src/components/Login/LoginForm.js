@@ -18,7 +18,7 @@ export function LoginForm() {
     }
     function submitHandler(e) {
         e.preventDefault()
-        if (!emailEnWachtwoordCheck()) return
+        // if (!emailEnWachtwoordCheck()) return
 
         fetch("api/bezoeker/login", {
             method: "POST",

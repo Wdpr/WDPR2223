@@ -53,7 +53,7 @@ public class BezoekerController : ControllerBase
     public async Task<IActionResult> login(LoginModel loginModel)
     {
         // de userManager zoek in de Context naar een Idetity met dezelfde Naam. Dit betekent wel dat iedereen een unieke naam moet hebben. Dit kan wel verholpen worden
-        var bezoeker = await userManager.FindByEmailAsync(loginModel.Email);
+        var bezoeker = await userManager.FindByNameAsync(loginModel.Email);
         // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
         if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
         {
