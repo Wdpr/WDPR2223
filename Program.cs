@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
 // met de volgende stuk code heb ik alle Microsoft services zoals het inloggen en registreren toegevoegd.
-builder.Services.AddIdentity<Bezoeker, IdentityRole>(
+builder.Services.AddIdentityCore<Bezoeker>(
     options =>
     {
         options.Password.RequireDigit = false;
@@ -18,6 +18,9 @@ builder.Services.AddIdentity<Bezoeker, IdentityRole>(
         options.User.RequireUniqueEmail = true;
     }
 )
+    .AddEntityFrameworkStores<TheaterContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddIdentityCore<Medewerker>()
     .AddEntityFrameworkStores<TheaterContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddAuthentication();
