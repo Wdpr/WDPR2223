@@ -1,0 +1,95 @@
+.stylingStoelen{
+    border: '1px solid black';
+    width: '25px';
+    height: '20px';
+}
+
+.scherm{
+    border: '1px solid black';
+    width: 270px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    margin: auto;
+}
+
+.seat-button {
+    background-color: white;
+    border: 1px solid black;
+    width: 25px;
+    height: 15px;
+    margin: 1px;
+  }
+  
+.selected {
+    background-color: green;
+  }
+
+.stoelContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.stoelInfo{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    background-color: rgb(90, 7, 7);
+    padding: 10px;
+    border-radius: 10px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.totaalPrijs{
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 15px;
+}
+
+.stoelKeuze{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(90, 7, 7);
+    padding: 10px;
+    border-radius: 10px;
+    width: 800px;
+    align-items: center;
+    text-align: center;
+}
+
+
+.totaalPrijs{
+    margin-top: 50px;
+}
+
+.seat-button.reserved {
+    background-color: gray;
+}
+
+.seat-button.categorie1 {
+    background-color: red;
+  }
+  
+  .seat-button.category-2 {
+    background-color: green;
+  }
+  
+  .seat-button.category-3 {
+    background-color: blue;
+  }
