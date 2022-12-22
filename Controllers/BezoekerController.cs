@@ -23,14 +23,14 @@ public class BezoekerController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    public IEnumerable<Bezoeker> get()
+    public IEnumerable<Bezoeker> GetBezoekers()
     {
         return userManager.Users.ToList();
     }
 
     [HttpPost]
     [Route("registreer")]
-    public async Task<IActionResult> registreer([FromBody] RegistreerModel registreerModel)
+    public async Task<IActionResult> registreer(RegistreerModel registreerModel)
     {
         Console.WriteLine(registreerModel.ToString());
 
@@ -39,7 +39,6 @@ public class BezoekerController : ControllerBase
             Email = registreerModel.Email,
             UserName = registreerModel.Gebruikersnaam,
             PasswordHash = registreerModel.Wachtwoord,
-            Intresse = registreerModel.Intresse
         };
         Console.WriteLine("bezoeker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
@@ -47,15 +46,6 @@ public class BezoekerController : ControllerBase
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
         return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
-        // vb van registreer body:
-        /*
-        {
-        "UserName" : "Peter",
-        "Email" : "peter@mail.com",
-        "PasswordHash" : "WDpr123!",
-        "intresse": "Comedy"
-        }
-        */
     }
 
 
@@ -64,7 +54,7 @@ public class BezoekerController : ControllerBase
     public async Task<IActionResult> login(LoginModel loginModel)
     {
         // de userManager zoek in de Context naar een Idetity met dezelfde Naam. Dit betekent wel dat iedereen een unieke naam moet hebben. Dit kan wel verholpen worden
-        var bezoeker = await userManager.FindByNameAsync(loginModel.Email);
+        var bezoeker = await userManager.FindByEmailAsync(loginModel.Email);
         // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
         if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
         {
@@ -74,16 +64,7 @@ public class BezoekerController : ControllerBase
             return Ok();
         }
         return Unauthorized();
-        // vb van login post body:
-        /*
-        {
-        "email" : "Peter",
-        "Wachtwoord" : "WDpr123!"
-        }
-        */
     }
-
-
 }
 
 public class LoginModel
@@ -96,9 +77,9 @@ public class LoginModel
     public string Wachtwoord { get; set; }
 }
 
-public class RegistreerModel {
+public class RegistreerModel
+{
     public string Gebruikersnaam { get; set; }
     public string Email { get; set; }
     public string Wachtwoord { get; set; }
-    public string Intresse { get; internal set; }
 }

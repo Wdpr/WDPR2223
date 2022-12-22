@@ -29,7 +29,7 @@ export function LoginForm() {
             })
         }).then(response => {
             console.log(response)
-            response.ok ? alert("U bent ingelogd") : alert("Er is iets mis gegaan")
+            response.ok ? alert("U bent ingelogd") : alert("Er is geen gebruiker met deze gegevens gevonden")
         })
     }
 
