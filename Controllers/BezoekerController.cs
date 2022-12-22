@@ -53,7 +53,7 @@ public class BezoekerController : ControllerBase
     public async Task<IActionResult> login(LoginModel loginModel)
     {
         // de userManager zoek in de Context naar een Idetity met dezelfde Naam. Dit betekent wel dat iedereen een unieke naam moet hebben. Dit kan wel verholpen worden
-        var bezoeker = await userManager.FindByNameAsync(loginModel.Naam);
+        var bezoeker = await userManager.FindByEmailAsync(loginModel.Email);
         // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
         if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
         {
@@ -65,7 +65,7 @@ public class BezoekerController : ControllerBase
         // vb van login post body:
         /*
         {
-        "naam" : "Peter",
+        "email" : "Peter",
         "Wachtwoord" : "WDpr123!"
         }
         */
@@ -78,8 +78,8 @@ public class LoginModel
 {
     // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
     // De required stuurt eventueel bericht terug met de errorMessage als het niet is ingevuld.
-    [Required(ErrorMessage = "Naam is verplicht")]
-    public string Naam { get; set; }
+    [Required(ErrorMessage = "Email is verplicht")]
+    public string Email { get; set; }
     [Required(ErrorMessage = "Wachtwoord is verplicht")]
     public string Wachtwoord { get; set; }
 }
