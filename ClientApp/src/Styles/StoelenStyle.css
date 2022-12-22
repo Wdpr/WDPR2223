@@ -18,15 +18,15 @@
 }
 
 .seat-button {
-    background-color: white;
-    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.205);
+    border: 3px;
     width: 25px;
     height: 15px;
-    margin: 1px;
+    margin: 2px;
   }
   
 .selected {
-    background-color: green;
+    background-color: rgb(0, 0, 0);
   }
 
 .stoelContainer{
@@ -82,14 +82,24 @@
     background-color: gray;
 }
 
-.seat-button.categorie1 {
-    background-color: red;
-  }
-  
-  .seat-button.category-2 {
-    background-color: green;
-  }
-  
-  .seat-button.category-3 {
-    background-color: blue;
-  }
+.seat-button.category-1 {
+  border-color: rgb(0, 130, 200);
+  border-style: solid;
+  border-radius: 4px 4px 0px 0px;
+  border-top-style: none
+}
+
+.seat-button.category-2 {
+  border-color: rgb(30, 180, 50);
+  border-style: solid;
+  border-radius: 4px 4px 0px 0px;
+  border-top-style: none
+}
+
+.seat-button.category-3 {
+  border-color: rgb(255, 60, 60);
+  border-style: solid;
+  border-radius: 4px 4px 0px 0px;
+  border-top-style: none
+}
+

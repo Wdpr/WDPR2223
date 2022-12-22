@@ -11,13 +11,15 @@ const StoelKiezen = ({ voorstelling }) => {
   const [zaalLaden, setZaalLaden] = useState(false)
 
   async function haalZaalOp(zaal) {
+    setZaalLaden(true)  // set zaalLaden to true when data is being loaded
+    console.log('Loading data...')
     var respons = await fetch('api/zaal/' + zaal)
     var data = await respons.json();
     setEersteRang(data.aantalEersteRang)
-    console.log(data.aantalEersteRang)
     setTweedeRang(data.aantalTweedeRang)
     setDerdeRang(data.aantalDerdeRang)
-    // setZaalLaden(false)
+    setZaalLaden(false)
+    console.log('Data loaded!')
   }
 
   useEffect(() => {
@@ -63,33 +65,20 @@ const StoelKiezen = ({ voorstelling }) => {
     const aantalRijenTweedeCategorie = berekenAantalRijenPerCategorie(tweedeRang, 2)
     const aantalRijenDerdeCategorie = berekenAantalRijenPerCategorie(derdeRang, 3)
 
-    console.log(aantalRijenEersteCategorie)
-    console.log(aantalRijenTweedeCategorie)
-    console.log(aantalRijenDerdeCategorie)
-
-  
     const stoelen = [...aantalRijenEersteCategorie, ...aantalRijenTweedeCategorie, ...aantalRijenDerdeCategorie]
-    setSeats(stoelen)
+
+    //vullen van stoelen met alle waardes 0
+    const initialStoelen = stoelen.map(row => row.map(seat => 0));
+    
+    setSeats(initialStoelen)
+    //vullen van de categorieen
+    setCategories(stoelen)
+    
   }
 
-  const [seats, setSeats] = useState([
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0]
-  ]);
+  const [seats, setSeats] = useState([]);
 
-  const [categories, setCategories] = useState([
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-  ]);
+  const [categories, setCategories] = useState([]);
 
   //prijzen per categorie
   const prices = [10.00, 20.25, 30.50];
@@ -142,13 +131,20 @@ const StoelKiezen = ({ voorstelling }) => {
               <button
                 key={colIndex}
                 onClick={() => handleSeatClick(rowIndex, colIndex)}
-                className={`seat-button ${seat === 1 ? 'selected' : ''} 
-                                            ${seat === 2 ? 'reserved' : ''}
-                                            `}
+                className={`seat-button category-${categories[rowIndex][colIndex]} 
+                  ${seat === 1 ? 'selected' : ''} 
+                  ${seat === 2 ? 'reserved' : ''}
+                  `}
               />
             ))}
           </div>
         ))}
+        <span>
+        <br></br>
+        <p>Categorie 1 €{prices[0]} <span><button className="seat-button category-1"/> </span>
+        - Categorie 2 €{prices[1]} <span><button className="seat-button category-2"/> </span>
+        - Categorie 3 €{prices[2]} <span><button className="seat-button category-3"/>{} </span></p>
+        </span>
       </div>
 
       <div className="stoelInfo">
