@@ -28,14 +28,23 @@ public class BezoekerController : ControllerBase
 
     [HttpPost]
     [Route("registreer")]
-    public async Task<IActionResult> registreer(Bezoeker bezoeker)
+    public async Task<IActionResult> registreer(RegistreerModel registreerModel)
     {
-        Console.WriteLine("test");
+        Console.WriteLine(registreerModel.ToString());
+        
+        var bezoeker = new Bezoeker
+        {
+            Email = registreerModel.Email,
+            UserName = registreerModel.Gebruikersnaam,
+            PasswordHash = registreerModel.Wachtwoord,
+            Intresse = registreerModel.Intresse
+        };
+        Console.WriteLine("bezoeker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
-        return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
+        return resultaat.Succeeded ? StatusCode(201) : BadRequest();
         // vb van registreer body:
         /*
         {
@@ -59,6 +68,7 @@ public class BezoekerController : ControllerBase
         {
             // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
             await signInManager.SignInAsync(bezoeker, true);
+            Console.WriteLine("ingelogd als "+ bezoeker.UserName);
             return Ok();
         }
         return Unauthorized();
@@ -82,4 +92,17 @@ public class LoginModel
     public string Email { get; set; }
     [Required(ErrorMessage = "Wachtwoord is verplicht")]
     public string Wachtwoord { get; set; }
+}
+public class RegistreerModel {
+    [Required(ErrorMessage = "Email is verplicht")]
+    public string Email { get; set; }
+
+    [Required(ErrorMessage = "Wachtwoord is verplicht")]
+    public string Wachtwoord { get; set; }
+
+    [Required(ErrorMessage = "Gebruikersnaam is verplicht")]
+    public string Gebruikersnaam { get; set; }
+
+    [Required(ErrorMessage = "Intresse is verplicht")]
+    public string Intresse { get; set; }
 }

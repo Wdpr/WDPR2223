@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 export const RegistreerForm = () => {
-    const [voornaam, setVoornaam] = useState("");
-    const [achternaam, setAchternaam] = useState("");
+    const [gebruikersnaam, setGebruikersnaam] = useState("");
     const [email, setEmail] = useState("");
     const [wachtwoord, setWachtwoord] = useState("");
 
@@ -19,38 +18,33 @@ export const RegistreerForm = () => {
         return false
     }
 
-    async function submitHandler (e)  {
+    async function submitHandler(e) {
         e.preventDefault();
 
-        console.log("submit")
         if (!emailEnWachtwoordControle(e)) return
         console.log("email en wachtwoord zijn goed")
 
-        let response = await fetch("api/bezoeker/registeer", {
+        fetch("api/bezoeker/registeer", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                UserName: voornaam + " " + achternaam,	
                 Email: email,
-                PasswordHash: wachtwoord,
-                Intresse : "test"
+                Gebruikersnaam: gebruikersnaam,
+                Wachtwoord: wachtwoord,
+                
             })
+        }).then(response => {
+            console.log(response)
+            response.ok ? alert("U bent geregistreerd") : alert("Er is iets mis gegaan")
         })
-        console.log(response)
     }
 
     return (
         <form className="loginFormulier" onSubmit={submitHandler}>
             <div >
                 <label className="formFieldLabel">
-                    Voornaam
-                    <input className="formFieldInput" type="text" name="Voornaam" placeholder="Vul uw voornaam in" onChange={(e) => setVoornaam(e.target.value)} />
-                </label>
-            </div>
-            <div >
-                <label className="formFieldLabel">
-                    Achternaam
-                    <input className="formFieldInput" type="text" name="Achternaam" placeholder="Vul uw achternaam in" onChange={(e) => setAchternaam(e.target.value)} />
+                    Gebruikersnaam
+                    <input className="formFieldInput" type="text" name="Voornaam" placeholder="Vul uw voornaam in" onChange={(e) => setGebruikersnaam(e.target.value)} />
                 </label>
             </div>
             <div >

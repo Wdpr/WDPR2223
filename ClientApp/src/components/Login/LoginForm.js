@@ -27,7 +27,10 @@ export function LoginForm() {
                 Email: email,
                 Wachtwoord: wachtwoord
             })
-        }).then(response => console.log(response))
+        }).then(response => {
+            console.log(response)
+            response.ok ? alert("U bent ingelogd") : alert("Er is iets mis gegaan")
+        })
     }
 
     return (
