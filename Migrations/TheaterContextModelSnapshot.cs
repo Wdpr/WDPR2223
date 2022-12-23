@@ -356,6 +356,17 @@ namespace wdpr.Migrations
                     b.HasDiscriminator().HasValue("Bezoeker");
                 });
 
+            modelBuilder.Entity("Laak.Models.Medewerker", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Functie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Medewerker");
+                });
+
             modelBuilder.Entity("Laak.Models.Artiest", b =>
                 {
                     b.HasOne("Laak.Models.Band", null)
