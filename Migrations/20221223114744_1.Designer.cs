@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20221220152625_intresse")]
-    partial class intresse
+    [Migration("20221223114744_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerderRang")
+                    b.Property<int?>("AantalDerdeRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -139,7 +139,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zaal");
+                    b.ToTable("Zalen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -357,6 +357,17 @@ namespace wdpr.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Bezoeker");
+                });
+
+            modelBuilder.Entity("Laak.Models.Medewerker", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Functie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Medewerker");
                 });
 
             modelBuilder.Entity("Laak.Models.Artiest", b =>

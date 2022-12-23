@@ -11,7 +11,6 @@ namespace Laak.Controllers;
 [Route("api/[controller]")]
 public class BezoekerController : ControllerBase
 {
-
     private UserManager<Bezoeker> userManager;
     private SignInManager<Bezoeker> signInManager;
 
@@ -21,7 +20,6 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
-    [Authorize]
     [HttpGet]
     public IEnumerable<Bezoeker> GetBezoekers()
     {
