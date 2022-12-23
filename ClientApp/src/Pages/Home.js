@@ -6,6 +6,26 @@ import imgCard from '../assets/guido-weijers.jpg';
 export class Home extends Component {
   static displayName = Home.name;
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      voorstellingen: []
+    }
+  }
+
+  componentDidMount() {
+    this.populateVoorstellingenData();
+  }
+
+  populateVoorstellingenData() {
+    fetch('api/Voorstelling')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ voorstellingen: data, loading: false });
+      });
+  }
+
   render() {
     return (
       <>
@@ -19,10 +39,9 @@ export class Home extends Component {
         <br />
         <br />
         <div className="voorstellingMiniCards">
-          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
-          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
-          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
-          <VoorstellingMiniCard img={imgCard} alt="Guido Weijers" />
+          {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.map(voorstelling => {
+            return <VoorstellingMiniCard voorstelling={voorstelling}/>
+          })}
         </div>
       </>
     );
