@@ -11,7 +11,7 @@ const StoelKiezen = ({ voorstelling }) => {
   const [zaalLaden, setZaalLaden] = useState(false)
 
   async function haalZaalOp(zaal) {
-    setZaalLaden(true)  // set zaalLaden to true when data is being loaded
+    setZaalLaden(true)  
     console.log('Loading data...')
     var respons = await fetch('api/zaal/' + zaal)
     var data = await respons.json();
@@ -21,6 +21,8 @@ const StoelKiezen = ({ voorstelling }) => {
     setZaalLaden(false)
     console.log('Data loaded!')
   }
+
+
 
   useEffect(() => {
     haalZaalOp(1)
@@ -81,7 +83,7 @@ const StoelKiezen = ({ voorstelling }) => {
   const [categories, setCategories] = useState([]);
 
   //prijzen per categorie
-  const prices = [10.00, 20.25, 30.50];
+  const prices = [100.00, 40.25, 30.50];
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -117,6 +119,13 @@ const StoelKiezen = ({ voorstelling }) => {
   }, 0);
 
 
+  //Placeholder functie voor het plaatsen van de bestelling
+  function handleButtonClick(){
+    console.log(selectedSeats)
+    console.log(totalPrice)
+  }
+
+
   return (
     <div className="stoelContainer">
 
@@ -141,9 +150,9 @@ const StoelKiezen = ({ voorstelling }) => {
         ))}
         <span>
         <br></br>
-        <p>Categorie 1 €{prices[0]} <span><button className="seat-button category-1"/> </span>
-        - Categorie 2 €{prices[1]} <span><button className="seat-button category-2"/> </span>
-        - Categorie 3 €{prices[2]} <span><button className="seat-button category-3"/>{} </span></p>
+        <p>| Eersterang  €{prices[0]} <span><button className="seat-button category-1"/> </span>
+        | Tweederang €{prices[1]} <span><button className="seat-button category-2"/> </span>
+        | Derderang €{prices[2]} <span><button className="seat-button category-3"/>{} </span></p>
         </span>
       </div>
 
@@ -158,7 +167,8 @@ const StoelKiezen = ({ voorstelling }) => {
             ))}
         </div>
         <div className="totaalPrijs">
-          Totaalprijs: €{totalPrice}
+          <p>Totaalprijs: €{totalPrice}</p>
+          <button onClick={handleButtonClick} className="button">Reserveer</button>
         </div>
       </div>
 
