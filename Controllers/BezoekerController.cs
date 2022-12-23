@@ -63,7 +63,7 @@ public class BezoekerController : ControllerBase
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(medewerker, medewerker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
-        return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
+        return resultaat.Succeeded ? Ok() : new BadRequestObjectResult(resultaat);
     }
 
 

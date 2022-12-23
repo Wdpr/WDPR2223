@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export function LoginForm() {
+    const [naam, setNaam] = useState()
     const [email, setEmail] = useState()
     const [wachtwoord, setWachtwoord] = useState()
 
@@ -29,8 +30,10 @@ export function LoginForm() {
             })
         }).then(response => {
             console.log(response)
-            response.ok ? alert("U bent ingelogd") : alert("Er is geen gebruiker met deze gegevens gevonden")
+            // uitproberen van session storage
+            response.ok ? sessionStorage.setItem("naam", "peterr") : alert("Er is geen gebruiker met deze gegevens gevonden")
         })
+
     }
 
     return (

@@ -35,12 +35,15 @@ export class Home extends Component {
             <h1>Laak</h1>
           </div>
         </div>
+        <p>
+          Ingelogd als: <span>{sessionStorage.getItem("login")}</span>
+        </p>
         <br />
         <br />
         <br />
         <div className="voorstellingMiniCards">
           {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.map(voorstelling => {
-            return <VoorstellingMiniCard voorstelling={voorstelling}/>
+            return <VoorstellingMiniCard voorstelling={voorstelling} />
           })}
         </div>
       </>
