@@ -1,13 +1,31 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Laak.Context;
+using Laak.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
+builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
+// met de volgende stuk code heb ik alle Microsoft services zoals het inloggen en registreren toegevoegd.
+builder.Services.AddIdentityCore<Bezoeker>(
+    options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.User.RequireUniqueEmail = true;
+    }
+)
+    .AddEntityFrameworkStores<TheaterContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddIdentityCore<Medewerker>()
+    .AddEntityFrameworkStores<TheaterContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddAuthentication();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<TheaterContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WDPRDatabase")));  // database voor accounts
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,11 +39,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html"); ;
 
 app.Run();

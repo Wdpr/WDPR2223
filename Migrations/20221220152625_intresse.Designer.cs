@@ -4,6 +4,7 @@ using Laak.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    partial class TheaterContextModelSnapshot : ModelSnapshot
+    [Migration("20221220152625_intresse")]
+    partial class intresse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +128,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerdeRang")
+                    b.Property<int?>("AantalDerderRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -136,7 +139,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zalen");
+                    b.ToTable("Zaal");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
