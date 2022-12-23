@@ -1,0 +1,37 @@
+
+.containervoorMijnGegevensEnMijnReserveringen {
+    display: flex;
+    justify-content: center;
+
+}
+.mijnGegevens {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: brown;
+    width: 300px;
+    margin-right: 10px;
+    padding-left: 20px;
+}
+
+.mijnGegevens > h5 {
+    color: black;
+    margin-bottom: -1px;
+    font-weight: bold;
+}
+
+.mijnReserveringen{
+    background-color: blue;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 600px;
+
+}
+
+.wijzigGegevens{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(194, 206, 194);
+    width: 250px;
+    margin-left: 5px;
+    
+}

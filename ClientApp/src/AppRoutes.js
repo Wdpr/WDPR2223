@@ -6,6 +6,7 @@ import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
 import { StoelKiezenPage } from "./Pages/StoelenKiezen/StoelKiezenPage";
 import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
+import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
 
 const AppRoutes = [
   {
@@ -39,6 +40,10 @@ const AppRoutes = [
   {
     path: '/AddArtiest',
     element: <VoegArtiestToeAanLijst />
+  },
+  {
+    path: '/Mijnaccount',
+    element: <MijnAccountPage />
   },
   ];
 
