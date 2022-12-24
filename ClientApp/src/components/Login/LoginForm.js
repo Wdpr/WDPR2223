@@ -28,12 +28,13 @@ export function LoginForm() {
                 Email: email,
                 Wachtwoord: wachtwoord
             })
-        }).then(response => {
-            console.log(response)
-            // uitproberen van session storage
-            response.ok ? sessionStorage.setItem("naam", "peterr") : alert("Er is geen gebruiker met deze gegevens gevonden")
-        })
-
+        }).then(response => response.ok ? response.json() : alert("inloggen mislukt"))
+            .then(data => {
+                console.log(data)
+                if (data) {
+                    sessionStorage.setItem('gebruiker', JSON.stringify(data))
+                }
+            })
     }
 
     return (

@@ -79,7 +79,7 @@ public class BezoekerController : ControllerBase
             // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
             await signInManager.SignInAsync(bezoeker, true);
             Console.WriteLine("ingelogd als " + bezoeker.UserName);
-            return Ok();
+            return Ok(bezoeker);
         }
         return Unauthorized();
     }
