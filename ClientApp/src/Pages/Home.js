@@ -35,9 +35,7 @@ export class Home extends Component {
             <h1>Laak</h1>
           </div>
         </div>
-        <p>
-          Ingelogd als: <span>{sessionStorage.getItem("login")}</span>
-        </p>
+        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</span></p>}
         <br />
         <br />
         <br />

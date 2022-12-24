@@ -32,7 +32,10 @@ export function LoginForm() {
             .then(data => {
                 console.log(data)
                 if (data) {
+                    alert("ingelogd als " + data.userName)
                     sessionStorage.setItem('gebruiker', JSON.stringify(data))
+                } else {
+                    alert("inloggen mislukt")
                 }
             })
     }
