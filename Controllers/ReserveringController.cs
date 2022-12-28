@@ -30,6 +30,11 @@ public class ReserveringController : ControllerBase {
 
     [HttpPost]
     public IActionResult Post([FromBody] ReserveringModel reserveringModel) {
+        // checks op 
+        var bezoeker = context.Bezoekers.SingleOrDefault(b => b.UserName == reserveringModel.BezoekerUserName);
+        var voorstelling = context.Voorstellingen.Find(reserveringModel.VoorstellingId);
+        if (voorstelling == null || bezoeker == null) return NotFound();
+
         List<Stoel> stoelen = new List<Stoel>();
         foreach (var (rij, nr) in reserveringModel.Stoelen) {
             var stoel = new Stoel { RijNr = rij, StoelNr = nr };
@@ -37,8 +42,8 @@ public class ReserveringController : ControllerBase {
         }
         
         var reservering = new Reservering {
-            Voorstelling = context.Voorstellingen.Find(reserveringModel.VoorstellingId),
-            Bezoeker = context.Bezoekers.Find(reserveringModel.BezoekerUserName),
+            Voorstelling = voorstelling,
+            Bezoeker = bezoeker,
             TotaalPrijs = reserveringModel.TotaalPrijs,
             Stoelen = stoelen
         };
