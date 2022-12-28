@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import { useState, useEffect } from 'react';
 
 const StoelKiezen = ({ voorstelling }) => {
@@ -120,9 +120,12 @@ const StoelKiezen = ({ voorstelling }) => {
 
 
   //Placeholder functie voor het plaatsen van de bestelling
-  function handleButtonClick(){
+  function handleReserveerButton(){
     console.log(selectedSeats)
     console.log(totalPrice)
+
+    // go to reserveringpage
+    window.location.href = "/Reserveren"
   }
 
 
@@ -168,7 +171,7 @@ const StoelKiezen = ({ voorstelling }) => {
         </div>
         <div className="totaalPrijs">
           <p>Totaalprijs: €{totalPrice}</p>
-          <button onClick={handleButtonClick} className="button">Reserveer</button>
+          <button onClick={handleReserveerButton} className="button">Reserveer</button>
         </div>
       </div>
 
