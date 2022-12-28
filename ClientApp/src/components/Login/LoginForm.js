@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export function LoginForm() {
+    const [naam, setNaam] = useState()
     const [email, setEmail] = useState()
     const [wachtwoord, setWachtwoord] = useState()
 
@@ -27,10 +28,17 @@ export function LoginForm() {
                 Email: email,
                 Wachtwoord: wachtwoord
             })
-        }).then(response => {
-            console.log(response)
-            response.ok ? alert("U bent ingelogd") : alert("Er is geen gebruiker met deze gegevens gevonden")
-        })
+        }).then(response => response.ok ? response.json() : alert("inloggen mislukt"))
+            .then(data => {
+                console.log(data)
+                if (data) {
+                    alert("ingelogd als " + data.userName)
+                    sessionStorage.setItem('gebruiker', JSON.stringify(data))
+                    window.location.href = "/"
+                } else {
+                    alert("inloggen mislukt")
+                }
+            })
     }
 
     return (

@@ -63,7 +63,7 @@ public class BezoekerController : ControllerBase
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(medewerker, medewerker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
-        return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
+        return resultaat.Succeeded ? Ok() : new BadRequestObjectResult(resultaat);
     }
 
 
@@ -79,7 +79,7 @@ public class BezoekerController : ControllerBase
             // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
             await signInManager.SignInAsync(bezoeker, true);
             Console.WriteLine("ingelogd als " + bezoeker.UserName);
-            return Ok();
+            return Ok(bezoeker);
         }
         return Unauthorized();
     }
