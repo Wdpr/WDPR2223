@@ -34,6 +34,7 @@ export function LoginForm() {
                 if (data) {
                     alert("ingelogd als " + data.userName)
                     sessionStorage.setItem('gebruiker', JSON.stringify(data))
+                    window.location.href = "/"
                 } else {
                     alert("inloggen mislukt")
                 }
