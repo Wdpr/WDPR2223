@@ -124,8 +124,11 @@ const StoelKiezen = ({ voorstelling }) => {
     console.log(selectedSeats)
     console.log(totalPrice)
 
+    // save selected seats and total price in session storage
+    sessionStorage.setItem("rStoelen", JSON.stringify(selectedSeats))
+    sessionStorage.setItem("rPrijs", totalPrice)
     // go to reserveringpage
-    window.location.href = "/Reserveren"
+    window.location.href = "/Reserveren/" // + voorstellingid
   }
 
 

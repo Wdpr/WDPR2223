@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export const ReserveringPage = () => {
+    const stoelen = JSON.parse(sessionStorage.getItem("rStoelen"))
+    const prijs = sessionStorage.getItem("rPrijs")
+
+    console.log(stoelen)
+
     const [fakePay, setFakePay] = useState()
+    console.log(useLocation().pathname)
 
     // deze functie maakt gebruik van de fakepay api gegeven vanuit school
     function postReservering() {
@@ -32,9 +39,21 @@ export const ReserveringPage = () => {
 
     return (
         <div>
-            <h1>ReserveringPage</h1>
-            <button onClick={() => postReservering()}>klik voor de post</button>
-            {fakePay ? <p dangerouslySetInnerHTML={{ __html: fakePay }}></p> : <p>geen fakePay</p>}
+            <h1>Reservering Pagina</h1>
+            <div>
+                <p>
+                    U heeft {stoelen.length} stoelen geboekt. Voor de voorstelling: {"'moet nog uitvinden hoe'"}
+                    <br />
+                    De stoelen zijn: 
+                    <br />
+                    {stoelen.map((stoel) => <span>rij: {stoel.rij}, stoelnr: {stoel.stoel} - </span>)}
+                    <br />
+                    U heeft een prijs van {prijs} euro
+                </p>
+                <span>Bent u zeker van uw reservering?</span>
+            </div>
+            <button onClick={() => postReservering()}>Bevestig en ga naar betaling</button>
+            {fakePay ? <p dangerouslySetInnerHTML={{ __html: fakePay }}></p> : null}
 
         </div>
     );
