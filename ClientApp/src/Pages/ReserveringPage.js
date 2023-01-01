@@ -50,12 +50,9 @@ export const ReserveringPage = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 "VoorstellingId": 1,
-                "BezoekerUsername": 'peter',
-                "TotaalPrijs": 80,
-                "Stoelen": JSON.stringify([
-                    {"rijnr": 1, "stoelnr": 1},
-                    {"rijnr": 1, "stoelnr": 2},
-                ])
+                "BezoekerUsername": gebruiker.userName,
+                "TotaalPrijs": prijs,
+                "Stoelen": stoelen
             })
         })
         .then(response => console.log(response))

@@ -87,25 +87,25 @@ const StoelKiezen = ({ voorstelling }) => {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const handleSeatClick = (rij, stoel) => {
+  const handleSeatClick = (rijnr, stoelnr) => {
     // Kopie van de stoelen array
     const newSeats = [...seats];
     // Check of stoel bezet is.
-    if (newSeats[rij][stoel] === 2) {
+    if (newSeats[rijnr][stoelnr] === 2) {
       return;
     }
     // Omzetten van vrije stoel naar selected
-    newSeats[rij][stoel] = 1 - newSeats[rij][stoel];
+    newSeats[rijnr][stoelnr] = 1 - newSeats[rijnr][stoelnr];
     // Updaten van de state met de nieuwe seats array
     setSeats(newSeats);
     const newSelectedSeats = [...selectedSeats];
     // Toevoegen aan selected
-    if (newSeats[rij][stoel] === 1) {
-      newSelectedSeats.push({ rij, stoel });
+    if (newSeats[rijnr][stoelnr] === 1) {
+      newSelectedSeats.push({ rijnr, stoelnr });
     } else {
       // Verwijderen van selected
       newSelectedSeats.splice(
-        newSelectedSeats.findIndex(seat => seat.rij === rij && seat.stoel === stoel),
+        newSelectedSeats.findIndex(seat => seat.rijnr === rijnr && seat.stoelnr === stoelnr),
         1
       );
     }
@@ -115,7 +115,7 @@ const StoelKiezen = ({ voorstelling }) => {
 
   //Berekenen van totale prijs van geselecteerde stoelen
   const totalPrice = selectedSeats.reduce((total, seat) => {
-    return total + prices[categories[seat.rij][seat.stoel] - 1];
+    return total + prices[categories[seat.rijnr][seat.stoelnr] - 1];
   }, 0);
 
 
@@ -126,7 +126,7 @@ const StoelKiezen = ({ voorstelling }) => {
 
     // save selected seats and total price in session storage
     sessionStorage.setItem("rStoelen", JSON.stringify(selectedSeats))
-    sessionStorage.setItem("rPrijs", totalPrice)
+    sessionStorage.setItem("rPrijs", 80)                                                  // !!!! moet natuurlijk totalPrice zijn
     // go to reserveringpage
     window.location.href = "/Reserveren/" // + voorstellingid
   }
@@ -169,7 +169,7 @@ const StoelKiezen = ({ voorstelling }) => {
             ? ' Geen.'
             : selectedSeats.map((seat, index) => (
               <div key={index}>
-                Rij {seat.rij + 1}, Stoel {seat.stoel + 1}, Categorie {categories[seat.rij][seat.stoel]}              </div>
+                Rij {seat.rijnr + 1}, Stoel {seat.stoelnr + 1}, Categorie {categories[seat.rijnr][seat.stoelnr]}              </div>
             ))}
         </div>
         <div className="totaalPrijs">
