@@ -35,18 +35,15 @@ public class ReserveringController : ControllerBase {
         var voorstelling = context.Voorstellingen.Find(reserveringModel.VoorstellingId);
         if (voorstelling == null || bezoeker == null) return NotFound();
 
-        List<Stoel> stoelen = new List<Stoel>();
-        foreach (var (rij, nr) in reserveringModel.Stoelen) {
-            var stoel = new Stoel { RijNr = rij, StoelNr = nr };
-            stoelen.Add(stoel);
-        }
-        
-        var reservering = new Reservering {
+
+
+        var reservering = new Reservering
+        {
             Voorstelling = voorstelling,
             Bezoeker = bezoeker,
             TotaalPrijs = reserveringModel.TotaalPrijs,
-            Stoelen = stoelen
-        };
+            Stoelen = reserveringModel.Stoelen
+    };
         context.Reserveringen.Add(reservering);
         context.SaveChanges();
         return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
@@ -58,5 +55,5 @@ public class ReserveringModel
     public int VoorstellingId { get; set; }
     public string BezoekerUserName { get; set; }
     public int TotaalPrijs { get; set; }
-    public List<(int rij, int nr)> Stoelen { get; set; }
+    public List<Stoel> Stoelen { get; set; }
 }
