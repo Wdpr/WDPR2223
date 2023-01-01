@@ -11,9 +11,9 @@ export const ReserveringPage = () => {
     console.log(useLocation().pathname)
 
     // deze functie maakt gebruik van de fakepay api gegeven vanuit school
-    function postReservering() {
+    function naarBetaling() {
         var details = {
-            'amount': '50',
+            'amount': prijs,
             'reference': 'testReference',
             'url': '/suck'
         };
@@ -37,6 +37,31 @@ export const ReserveringPage = () => {
             .then(data => { console.log(data); setFakePay(data) })
     }
 
+    // handelt d knop "Bevestig en ga naar betaling"
+    function postReservering() {
+        const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"))
+        if (gebruiker === null) {
+            alert("U moet ingelogd zijn om een reservering te maken")
+            
+        }
+
+        fetch("api/reservering", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "VoorstellingId": 1,
+                "BezoekerUsername": 'peter',
+                "TotaalPrijs": 80,
+                "Stoelen": JSON.stringify([
+                    {"rijnr": 1, "stoelnr": 1},
+                    {"rijnr": 1, "stoelnr": 2},
+                ])
+            })
+        })
+        .then(response => console.log(response))
+
+    }
+
     return (
         <div>
             <h1>Reservering Pagina</h1>
@@ -44,9 +69,9 @@ export const ReserveringPage = () => {
                 <p>
                     U heeft {stoelen.length} stoelen geboekt. Voor de voorstelling: {"'moet nog uitvinden hoe'"}
                     <br />
-                    De stoelen zijn: 
+                    De stoelen zijn:
                     <br />
-                    {stoelen.map((stoel) => <span>rij: {stoel.rij}, stoelnr: {stoel.stoel} - </span>)}
+                    {stoelen.map((stoel, key) => <span key={key}>rij: {stoel.rij+ 1}, stoelnr: {stoel.stoel+ 1} - </span>)}
                     <br />
                     U heeft een prijs van {prijs} euro
                 </p>
