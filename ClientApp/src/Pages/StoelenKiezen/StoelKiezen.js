@@ -1,7 +1,10 @@
 import React from "react";
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const StoelKiezen = ({ voorstelling }) => {
+  const navigate = useNavigate();
   // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd. 
   //                           ||| Waarde 2 = gereserveerd. 
   const [eersteRang, setEersteRang] = useState()
@@ -11,7 +14,7 @@ const StoelKiezen = ({ voorstelling }) => {
   const [zaalLaden, setZaalLaden] = useState(false)
 
   async function haalZaalOp(zaal) {
-    setZaalLaden(true)  
+    setZaalLaden(true)
     console.log('Loading data...')
     var respons = await fetch('api/zaal/' + zaal)
     var data = await respons.json();
@@ -29,8 +32,8 @@ const StoelKiezen = ({ voorstelling }) => {
   }, [])
 
   useEffect(() => {
-    maakStoelen()  
-}, [zaalLaden]) 
+    maakStoelen()
+  }, [zaalLaden])
 
 
   function berekenAantalRijenPerCategorie(aantalStoelen, rangnr) {
@@ -71,11 +74,11 @@ const StoelKiezen = ({ voorstelling }) => {
 
     //vullen van stoelen met alle waardes 0
     const initialStoelen = stoelen.map(row => row.map(seat => 0));
-    
+
     setSeats(initialStoelen)
     //vullen van de categorieen
     setCategories(stoelen)
-    
+
   }
 
   const [seats, setSeats] = useState([]);
@@ -87,25 +90,25 @@ const StoelKiezen = ({ voorstelling }) => {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const handleSeatClick = (rij, stoel) => {
+  const handleSeatClick = (rijnr, stoelnr) => {
     // Kopie van de stoelen array
     const newSeats = [...seats];
     // Check of stoel bezet is.
-    if (newSeats[rij][stoel] === 2) {
+    if (newSeats[rijnr][stoelnr] === 2) {
       return;
     }
     // Omzetten van vrije stoel naar selected
-    newSeats[rij][stoel] = 1 - newSeats[rij][stoel];
+    newSeats[rijnr][stoelnr] = 1 - newSeats[rijnr][stoelnr];
     // Updaten van de state met de nieuwe seats array
     setSeats(newSeats);
     const newSelectedSeats = [...selectedSeats];
     // Toevoegen aan selected
-    if (newSeats[rij][stoel] === 1) {
-      newSelectedSeats.push({ rij, stoel });
+    if (newSeats[rijnr][stoelnr] === 1) {
+      newSelectedSeats.push({ rijnr, stoelnr });
     } else {
       // Verwijderen van selected
       newSelectedSeats.splice(
-        newSelectedSeats.findIndex(seat => seat.rij === rij && seat.stoel === stoel),
+        newSelectedSeats.findIndex(seat => seat.rijnr === rijnr && seat.stoelnr === stoelnr),
         1
       );
     }
@@ -115,64 +118,73 @@ const StoelKiezen = ({ voorstelling }) => {
 
   //Berekenen van totale prijs van geselecteerde stoelen
   const totalPrice = selectedSeats.reduce((total, seat) => {
-    return total + prices[categories[seat.rij][seat.stoel] - 1];
+    return total + prices[categories[seat.rijnr][seat.stoelnr] - 1];
   }, 0);
 
 
   //Placeholder functie voor het plaatsen van de bestelling
-  function handleButtonClick(){
+  function handleReserveerButton() {
     console.log(selectedSeats)
     console.log(totalPrice)
+
+    // save selected seats and total price in session storage
+    sessionStorage.setItem("rStoelen", JSON.stringify(selectedSeats))
+    sessionStorage.setItem("rPrijs", 80)                                                  // !!!! moet natuurlijk totalPrice zijn
+    sessionStorage.setItem("rVoorstelling", 1)
+    // go to reserveringpage
+    navigate('/reserveren')
   }
 
-
   return (
-    <div className="stoelContainer">
+    <>
+      {/* <p>{voorstelling.naam}</p> */}
+      <div className="stoelContainer">
 
-      <div className="stoelKeuze">
-        <div className="scherm">
-          <h4>Toneel</h4>
-          <br />
-        </div>
-        {seats.map((row, rowIndex) => (
-          <div key={rowIndex}>
-            {row.map((seat, colIndex) => (
-              <button
-                key={colIndex}
-                onClick={() => handleSeatClick(rowIndex, colIndex)}
-                className={`seat-button category-${categories[rowIndex][colIndex]} 
+        <div className="stoelKeuze">
+          <div className="scherm">
+            <h4>Toneel</h4>
+            <br />
+          </div>
+          {seats.map((row, rowIndex) => (
+            <div key={rowIndex}>
+              {row.map((seat, colIndex) => (
+                <button
+                  key={colIndex}
+                  onClick={() => handleSeatClick(rowIndex, colIndex)}
+                  className={`seat-button category-${categories[rowIndex][colIndex]} 
                   ${seat === 1 ? 'selected' : ''} 
                   ${seat === 2 ? 'reserved' : ''}
                   `}
-              />
-            ))}
+                />
+              ))}
+            </div>
+          ))}
+          <span>
+            <br></br>
+            <p>| Eersterang  €{prices[0]} <span><button className="seat-button category-1" /> </span>
+              | Tweederang €{prices[1]} <span><button className="seat-button category-2" /> </span>
+              | Derderang €{prices[2]} <span><button className="seat-button category-3" />{ } </span></p>
+          </span>
+        </div>
+
+        <div className="stoelInfo">
+          <div >
+            Geselecteerde stoelen:
+            {selectedSeats.length === 0
+              ? ' Geen.'
+              : selectedSeats.map((seat, index) => (
+                <div key={index}>
+                  Rij {seat.rijnr + 1}, Stoel {seat.stoelnr + 1}, Categorie {categories[seat.rijnr][seat.stoelnr]}              </div>
+              ))}
           </div>
-        ))}
-        <span>
-        <br></br>
-        <p>| Eersterang  €{prices[0]} <span><button className="seat-button category-1"/> </span>
-        | Tweederang €{prices[1]} <span><button className="seat-button category-2"/> </span>
-        | Derderang €{prices[2]} <span><button className="seat-button category-3"/>{} </span></p>
-        </span>
-      </div>
-
-      <div className="stoelInfo">
-        <div >
-          Geselecteerde stoelen:
-          {selectedSeats.length === 0
-            ? ' Geen.'
-            : selectedSeats.map((seat, index) => (
-              <div key={index}>
-                Rij {seat.rij + 1}, Stoel {seat.stoel + 1}, Categorie {categories[seat.rij][seat.stoel]}              </div>
-            ))}
+          <div className="totaalPrijs">
+            <p>Totaalprijs: €{totalPrice}</p>
+            <button onClick={handleReserveerButton} className="button">Reserveer</button>
+          </div>
         </div>
-        <div className="totaalPrijs">
-          <p>Totaalprijs: €{totalPrice}</p>
-          <button onClick={handleButtonClick} className="button">Reserveer</button>
-        </div>
-      </div>
 
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const RegistreerForm = () => {
+    const navigate = useNavigate();
     const [gebruikersnaam, setGebruikersnaam] = useState("");
     const [email, setEmail] = useState("");
     const [wachtwoord, setWachtwoord] = useState("");
@@ -34,7 +36,11 @@ export const RegistreerForm = () => {
             })
         }).then(response => {
             console.log(response)
-            response.ok ? alert("U bent geregistreerd") : alert("Er is iets mis gegaan")
+            if (response.ok) {
+                alert("registreren gelukt")
+                navigate('/login')
+            }
+            alert("registreren mislukt")
         })
     }
 
