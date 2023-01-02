@@ -39,8 +39,7 @@ export const RegistreerForm = () => {
             if (response.ok) {
                 alert("registreren gelukt")
                 navigate('/login')
-            }
-            alert("registreren mislukt")
+            } else alert("registreren mislukt")
         })
     }
 
