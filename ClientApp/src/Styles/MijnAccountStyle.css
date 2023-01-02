@@ -4,27 +4,46 @@
     justify-content: center;
 
 }
+
+/*--------------------- Mijn Gegevens gedeelte --------------------------*/
 .mijnGegevens {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: brown;
-    width: 300px;
+    background-color: rgb(90, 7, 7);
+    width: 325px;
     margin-right: 10px;
+    padding-top: 10px;
     padding-left: 20px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mijnGegevens > h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #ca3939;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .mijnGegevens > h5 {
-    color: black;
     margin-bottom: -1px;
+    text-transform: uppercase;
+    font-size: 0.8em;
     font-weight: bold;
+    color: #838b8f;
+    border-bottom: 2px dotted #000000;
+    max-width: 250px;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    ;
 }
 
-.mijnReserveringen{
-    background-color: blue;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 600px;
-
+.gebruikerGegevens{
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    font-weight: bold;
 }
 
 .wijzigGegevens{
@@ -33,5 +52,76 @@
     background-color: rgb(194, 206, 194);
     width: 250px;
     margin-left: 5px;
-    
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+button.wijzigGegevens:focus:not(:active) {
+    background-color: rgb(144, 150, 144);
+  }
+
+
+/*------------------ Wijzig gegevens Portaal-----------------*/
+
+.wijzigGegevensContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.wijzigGegevensPortaal{
+    border: #000000;
+
+    width: 500px;
+}
+
+.wijzigGegevensPortaal > h1{
+    color: #ca3939;
+    font-size: 1em;
+    margin-left: 35px;
+}
+
+.knoppenContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.keuzeWatWijzigen li {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 8px 16px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+.naamDiv {
+    margin-left: 60px;
+}
+
+.wachtwoordDiv {
+    margin-left: 60px;
+}
+
+.emailDiv {
+    margin-left: 60px;
+}
+
+
+/*-------------------- Mijn Reservering gedeelte ---------------*/
+
+.mijnReserveringen{
+    background-color: rgb(76, 76, 82);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 600px;
+    padding-top: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mijnReserveringen > h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #ca3939;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
 }
