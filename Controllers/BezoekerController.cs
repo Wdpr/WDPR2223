@@ -11,24 +11,24 @@ namespace Laak.Controllers;
 [Route("api/[controller]")]
 public class BezoekerController : ControllerBase
 {
-    private UserManager<Bezoeker> userManager;
-    private SignInManager<Bezoeker> signInManager;
+    private UserManager<IdentityUser> userManager;
+    private SignInManager<IdentityUser> signInManager;
 
-    public BezoekerController(UserManager<Bezoeker> userManager, SignInManager<Bezoeker> signInManager)
+    public BezoekerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
     {
         this.userManager = userManager;
         this.signInManager = signInManager;
     }
 
     [HttpGet]
-    public IEnumerable<Bezoeker> GetBezoekers()
+    public IEnumerable<IdentityUser> GetBezoekers()
     {
         return userManager.Users.ToList();
     }
 
     [HttpPost]
     [Route("registreer")]
-    public async Task<IActionResult> registreer(RegistreerModel registreerModel)
+    public async Task<IActionResult> RegistreerBezoeker(RegistreerModel registreerModel)
     {
         Console.WriteLine(registreerModel.ToString());
 
@@ -38,12 +38,32 @@ public class BezoekerController : ControllerBase
             UserName = registreerModel.Gebruikersnaam,
             PasswordHash = registreerModel.Wachtwoord,
         };
-        Console.WriteLine("bezoeker aangemaakt");
+        Console.WriteLine("Bezoeker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(bezoeker, bezoeker.PasswordHash);
         // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
         return resultaat.Succeeded ? StatusCode(201) : new BadRequestObjectResult(resultaat);
+    }
+
+    [HttpPost]
+    [Route("registreer/medewerker")]
+    public async Task<IActionResult> RegistreerMedewerker(RegistreerModel registreerModel)
+    {
+        Console.WriteLine(registreerModel.ToString());
+
+        var medewerker = new Medewerker
+        {
+            Email = registreerModel.Email,
+            UserName = registreerModel.Gebruikersnaam,
+            PasswordHash = registreerModel.Wachtwoord,
+        };
+        Console.WriteLine("Medewerker aangemaakt");
+        // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
+        // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
+        var resultaat = await userManager.CreateAsync(medewerker, medewerker.PasswordHash);
+        // het resultaat kan een error bevatten, info over het wachtwoord dat sterker moet of dat het goed is gegaan. En dat geven we terug.
+        return resultaat.Succeeded ? Ok() : new BadRequestObjectResult(resultaat);
     }
 
 
@@ -59,7 +79,7 @@ public class BezoekerController : ControllerBase
             // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
             await signInManager.SignInAsync(bezoeker, true);
             Console.WriteLine("ingelogd als " + bezoeker.UserName);
-            return Ok();
+            return Ok(bezoeker);
         }
         return Unauthorized();
     }
