@@ -19,7 +19,7 @@ export function LoginForm() {
     }
     function submitHandler(e) {
         e.preventDefault()
-        // if (!emailEnWachtwoordCheck()) return
+        if (!emailEnWachtwoordCheck()) return
 
         fetch("api/bezoeker/login", {
             method: "POST",
@@ -34,7 +34,7 @@ export function LoginForm() {
                 if (data) {
                     alert("ingelogd als " + data.userName)
                     sessionStorage.setItem('gebruiker', JSON.stringify(data))
-                    window.location.href = "/"
+                    window.location.href = "/"          // ook mogelijk met useNavigate()
                 } else {
                     alert("inloggen mislukt")
                 }
