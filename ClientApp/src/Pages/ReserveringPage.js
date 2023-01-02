@@ -16,7 +16,7 @@ export const ReserveringPage = () => {
         var details = {
             'amount': prijs,
             'reference': 'testReference',
-            'url': '/'
+            'url': '/api/reservering/fakepay'
         };
 
         var formBody = [];

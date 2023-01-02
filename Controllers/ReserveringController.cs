@@ -6,30 +6,36 @@ namespace Laak.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ReserveringController : ControllerBase {
+public class ReserveringController : ControllerBase
+{
 
     private readonly TheaterContext context;
 
-    public ReserveringController(TheaterContext context) {
+    public ReserveringController(TheaterContext context)
+    {
         this.context = context;
     }
 
     [HttpGet]
-    public IActionResult Get() {
+    public IActionResult Get()
+    {
         return Ok(context.Reserveringen);
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get(int id) {
+    public IActionResult Get(int id)
+    {
         var reservering = context.Reserveringen.Find(id);
-        if (reservering == null) {
+        if (reservering == null)
+        {
             return NotFound();
         }
         return Ok(reservering);
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] ReserveringModel reserveringModel) {
+    public IActionResult Post([FromBody] ReserveringModel reserveringModel)
+    {
         Console.WriteLine("reservering post");
         // checks op bezoeker en voorstelling
         var bezoeker = context.Bezoekers.SingleOrDefault(b => b.UserName == reserveringModel.BezoekerUserName);
@@ -44,17 +50,33 @@ public class ReserveringController : ControllerBase {
             Bezoeker = bezoeker,
             TotaalPrijs = reserveringModel.TotaalPrijs,
             Stoelen = reserveringModel.Stoelen
-    };
+        };
         context.Reserveringen.Add(reservering);
         context.SaveChanges();
         return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
     }
-}
 
-public class ReserveringModel
-{
-    public int VoorstellingId { get; set; }
-    public string BezoekerUserName { get; set; }
-    public int TotaalPrijs { get; set; }
-    public List<Stoel> Stoelen { get; set; }
+    [HttpPost]
+    [Route("fakepay")]
+    public IActionResult fakePay([FromBody] BetalingModel betalingModel)
+    {
+        Console.WriteLine("fakePay");
+        Console.WriteLine(betalingModel.succes);
+        Console.WriteLine(betalingModel.reference);
+        return Ok();
+    }
+
+    public class ReserveringModel
+    {
+        public int VoorstellingId { get; set; }
+        public string BezoekerUserName { get; set; }
+        public int TotaalPrijs { get; set; }
+        public List<Stoel> Stoelen { get; set; }
+    }
+
+    public class BetalingModel
+    {
+        public string succes { get; set; }
+        public string reference { get; set; }
+    }
 }
