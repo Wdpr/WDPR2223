@@ -7,6 +7,7 @@ import { StoelKiezenPage } from "./Pages/StoelenKiezen/StoelKiezenPage";
 import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 import { ReserveringPage } from "./Pages/ReserveringPage";
+import { DoneerPage } from "./Pages/DoneerPage";
 
 const AppRoutes = [
   {
@@ -44,6 +45,10 @@ const AppRoutes = [
   {
     path: '/Reserveren',
     element: <ReserveringPage />
+  },
+  {
+    path: '/doneer',
+    element: <DoneerPage />
   },
 ];
 
