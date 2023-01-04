@@ -30,12 +30,23 @@ public class VoorstellingController : ControllerBase
 
     [HttpPost]
     [Route("niewuweVoorstelling")]
-    public Voorstelling PostVoorstelling(Voorstelling voorstelling)
-    {
-        Console.WriteLine("Voorstelling toegevoegd");
+    public Voorstelling PostVoorstelling(VoorstellingModel model)
+    { Voorstelling voorstelling = new Voorstelling{
+        
+        Naam = model.Naam,
+        Img = model.img,
+        Prijs = model.prijs,
+        Genre = model.genre,
+        Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
+        
+        
+        
+    };
+        Console.WriteLine("Voorstelling model");
         context.Voorstellingen.Add(voorstelling);
         context.SaveChanges();
         return voorstelling;
+   
     }
     /*  !!! ik weet niet hoe je met SqlServer een foreign key meegeeft in een post request
     {
@@ -45,4 +56,17 @@ public class VoorstellingController : ControllerBase
     "Genre": "Comedy"
     }
     */
+
+}
+
+public class VoorstellingModel{
+
+    public string Naam{get;set;}
+    public string img { get; set; }
+
+    public int prijs { get; set; }
+
+    public string genre { get; set; }
+
+    public int zaal { get; set; }
 }

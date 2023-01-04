@@ -1,99 +1,75 @@
 import { useState } from "react"
 import { Link, NavLink } from "react-router-dom";
+
 export function VoorstellingAdding() {
-
-    const [inputFields, setInputFields] = useState([{
-        naam: '',
-        zaalnummer: '',
-        datum: '',
-        tijd: '',
-        genre: '',
-        band: '',
-        artiest: '',
-        prijs: '',
-
-
-    }]);
-
-    // const addInputField = ()=>{
-
-    //     setInputFields([...inputFields, {
-    //         naam:'',
-    //         zaalnummer:'',
-    //         datum:'',
-    //         tijd:'',
-    //         genre: '',
-    //         band:'',
-    //         artiest:''
-
-    //     } ])
-
-    // }
-    //     const removeInputFields = (index)=>{
-    //         const rows = [...inputFields];
-    //         rows.splice(index, 1);
-    //         setInputFields(rows);
-    //    }
-    const handleChange = (index, evnt) => {
-
-        const { name, value } = evnt.target;
-        const list = [...inputFields];
-        list[index][name] = value;
-        setInputFields(list);
-
-
-
+    const [voorstellingNaam, setVoorstelllingNaam] = useState("");
+    const [zaalnummer, setZaalnummer] = useState("");
+    const [datumTijd, setDatumTijd] = useState("");
+    const [tijdsduur, setTijdsduur] = useState("");
+    const [genre, setGenre] = useState("");
+    const [artiest, setArtiest] = useState("");
+    const [prijs, setPrijs] = useState("");
+ 
+ 
+    async function submitHandler(e) {
+        e.preventDefault();
+        fetch("api/voorstelling/niewuweVoorstelling", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                Naam: voorstellingNaam,
+                Zaal: zaalnummer,
+                img: "bruh",
+                Prijs: prijs,
+                Genre: genre,
+            })
+        }).then(response => {
+            console.log(response)
+            response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
+        })
     }
-    return (
 
+    return (
+<form onSubmit={submitHandler}>
         <div className="container">
             <h1>Voeg Een Voorstelling Toe</h1>
             <div className="row">
                 <div className="col-sm-8">
-                    {
-                        inputFields.map((data, index) => {
-                            const { naam: naam, zaalnummer: zaalnummer, datum: datum, tijd: tijd, genre: genre, band: band, artiest: artiest, prijs: prijs } = data;
-                            return (
-                                <div className="row my-3" key={index}>
+             <div className="row my-3">
                                     <div className="col">
-                                        <form>
+                                        
                                             <label>voorstelling naam</label>
-                                            <input type="text" id="voorstellingNaam" onChange={(evnt) => handleChange(index, evnt)} value={naam} name="naam" className="form-control" placeholder="naam" />
+                                            <input type="text" id="voorstellingNaam"  onChange={(e) => setVoorstelllingNaam(e.target.value)} name="naam" className="form-control" placeholder="naam" />
                                             <label>zaalnummer</label>
-                                            <input type="text" id="voorstellingZaalnummer" onChange={(evnt) => handleChange(index, evnt)} value={zaalnummer} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                            <label>datum voorstelling</label>
-                                            <input type="text" id="voorstellingDatum" onChange={(evnt) => handleChange(index, evnt)} value={datum} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
-                                            <label>tijd</label>
-                                            <input type="text" id="voorstellingTijd" onChange={(evnt) => handleChange(index, evnt)} value={tijd} name="tijd" className="form-control" placeholder="uu-mm" />
+                                            <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
+                                            <label>datum/tijd voorstelling</label>
+                                            <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)}  name="datum" className="form-control" placeholder="dd-mm-jjjj" />
+                                            <label>tijdsduur</label>
+                                            <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
                                             <label>genre</label>
-                                            <input type="text" id="voorstellingGenre" onChange={(evnt) => handleChange(index, evnt)} value={genre} name="genre" className="form-control" placeholder="genre" />
-                                            <label>band</label>
-                                            <input type="text" id="voorstellingBand" onChange={(evnt) => handleChange(index, evnt)} value={band} name="band" className="form-control" placeholder="band" />
+                                            <input type="text" id="voorstellingGenre"  onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />
+                                            <div>
+                                               <div>    
                                             <label>artiest</label>
-                                            <input type="text" id="voorstellingArtiest" onChange={(evnt) => handleChange(index, evnt)} value={artiest} name="artiest" className="form-control" placeholder="artiest" />
+                                            <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
+                                                </div>
+                                            </div>
                                             <label>prijs</label>
-                                            <input type="text" id="voorstellingPrijs" onChange={(evnt) => handleChange(index, evnt)} value={prijs} name="prijs" className="form-control" placeholder="0,00$" />
-                                        </form>
+                                            <input type="text" id="voorstellingPrijs"  onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="0,00$" />
+                                        
                                         <NavLink tag={Link} className="text-dark" to="/AddArtiest">
                                             <button className="btn btn-outline-success">&#43; artiest</button>
                                         </NavLink>
                                     </div>
-
-                                    {/* <button className="btn btn-outline-success">+</button>
-                     */}
                                     <div className="col">
 
-                                        {/* {(inputFields.length!==1)? <button className="btn btn-outline-danger" onClick={removeInputFields}>Remove</button>:''} */}
+                                       
                                     </div>
                                 </div>
-                            )
-                        })
-                    }
-
                     <div className="row">
                         <div className="col-sm-12">
 
-                            <button className="btn btn-outline-success">Save</button>
+                            <button className="btn btn-outline-success" type="submit">Save</button>
                         </div>
                     </div>
                 </div>
@@ -102,7 +78,6 @@ export function VoorstellingAdding() {
 
             </div>
         </div>
-
+</form>
     )
-}
-export default VoorstellingAdding
+                    }
