@@ -41,7 +41,7 @@ export class Home extends Component {
         <br />
         <div className="voorstellingMiniCards">
           {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.map(voorstelling => {
-            return <VoorstellingMiniCard voorstelling={voorstelling} />
+            return <VoorstellingMiniCard voorstelling={voorstelling} key={voorstelling.id}/>
           })}
         </div>
       </>
