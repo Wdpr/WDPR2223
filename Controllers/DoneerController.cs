@@ -29,4 +29,12 @@ public class DoneerController : ControllerBase
         context.SaveChanges();
         return Ok(donatie);
     }
+
+    [HttpPost]
+    [Route("listener")]
+    public async Task<IActionResult> Listener(Donatie donatie)
+    {
+        Console.WriteLine("Donatie listener");
+        return Ok(donatie);
+    }
 }
