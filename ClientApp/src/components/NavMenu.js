@@ -46,6 +46,9 @@ export class NavMenu extends Component {
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/overons">Over Ons</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/doneer">Doneer</NavLink>
+              </NavItem>
               {sessionStorage.getItem('gebruiker') ?
                 <>
                   <NavItem>
