@@ -46,11 +46,11 @@ const AppRoutes = [
     path: '/Reserveren',
     element: <ReserveringPage />
   },
-];
   {
     path: '/Mijnaccount',
     element: <MijnAccountPage />
   },
-  ];
+];
+
 
 export default AppRoutes;

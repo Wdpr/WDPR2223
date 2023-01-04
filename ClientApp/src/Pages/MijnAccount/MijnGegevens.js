@@ -1,5 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import WerknemerPortaal from "../../components/WerknemerPortalen/WerknemerPortaal";
+import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
+
 
 export function ToonMijnGevens() {
     const dummyGebruiker = {
@@ -7,7 +10,7 @@ export function ToonMijnGevens() {
         naam: "Sjaak Verkaak",
         email: "blaEmail@Email.nl",
         wachtwoord: "wachtwoord123",
-        voorkeuren: ["Musical", "Comedy", "Drama"]
+        voorkeuren: ["Musical", "Comedy", "Drama", "Kindertheater", "Cabaret"]
     }
 
     const dummyVoorstelling = {
@@ -18,9 +21,8 @@ export function ToonMijnGevens() {
         genre: "Musical",
     }
 
-    const dummyDonatieBedrag = 500;
-    const dummyWerknemer = 0;
-    const dummyAdmin = 0;
+    const dummyDonatieBedrag = 5000;
+    const dummyAdmin = 1;
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -31,8 +33,6 @@ export function ToonMijnGevens() {
     }
 
 
-
-
     return (
         <div>
             <div className="containervoorMijnGegevensEnMijnReserveringen">
@@ -41,10 +41,10 @@ export function ToonMijnGevens() {
                         <h1>Mijn gegevens</h1>
 
                         <h5>Naam:</h5>
-                        <p className="gebruikerGegevens">{dummyGebruiker.naam}</p>
+                        <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</p>
 
                         <h5>Email:</h5>
-                        <p className="gebruikerGegevens">{dummyGebruiker.email}</p>
+                        <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).email}</p>
 
                         <h5>Voorkeuren</h5>
                         <ul className="gebruikerGegevens">
@@ -174,17 +174,17 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-                {dummyWerknemer === 1 ? (
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? (
                     <div className="werknemerPortaal">
-                        <h1>Werknemer portaal</h1>
+                        <WerknemerPortaal />
                     </div>
                 ) : null}
             </div>
 
             <div>
-                {dummyAdmin === 1 ? (
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? (
                     <div className="AdminPortaal">
-                        <h1>Admin portaal</h1>
+                        <AdminPortaal />
                     </div>
                 ) : null}
             </div>

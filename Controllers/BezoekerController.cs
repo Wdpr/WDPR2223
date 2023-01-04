@@ -57,6 +57,7 @@ public class BezoekerController : ControllerBase
             Email = registreerModel.Email,
             UserName = registreerModel.Gebruikersnaam,
             PasswordHash = registreerModel.Wachtwoord,
+            Functie = registreerModel.Functie,
         };
         Console.WriteLine("Medewerker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
@@ -100,4 +101,6 @@ public class RegistreerModel
     public string Gebruikersnaam { get; set; }
     public string Email { get; set; }
     public string Wachtwoord { get; set; }
+
+    public string Functie { get; set; }
 }

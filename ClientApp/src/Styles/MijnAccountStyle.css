@@ -9,7 +9,7 @@
 .mijnGegevens {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: rgb(90, 7, 7);
+
     width: 325px;
     margin-right: 10px;
     padding-top: 10px;
@@ -93,17 +93,11 @@ button.wijzigGegevens:focus:not(:active) {
     cursor: pointer;
   }
 
-.naamDiv {
+.naamDiv, .wachtwoordDiv, .emailDiv {
     margin-left: 60px;
+    margin-bottom: 20px;
 }
 
-.wachtwoordDiv {
-    margin-left: 60px;
-}
-
-.emailDiv {
-    margin-left: 60px;
-}
 
 
 /*-------------------- Mijn Reservering gedeelte ---------------*/
@@ -120,8 +114,25 @@ button.wijzigGegevens:focus:not(:active) {
 .mijnReserveringen > h1 {
     font-size: 35px;
     font-weight: bold;
-    color: #ca3939;
+    color: rgb(202, 57, 57);
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+}
+
+
+.checkboxText {
+    margin-top: 5px;
+    font-size: 20px;
+    color: rgb(202, 57, 57);
+    display: flex;
+
+}
+
+.checkboxAdmin{
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(202, 57, 57);
+    margin-left: 10px;
+    margin-top: -10px;
 }
