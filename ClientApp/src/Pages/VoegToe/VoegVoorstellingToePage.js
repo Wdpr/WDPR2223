@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, NavLink } from "react-router-dom";
+import './x.css'
 
 export function VoorstellingAdding() {
     const [voorstellingNaam, setVoorstelllingNaam] = useState("");
@@ -9,8 +10,8 @@ export function VoorstellingAdding() {
     const [genre, setGenre] = useState("");
     const [artiest, setArtiest] = useState("");
     const [prijs, setPrijs] = useState("");
- 
- 
+
+
     async function submitHandler(e) {
         e.preventDefault();
         fetch("api/voorstelling/niewuweVoorstelling", {
@@ -30,54 +31,51 @@ export function VoorstellingAdding() {
     }
 
     return (
-<form onSubmit={submitHandler}>
-        <div className="container">
-            <h1>Voeg Een Voorstelling Toe</h1>
-            <div className="row">
-                <div className="col-sm-8">
-             <div className="row my-3">
-                                    <div className="col">
-                                        
-                                            <label>voorstelling naam</label>
-                                            <input type="text" id="voorstellingNaam"  onChange={(e) => setVoorstelllingNaam(e.target.value)} name="naam" className="form-control" placeholder="naam" />
-                                            <label>zaalnummer</label>
-                                            <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                            <label>datum/tijd voorstelling</label>
-                                            <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)}  name="datum" className="form-control" placeholder="dd-mm-jjjj" />
-                                            <label>tijdsduur</label>
-                                            <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
-                                            <label>genre</label>
-                                            <input type="text" id="voorstellingGenre"  onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />
-                                            <div>
-                                               <div>    
-                                            <label>artiest</label>
-                                            <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
-                                                </div>
-                                            </div>
-                                            <label>prijs</label>
-                                            <input type="text" id="voorstellingPrijs"  onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="0,00$" />
-                                        
-                                        <NavLink tag={Link} className="text-dark" to="/AddArtiest">
-                                            <button className="btn btn-outline-success">&#43; artiest</button>
-                                        </NavLink>
-                                    </div>
-                                    <div className="col">
+        <form onSubmit={submitHandler}>
+            <div className="container">
+                <h1>Voeg Een Voorstelling Toe</h1>
+                <div className="row">
+                    <div className="col-sm-8">
+                        <div className="row my-3">
+                            <div className="col">
 
-                                       
-                                    </div>
+                                <label>voorstelling naam</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingNaam" onChange={(e) => setVoorstelllingNaam(e.target.value)} name="naam" className="form-control" placeholder="naam" />
+                                <label>zaalnummer</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
+                                <label>datum/tijd voorstelling</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
+                                <label>tijdsduur</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
+                                <label>genre</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingGenre" onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />
+                                <label>artiest</label>
+                                <label className="verplicht2">*</label>
+                                <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
+                                <label className="verplicht2">*</label>
+                                <label>prijs</label>
+                                <input type="text" id="voorstellingPrijs" onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="0,00$" />
+
+                                <div> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
+                                    <button className="btn btn-outline-success">&#43; artiest</button>
+                                </NavLink></div>
+                                <div>
+                                    <button className="btn btn-outline-success" type="submit">Save</button>
                                 </div>
-                    <div className="row">
-                        <div className="col-sm-12">
 
-                            <button className="btn btn-outline-success" type="submit">Save</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="col-sm-4">
+                <div className="col-sm-4">
 
+                </div>
             </div>
-        </div>
-</form>
+        </form>
     )
-                    }
+}

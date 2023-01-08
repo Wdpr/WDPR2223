@@ -1,0 +1,26 @@
+.form-control{
+    width: 500px;
+}
+
+.label1{
+    float: left;
+    padding-top: 8px;
+    padding-right: 20px;
+}
+
+.verplicht{
+    float:right;
+    padding-right: 210px;
+    padding-top: 8px;
+}
+
+
+.col-sm-12{
+    padding-bottom: 650px;
+}
+
+.verplicht2{
+    float:right;
+    padding-right: 315px;
+    padding-top: 35px; 
+}
