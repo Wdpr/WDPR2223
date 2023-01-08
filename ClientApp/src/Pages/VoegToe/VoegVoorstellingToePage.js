@@ -11,9 +11,14 @@ export function VoorstellingAdding() {
     const [artiest, setArtiest] = useState("");
     const [prijs, setPrijs] = useState("");
 
+    const [error, setError] = useState(false);
+
 
     async function submitHandler(e) {
         e.preventDefault();
+        if(voorstellingNaam.length==0 || zaalnummer.length==0 || prijs.length==0 || artiest.length==0){
+            setError(true)
+        }
         fetch("api/voorstelling/niewuweVoorstelling", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,27 +44,33 @@ export function VoorstellingAdding() {
                         <div className="row my-3">
                             <div className="col">
 
-                                <label>voorstelling naam</label>
+                                <label  className="labelInput">voorstelling naam</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingNaam" onChange={(e) => setVoorstelllingNaam(e.target.value)} name="naam" className="form-control" placeholder="naam" />
-                                <label>zaalnummer</label>
+                                <div className="background-warning">{error&&voorstellingNaam<=0?<label className="warning-no-input">voorstelling naam mag niet leeg zijn</label>: ""}</div>
+                                <label  className="labelInput">zaalnummer</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                <label>datum/tijd voorstelling</label>
+                                <div className="background-warning">{error&&zaalnummer.length<=0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label>: ""}</div>
+                                <label  className="labelInput">datum/tijd voorstelling</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
-                                <label>tijdsduur</label>
+                                <div className="background-warning"><label className="warning-no-input">datum/tijd mag niet leeg zijn</label></div>
+                                <label  className="labelInput">tijdsduur</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
-                                <label>genre</label>
-                                <label className="verplicht2">*</label>
+                                <div className="background-warning"><label className="warning-no-input">tijdsduur mag niet leeg zijn</label></div>
+                                <label  className="labelInput">genre</label>
+                                <label className="optioneel1">	&#40;optioneel&#41;</label>
                                 <input type="text" id="voorstellingGenre" onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />
-                                <label>artiest</label>
+                                <label  className="labelInput">artiest</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
+                                <div className="background-warning">{error&&artiest.length<=0?<label className="warning-no-input">artiest mag niet leeg zijn</label>: ""}</div>
                                 <label className="verplicht2">*</label>
-                                <label>prijs</label>
+                                <label  className="labelInput">prijs</label>
                                 <input type="text" id="voorstellingPrijs" onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="0,00$" />
+                                <div className="background-warning">{error&&prijs.length<=0?<label className="warning-no-input">prijs mag niet leeg zijn</label>: ""}</div>
 
                                 <div> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
                                     <button className="btn btn-outline-success">&#43; artiest</button>
@@ -69,7 +80,9 @@ export function VoorstellingAdding() {
                                 </div>
 
                             </div>
+                            
                         </div>
+                        <label>* = verplicht veld</label>
                     </div>
                 </div>
                 <div className="col-sm-4">
