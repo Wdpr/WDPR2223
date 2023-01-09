@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace wdpr.Migrations
 {
     /// <inheritdoc />
-    public partial class initdatabasemetidentityusersencontext : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,8 @@ namespace wdpr.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Intresse = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Functie = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -66,18 +68,18 @@ namespace wdpr.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Zaal",
+                name: "Zalen",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AantalEersteRang = table.Column<int>(type: "int", nullable: true),
                     AantalTweedeRang = table.Column<int>(type: "int", nullable: true),
-                    AantalDerderRang = table.Column<int>(type: "int", nullable: true)
+                    AantalDerdeRang = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Zaal", x => x.Id);
+                    table.PrimaryKey("PK_Zalen", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,9 +238,9 @@ namespace wdpr.Migrations
                         principalTable: "Band",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Voorstellingen_Zaal_ZaalId",
+                        name: "FK_Voorstellingen_Zalen_ZaalId",
                         column: x => x.ZaalId,
-                        principalTable: "Zaal",
+                        principalTable: "Zalen",
                         principalColumn: "Id");
                 });
 
@@ -333,7 +335,7 @@ namespace wdpr.Migrations
                 name: "Artiest");
 
             migrationBuilder.DropTable(
-                name: "Zaal");
+                name: "Zalen");
 
             migrationBuilder.DropTable(
                 name: "Band");

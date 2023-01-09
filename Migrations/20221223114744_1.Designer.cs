@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20221218164030_account naam gegeven")]
-    partial class accountnaamgegeven
+    [Migration("20221223114744_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerderRang")
+                    b.Property<int?>("AantalDerdeRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -139,7 +139,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Zaal");
+                    b.ToTable("Zalen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -348,15 +348,26 @@ namespace wdpr.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Laak.Models.Account", b =>
+            modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Naam")
+                    b.Property<string>("Intresse")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Account");
+                    b.HasDiscriminator().HasValue("Bezoeker");
+                });
+
+            modelBuilder.Entity("Laak.Models.Medewerker", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Functie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Medewerker");
                 });
 
             modelBuilder.Entity("Laak.Models.Artiest", b =>
