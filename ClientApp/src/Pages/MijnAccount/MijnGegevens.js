@@ -6,27 +6,20 @@ import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
 
 export function ToonMijnGevens() {
     const dummyGebruiker = {
-        id: 2521,
-        naam: "Sjaak Verkaak",
-        email: "blaEmail@Email.nl",
-        wachtwoord: "wachtwoord123",
         voorkeuren: ["Musical", "Comedy", "Drama", "Kindertheater", "Cabaret"]
     }
 
-    const dummyVoorstelling = {
-        id: 1,
-        titel: "The Lion King",
-        beschrijving: "The Lion King is een musical gebaseerd op de gelijknamige animatiefilm uit 1994. De musical ging op 13 juni 1997 in première in het New Amsterdam Theatre in New York en werd in 2006 verplaatst naar het Minskoff Theatre. De musical is geschreven door Roger Allers en Irene Mecchi, die ook de film schreven, en is geregisseerd door Julie Taymor. De muziek is van Elton John en de teksten zijn van Tim Rice. De musical is in 2019 voor de 20e keer genomineerd voor een Tony Award.",
-        duur: 120,
-        genre: "Musical",
-    }
-
     const dummyDonatieBedrag = 5000;
-    const dummyAdmin = 1;
+    
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
+
+    const [currentEmail, setCurrentEmail] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    
+   
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
@@ -83,7 +76,7 @@ export function ToonMijnGevens() {
                         </div>
 
                         {selectedItem === 'Naam' && (
-                            <div className="naamDiv">
+                            <div className="naamDiv" >
 
                                 <form className="loginFormulier" >
                                     <div >
@@ -119,7 +112,7 @@ export function ToonMijnGevens() {
                                     <div>
                                         <label className="formFieldLabel">
                                             Nieuw Email adres
-                                            <input className="formFieldInput" type="email" name="nieuweEmail" placeholder="Vul uw nieuwe E-mail in"  />
+                                            <input className="formFieldInput" type="email" name="nieuweEmail" placeholder="Vul uw nieuwe E-mail in"   />
                                         </label>
                                     </div>
                                     <div>
@@ -183,7 +176,7 @@ export function ToonMijnGevens() {
 
             <div>
                 {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? (
-                    <div className="AdminPortaal">
+                    <div className="adminPortaal">
                         <AdminPortaal />
                     </div>
                 ) : null}

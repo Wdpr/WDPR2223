@@ -64,6 +64,7 @@ const AdminPortaal = () => {
                         <button className='formFieldButton' type="submit">Registreren</button>
                     </div>
                 </form>
+                
             </div>
 
         </div>

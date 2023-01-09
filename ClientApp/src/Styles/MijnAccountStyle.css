@@ -65,6 +65,7 @@ button.wijzigGegevens:focus:not(:active) {
 .wijzigGegevensContainer{
     display: flex;
     justify-content: center;
+    margin-bottom: 80px;
 }
 
 .wijzigGegevensPortaal{
@@ -122,10 +123,11 @@ button.wijzigGegevens:focus:not(:active) {
 
 
 .checkboxText {
-    margin-top: 5px;
+    margin-top: 15px;
     font-size: 20px;
     color: rgb(202, 57, 57);
     display: flex;
+
 
 }
 
@@ -135,4 +137,22 @@ button.wijzigGegevens:focus:not(:active) {
     color: rgb(202, 57, 57);
     margin-left: 10px;
     margin-top: -10px;
+}
+
+/* Adminportaal */
+
+.adminPortaal, .werknemerPortaal {
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: double;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 15px;
+    border-left: #000000;
+    border-right: #000000;
+    margin-bottom: 20px;
+}
+
+.werknemerPortaal{
+    margin-bottom: 75px;
 }

@@ -84,23 +84,51 @@ public class BezoekerController : ControllerBase
         }
         return Unauthorized();
     }
-}
 
-public class LoginModel
-{
-    // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
-    // De required stuurt eventueel bericht terug met de errorMessage als het niet is ingevuld.
-    [Required(ErrorMessage = "Email is verplicht")]
-    public string Email { get; set; }
-    [Required(ErrorMessage = "Wachtwoord is verplicht")]
-    public string Wachtwoord { get; set; }
-}
+    [HttpPost]
+    [Route("update/email")]
+    public async Task<IActionResult> UpdateBezoekerEmail(UpdateEmailModel updateModel)
+    {
+        var bezoeker = await userManager.FindByEmailAsync(updateModel.CurrentEmail);
+        if (bezoeker == null)
+        {
+            return NotFound();
+        }
 
-public class RegistreerModel
-{
-    public string Gebruikersnaam { get; set; }
-    public string Email { get; set; }
-    public string Wachtwoord { get; set; }
+        bezoeker.Email = updateModel.NewEmail;
+        var result = await userManager.UpdateAsync(bezoeker);
+        if (result.Succeeded)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return new BadRequestObjectResult(result);
+        }
+    }
 
-    public string Functie { get; set; }
-}
+    public class UpdateEmailModel
+    {
+        public string CurrentEmail { get; set; }
+        public string NewEmail { get; set; }
+    }
+
+
+    public class LoginModel
+    {
+        // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
+        // De required stuurt eventueel bericht terug met de errorMessage als het niet is ingevuld.
+        [Required(ErrorMessage = "Email is verplicht")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Wachtwoord is verplicht")]
+        public string Wachtwoord { get; set; }
+    }
+
+    public class RegistreerModel
+    {
+        public string Gebruikersnaam { get; set; }
+        public string Email { get; set; }
+        public string Wachtwoord { get; set; }
+        public string Functie { get; set; }
+    }
+    }
