@@ -38,6 +38,8 @@ public class VoorstellingController : ControllerBase
         Prijs = model.prijs,
         Genre = model.genre,
         Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
+        Datum = model.DatumTijd,
+        Tijd = model.Tijdsduur,
         
         
         
@@ -63,7 +65,9 @@ public class VoorstellingModel{
 
     public string Naam{get;set;}
     public string img { get; set; }
+public string? DatumTijd { get; set;}
 
+public string? Tijdsduur { get; set; }
     public int prijs { get; set; }
 
     public string genre { get; set; }

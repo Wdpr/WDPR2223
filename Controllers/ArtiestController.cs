@@ -40,7 +40,7 @@ return context.Artiesten;
        
     };
         Console.WriteLine("Artiest model");
-        context.Add(a);
+        context.Artiesten.Add(a);
         context.SaveChanges();
         return a;
    

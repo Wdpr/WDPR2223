@@ -16,9 +16,10 @@ export function VoorstellingAdding() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        if(voorstellingNaam.length==0 || zaalnummer.length==0 || prijs.length==0 || artiest.length==0){
+        if(voorstellingNaam.length==0 || zaalnummer.length==0 || prijs.length==0 || artiest.length==0 || datumTijd.length==0 || tijdsduur.length==0){
             setError(true)
         }
+        else{
         fetch("api/voorstelling/niewuweVoorstelling", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -28,11 +29,15 @@ export function VoorstellingAdding() {
                 img: "bruh",
                 Prijs: prijs,
                 Genre: genre,
+                Tijd: tijdsduur,
+                datum: datumTijd,
             })
         }).then(response => {
             console.log(response)
             response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
         })
+    }
+
     }
 
     return (
@@ -59,7 +64,7 @@ export function VoorstellingAdding() {
                                 <label  className="labelInput">tijdsduur</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
-                                <div className="background-warning"><label className="warning-no-input">tijdsduur mag niet leeg zijn</label></div>
+                                <div className="background-warning">{<label className="warning-no-input">tijdsduur mag niet leeg zijn</label>}</div>
                                 <label  className="labelInput">genre</label>
                                 <label className="optioneel1">	&#40;optioneel&#41;</label>
                                 <input type="text" id="voorstellingGenre" onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />

@@ -5,21 +5,27 @@ export function VoegArtiestToeAanLijst() {
 
     const [artiestNaam, setArtiestNaam] = useState("");
 
+    const [error, setError] = useState(false);
 
     async function submitHandler(e) {
-        e.preventDefault();
-        fetch("api/artiest/NieuweArtiest", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                Naam: artiestNaam,
-                Img: "image",
+        if (artiestNaam.length == 0 || artiestNaam.length<=0) {
+            setError(true)
+        }
+        else{
+            e.preventDefault();
+            fetch("api/artiest/NieuweArtiest", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    Naam: artiestNaam,
+                    Img: "image",
 
+                })
+            }).then(response => {
+                console.log(response)
+                response.ok ? alert("artiest toegevoegd") : alert("poging mislukt")
             })
-        }).then(response => {
-            console.log(response)
-            response.ok ? alert("artiest toegevoegd") : alert("poging mislukt")
-        })
+        }
     }
 
     return (
@@ -33,14 +39,14 @@ export function VoegArtiestToeAanLijst() {
                             <label className="label1">naam artiest: </label>
                             <label className="verplicht">*</label>
                             <input type="text" id="artiestNaam" onChange={(e) => setArtiestNaam(e.target.value)} name="artiest" className="form-control" placeholder="naam artiest" />
-                        </div>
+                            <div className="background-warning-artiest">{error? <label className="warning-no-input">naam van de artiest mag niet leeg zijn</label> : ""}</div>
+                        </div>                      
                     </div>
-                    <div className="row">
+                    
                         <div className="col-sm-12">
-
                             <button className="btn btn-outline-success" type="submit">Add</button>
                         </div>
-                    </div>
+                    
                 </div>
             </div>
             <div className="col-sm-4">
