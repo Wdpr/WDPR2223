@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import WerknemerPortaal from "../../components/WerknemerPortalen/WerknemerPortaal";
 import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
+import VoorkeurenComponent from "../../components/VoorkeurenComponent";
 
 
 export function ToonMijnGevens() {
@@ -10,21 +12,16 @@ export function ToonMijnGevens() {
     }
 
     const dummyDonatieBedrag = 5000;
-    
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-
-
-    const [currentEmail, setCurrentEmail] = useState('');
-    const [newEmail, setNewEmail] = useState('');
-    
-   
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
     }
 
+
+    
 
     return (
         <div>
@@ -45,6 +42,8 @@ export function ToonMijnGevens() {
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
+                        <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).voorkeuren}</p>
+
 
                         <h5>Totaal gedoneerd:</h5>
                         <p className="gebruikerGegevens">€{dummyDonatieBedrag}</p>
@@ -155,8 +154,8 @@ export function ToonMijnGevens() {
 
                         {selectedItem === 'Voorkeuren' && (
                             <div className="voorkeurenDiv">
-
-                                <h1>Voorkeuren</h1>
+                                <VoorkeurenComponent />
+                            
                             </div>
                         )}
 

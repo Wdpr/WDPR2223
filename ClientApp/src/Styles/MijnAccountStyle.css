@@ -99,6 +99,37 @@ button.wijzigGegevens:focus:not(:active) {
     margin-bottom: 20px;
 }
 
+.voorkeurenDiv {
+    margin-left: 20px;
+}
+
+.voorkeurenDiv > h2 {
+    font-size: 1.3em;
+}
+
+.voorkeurKnop{
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 100px;
+}
+
+
+.black-btn{
+    background-color: #000000;
+    color: white;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 120px;
+}
+
+
+.white-btn{
+    background-color: #ffffff;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 120px;
+}
+
 
 
 /*-------------------- Mijn Reservering gedeelte ---------------*/
@@ -156,3 +187,5 @@ button.wijzigGegevens:focus:not(:active) {
 .werknemerPortaal{
     margin-bottom: 75px;
 }
+
+
