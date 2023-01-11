@@ -21,37 +21,39 @@
 
 .verplicht2{
     float:right;
-    padding-right: 315px;
-    padding-top: 35px; 
+    margin-right: 305px;
+    margin-top: 34px; 
 }
 
 .optioneel1{
     float:right;
-    padding-right: 245px;
-    padding-top: 30px; 
+    margin-top:30px;
+    margin-right: 235px;
 }
 
 .warning-no-input{
-    color: red;
-
-    
-    
+    color: red;   
 }
 
+.label-invalidValue{
+    color:red;
+}
 
 
 .background-warning-artiest{
 margin-left: 110px;
 }
 
-.col-Voorstelling{
+.col-Voorstelling, .col-Artiest{
     background-color: rgb(27, 27, 27);
     border-radius: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 30px;
+    
 }
 
-button{
+.btn-Artiest-Add, .btn-Save{
     border-style: solid;
     border-radius: 10px;
     border-color: crimson;
@@ -63,30 +65,46 @@ button{
 }
 
 
-button:hover{
+.btn-Save:hover, .btn-Artiest-Add:hover{
 background-color: crimson;
 color: rgb(27, 27, 27)
 }
 
 
-button:active{
+.btn-Save:active, .btn-Artiest-Add:active{
     opacity: 0.5;
-}
-
-.btn-Voorstelling-Add{
-
 }
 
 .btn-Save{
 float: left;
 margin-right: 50px;
+padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-bottom: 5px;
 }
 
-.button-div{
+.btn-Artiest-Add{
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.button-artiest-div{
     margin-top: 20px;
+    float: right;
+    margin-right: 60px;
 }
 
 .voeg-artiest-toe-indicator{
     color: crimson;
    
+}
+
+.button-save-div{
+    margin-left: 210px;
+    margin-top: 20px;
+    
+
 }

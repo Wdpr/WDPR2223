@@ -4,12 +4,12 @@ import './x.css'
 
 export function VoorstellingAdding() {
     const [voorstellingNaam, setVoorstelllingNaam] = useState("");
-    const [zaalnummer, setZaalnummer] = useState("");
+    const [zaalnummer, setZaalnummer] = useState(0);
     const [datumTijd, setDatumTijd] = useState("");
     const [tijdsduur, setTijdsduur] = useState("");
     const [genre, setGenre] = useState("");
     const [artiest, setArtiest] = useState("");
-    const [prijs, setPrijs] = useState("");
+    const [prijs, setPrijs] = useState(0);
 
     const [error, setError] = useState(false);
 
@@ -20,26 +20,33 @@ export function VoorstellingAdding() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        if (voorstellingNaam.length == 0 || zaalnummer.length == 0 || prijs.length == 0 || artiest.length == 0 || datumTijd.length == 0 || tijdsduur.length == 0) {
-            setError(true)
-        } else {
-            fetch("api/voorstelling/niewuweVoorstelling", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    Naam: voorstellingNaam,
-                    Zaal: zaalnummer,
-                    img: "bruh",
-                    Prijs: prijs,
-                    Genre: genre,
-                    Tijd: tijdsduur,
-                    datum: datumTijd,
-                })
-            }).then(response => {
-                console.log(response)
-                response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
-            })
+
+        if (voorstellingNaam.length == 0 || zaalnummer == 0 || prijs == 0 || artiest.length == 0 || datumTijd.length == 0 || tijdsduur.length == 0) {
+            setError(true)   
         }
+        else if(isNaN(zaalnummer) || isNaN(prijs)){ 
+            setInvalidError(true);
+        }
+        else{
+            fetch("api/voorstelling/niewuweVoorstelling", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                Naam: voorstellingNaam,
+                Zaal: zaalnummer,
+                img: "bruh",
+                Prijs: prijs,
+                Genre: genre,
+                Tijd: tijdsduur,
+                datum: datumTijd,
+            })
+        }).then(response => {
+            console.log(response)
+            response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
+            
+            })
+           }
+          
 
     }
 
@@ -59,7 +66,7 @@ export function VoorstellingAdding() {
                                 <label className="labelInput">zaalnummer</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                <div className="background-warning">{error && zaalnummer.length <= 0 ? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}</div>
+                                <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidError && (isNaN(prijs) && isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
                                 <label className="labelInput">datum/tijd voorstelling</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
@@ -67,7 +74,7 @@ export function VoorstellingAdding() {
                                 <label className="labelInput">tijdsduur</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingTijd" onChange={(e) => setTijdsduur(e.target.value)} name="tijd" className="form-control" placeholder="uu-mm" />
-                                <div className="background-warning">{error && tijdsduur.length <= 0 ? <label className="warning-no-input">tijdsduur mag niet leeg zijn</label> : ""}{invalidError ? <label className="warning-invalid input">datum klopt niet</label> : ""}</div>
+                                <div className="background-warning">{error && tijdsduur.length <= 0 ? <label className="warning-no-input">tijdsduur mag niet leeg zijn</label> : ""}</div>
                                 <label className="labelInput">genre</label>
                                 <label className="optioneel1">	&#40;optioneel&#41;</label>
                                 <input type="text" id="voorstellingGenre" onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />
@@ -78,16 +85,14 @@ export function VoorstellingAdding() {
                                 <label className="verplicht2">*</label>
                                 <label className="labelInput">prijs</label>
                                 <input type="text" id="voorstellingPrijs" onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="00,00$" />
-                                <div className="background-warning">{error && prijs.length <= 0 ? <label className="warning-no-input">prijs mag niet leeg zijn</label> : ""}</div>
+                                <div className="background-warning">{error && prijs == 0 ?<label className="warning-no-input">prijs mag niet leeg zijn</label> : ""}{invalidError && (isNaN(prijs) && isNaN(zaalnummer))?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
 
-                                <div className="button-div"> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
+                                <div className="button-artiest-div"><label className="voeg-artiest-toe-indicator">Nieuwe artiest: </label> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
                                     <button className="btn-Artiest-Add">&#43; artiest</button>
-                                    <label className="voeg-artiest-toe-indicator">Nieuwe artiest: </label>
-                                </NavLink>
-                                    <button className="btn-Save" type="submit">Save</button>
+                                    </NavLink></div>
+                                    <div className="button-save-div"><button className="btn-Save" type="submit">Save</button></div>
                                 </div>
-
-                            </div>
+                            
 
                         </div>
 

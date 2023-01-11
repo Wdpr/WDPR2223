@@ -36,7 +36,7 @@ export function VoegArtiestToeAanLijst() {
 
                 <div className="col-sm-8">
                     <div className="row my-3">
-                        <div className="col">
+                        <div className="col-Artiest">
                             <label className="label1">naam artiest: </label>
                             <label className="verplicht">*</label>
                             <input type="text" id="artiestNaam" onChange={(e) => setArtiestNaam(e.target.value)} name="artiest" className="form-control" placeholder="naam artiest" />
