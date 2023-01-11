@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace wdpr.Migrations
 {
     /// <inheritdoc />
-    public partial class initdatabasemetidentityusersencontext : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Artiesten",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Artiesten", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -31,6 +45,7 @@ namespace wdpr.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,21 +67,7 @@ namespace wdpr.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Band",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Img = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Band", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Zaal",
+                name: "Zalen",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -77,7 +78,7 @@ namespace wdpr.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Zaal", x => x.Id);
+                    table.PrimaryKey("PK_Zalen", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -187,26 +188,6 @@ namespace wdpr.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Artiest",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BandId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Artiest", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Artiest_Band_BandId",
-                        column: x => x.BandId,
-                        principalTable: "Band",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Voorstellingen",
                 columns: table => new
                 {
@@ -215,7 +196,6 @@ namespace wdpr.Migrations
                     Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArtiestId = table.Column<int>(type: "int", nullable: true),
-                    BandId = table.Column<int>(type: "int", nullable: true),
                     ZaalId = table.Column<int>(type: "int", nullable: true),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Tijd = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -226,26 +206,16 @@ namespace wdpr.Migrations
                 {
                     table.PrimaryKey("PK_Voorstellingen", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Voorstellingen_Artiest_ArtiestId",
+                        name: "FK_Voorstellingen_Artiesten_ArtiestId",
                         column: x => x.ArtiestId,
-                        principalTable: "Artiest",
+                        principalTable: "Artiesten",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Voorstellingen_Band_BandId",
-                        column: x => x.BandId,
-                        principalTable: "Band",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Voorstellingen_Zaal_ZaalId",
+                        name: "FK_Voorstellingen_Zalen_ZaalId",
                         column: x => x.ZaalId,
-                        principalTable: "Zaal",
+                        principalTable: "Zalen",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Artiest_BandId",
-                table: "Artiest",
-                column: "BandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -292,11 +262,6 @@ namespace wdpr.Migrations
                 column: "ArtiestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Voorstellingen_BandId",
-                table: "Voorstellingen",
-                column: "BandId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Voorstellingen_ZaalId",
                 table: "Voorstellingen",
                 column: "ZaalId");
@@ -330,13 +295,10 @@ namespace wdpr.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Artiest");
+                name: "Artiesten");
 
             migrationBuilder.DropTable(
-                name: "Zaal");
-
-            migrationBuilder.DropTable(
-                name: "Band");
+                name: "Zalen");
         }
     }
 }
