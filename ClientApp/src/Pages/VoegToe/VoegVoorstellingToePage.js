@@ -13,7 +13,9 @@ export function VoorstellingAdding() {
 
     const [error, setError] = useState(false);
 
-    const [invalidError, setInvalidError] = useState(false);
+    const [invalidErrorZaal, setInvalidErrorZaal] = useState(false);
+
+    const [invalidErrorPrijs, setInvalidErrorPrijs] = useState(false);
 
 
 
@@ -25,7 +27,8 @@ export function VoorstellingAdding() {
             setError(true)   
         }
         else if(isNaN(zaalnummer) || isNaN(prijs)){ 
-            setInvalidError(true);
+            setInvalidErrorZaal(true);
+            setInvalidErrorPrijs(true);
         }
         else{
             fetch("api/voorstelling/niewuweVoorstelling", {
@@ -66,7 +69,7 @@ export function VoorstellingAdding() {
                                 <label className="labelInput">zaalnummer</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidError && (isNaN(prijs) && isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
+                                <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidErrorZaal &&  (isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
                                 <label className="labelInput">datum/tijd voorstelling</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
@@ -85,7 +88,7 @@ export function VoorstellingAdding() {
                                 <label className="verplicht2">*</label>
                                 <label className="labelInput">prijs</label>
                                 <input type="text" id="voorstellingPrijs" onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="00,00$" />
-                                <div className="background-warning">{error && prijs == 0 ?<label className="warning-no-input">prijs mag niet leeg zijn</label> : ""}{invalidError && (isNaN(prijs) && isNaN(zaalnummer))?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
+                                <div className="background-warning">{error && prijs == 0 ?<label className="warning-no-input">prijs mag niet leeg zijn</label> : ""}{invalidErrorPrijs && (isNaN(prijs))?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
 
                                 <div className="button-artiest-div"><label className="voeg-artiest-toe-indicator">Nieuwe artiest: </label> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
                                     <button className="btn-Artiest-Add">&#43; artiest</button>
