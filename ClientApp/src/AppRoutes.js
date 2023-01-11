@@ -47,7 +47,7 @@ const AppRoutes = [
     element: <ReserveringPage />
   },
   {
-    path: '/Mijnaccount',
+    path: '/Profiel',
     element: <MijnAccountPage />
   },
 ];

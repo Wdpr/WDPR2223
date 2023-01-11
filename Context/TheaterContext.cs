@@ -18,5 +18,7 @@ public class TheaterContext : IdentityDbContext
     public DbSet<Reservering> Reserveringen { get; set; }
     public DbSet<Zaal> Zalen { get; set; }
 
+    public DbSet<Voorkeur> Voorkeuren { get; set; }
+
 }
 
