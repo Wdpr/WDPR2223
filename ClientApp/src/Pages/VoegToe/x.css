@@ -10,8 +10,8 @@
 
 .verplicht{
     float:right;
-    padding-right: 210px;
-    padding-top: 8px;
+    padding-right: 200px;
+    padding-top: 10px;
 }
 
 
@@ -53,7 +53,9 @@ margin-left: 110px;
     
 }
 
-.btn-Artiest-Add, .btn-Save{
+
+
+.btn-Artiest-Add, .btn-Save, .btn-Artiest-Aanmaken{
     border-style: solid;
     border-radius: 10px;
     border-color: crimson;
@@ -65,13 +67,13 @@ margin-left: 110px;
 }
 
 
-.btn-Save:hover, .btn-Artiest-Add:hover{
+.btn-Save:hover, .btn-Artiest-Add:hover, .btn-Artiest-Aanmaken:hover{
 background-color: crimson;
 color: rgb(27, 27, 27)
 }
 
 
-.btn-Save:active, .btn-Artiest-Add:active{
+.btn-Save:active, .btn-Artiest-Add:active, .btn-Artiest-Aanmaken:active{
     opacity: 0.5;
 }
 
@@ -88,6 +90,13 @@ padding-top: 5px;
     padding-top: 5px;
     padding-right: 5px;
     padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.btn-Artiest-Aanmaken{
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
     padding-bottom: 5px;
 }
 

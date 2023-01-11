@@ -41,12 +41,13 @@ export function VoegArtiestToeAanLijst() {
                             <label className="verplicht">*</label>
                             <input type="text" id="artiestNaam" onChange={(e) => setArtiestNaam(e.target.value)} name="artiest" className="form-control" placeholder="naam artiest" />
                             <div className="background-warning-artiest">{error &&artiestNaam.length<=0? <label className="warning-no-input">naam van de artiest mag niet leeg zijn</label> : ""}</div>
+                        <button className="btn-Artiest-Aanmaken" type="submit">Add</button>
                         </div>                      
                     </div>
                     
-                        <div className="col-sm-12">
-                            <button className="btn btn-outline-success" type="submit">Add</button>
-                        </div>
+                       
+                            
+                       
                     
                 </div>
             </div>
