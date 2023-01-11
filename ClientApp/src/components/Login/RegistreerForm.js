@@ -33,6 +33,7 @@ export const RegistreerForm = () => {
                 Email: email,
                 Gebruikersnaam: gebruikersnaam,
                 Wachtwoord: wachtwoord,
+                functie: 'functie'
             })
         }).then(response => {
             console.log(response)
