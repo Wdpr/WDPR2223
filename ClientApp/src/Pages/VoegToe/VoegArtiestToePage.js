@@ -8,11 +8,12 @@ export function VoegArtiestToeAanLijst() {
     const [error, setError] = useState(false);
 
     async function submitHandler(e) {
-        if (artiestNaam.length == 0 || artiestNaam.length<=0) {
+        e.preventDefault();
+        if (artiestNaam.length == 0 ) {
             setError(true)
         }
         else{
-            e.preventDefault();
+            
             fetch("api/artiest/NieuweArtiest", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -39,7 +40,7 @@ export function VoegArtiestToeAanLijst() {
                             <label className="label1">naam artiest: </label>
                             <label className="verplicht">*</label>
                             <input type="text" id="artiestNaam" onChange={(e) => setArtiestNaam(e.target.value)} name="artiest" className="form-control" placeholder="naam artiest" />
-                            <div className="background-warning-artiest">{error? <label className="warning-no-input">naam van de artiest mag niet leeg zijn</label> : ""}</div>
+                            <div className="background-warning-artiest">{error &&artiestNaam.length<=0? <label className="warning-no-input">naam van de artiest mag niet leeg zijn</label> : ""}</div>
                         </div>                      
                     </div>
                     

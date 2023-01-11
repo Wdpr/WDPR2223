@@ -43,3 +43,50 @@
 .background-warning-artiest{
 margin-left: 110px;
 }
+
+.col-Voorstelling{
+    background-color: rgb(27, 27, 27);
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+button{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: crimson;
+    background-color: rgb(27, 27, 27);
+    color: crimson;
+    border-width: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, opacity 0.15s;
+}
+
+
+button:hover{
+background-color: crimson;
+color: rgb(27, 27, 27)
+}
+
+
+button:active{
+    opacity: 0.5;
+}
+
+.btn-Voorstelling-Add{
+
+}
+
+.btn-Save{
+float: left;
+margin-right: 50px;
+}
+
+.button-div{
+    margin-top: 20px;
+}
+
+.voeg-artiest-toe-indicator{
+    color: crimson;
+   
+}

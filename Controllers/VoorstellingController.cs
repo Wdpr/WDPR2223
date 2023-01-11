@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Laak.Context;
 using Laak.Models;
+using System.Globalization;
 
 namespace Laak.Controllers;
 
@@ -40,6 +41,8 @@ public class VoorstellingController : ControllerBase
         Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
         Datum = model.DatumTijd,
         Tijd = model.Tijdsduur,
+        Artiest = model.artiest,
+        
         
         
         
@@ -65,12 +68,14 @@ public class VoorstellingModel{
 
     public string Naam{get;set;}
     public string img { get; set; }
-public string? DatumTijd { get; set;}
+public DateTime? DatumTijd { get; set;}
 
-public string? Tijdsduur { get; set; }
+public DateTime? Tijdsduur { get; set; }
     public int prijs { get; set; }
 
     public string genre { get; set; }
 
     public int zaal { get; set; }
+
+    public Artiest? artiest { get; set; }
 }
