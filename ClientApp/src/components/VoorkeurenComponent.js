@@ -30,7 +30,7 @@ export default function VoorkeurenComponent() {
             <h1>Voorkeuren</h1>
             <br />
                 {alleVoorkeuren.map((item, index) => (
-                    <button className={active[index] ? "black-btn" : "white-btn"} onClick={() => handleSubmit(index)}>{item}</button>
+                    <button key={index} className={active[index] ? "black-btn" : "white-btn"} onClick={() => handleSubmit(index)}>{item}</button>
                     ))}
 
             <br />
