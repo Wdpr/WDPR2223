@@ -31,7 +31,7 @@ const AppRoutes = [
     element: <CreateAccountPage />
   },
   {
-    path: '/voorstellingInfo',
+    path: '/voorstellingInfoPage',
     element: <VoorstellingInfoPage />
   },
   {

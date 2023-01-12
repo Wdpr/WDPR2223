@@ -96,6 +96,23 @@ code {
   padding-top: 180px;
 }
 
+.posterBannerVoorstelling {
+  display: flex;
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+.posterBannerVoorstelling > img{
+  width: 300px;
+  height: auto;
+}
+
+.posterBannerVoorstellingText {
+  display: flex;
+  padding-top: 60px;
+  padding-left: 40px;
+}
+
 .voorstellingMiniCards {
   display: flex;
 }
