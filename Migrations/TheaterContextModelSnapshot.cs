@@ -407,13 +407,6 @@ namespace wdpr.Migrations
                     b.HasDiscriminator().HasValue("Medewerker");
                 });
 
-            modelBuilder.Entity("Laak.Models.Artiest", b =>
-                {
-                    b.HasOne("Laak.Models.Band", null)
-                        .WithMany("Artiest")
-                        .HasForeignKey("BandId");
-                });
-
             modelBuilder.Entity("Laak.Models.Reservering", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", "Bezoeker")
@@ -441,7 +434,7 @@ namespace wdpr.Migrations
             modelBuilder.Entity("Laak.Models.Voorkeur", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", null)
-                        .WithMany("voorkeuren")
+                        .WithMany("Voorkeuren")
                         .HasForeignKey("BezoekerId");
                 });
 
@@ -511,13 +504,6 @@ namespace wdpr.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Laak.Models.Band", b =>
-                {
-                    b.Navigation("Artiest");
-
-                    b.Navigation("Voorstellingen");
-                });
-
             modelBuilder.Entity("Laak.Models.Reservering", b =>
                 {
                     b.Navigation("Stoelen");
@@ -525,9 +511,8 @@ namespace wdpr.Migrations
 
             modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
-                    b.Navigation("voorkeuren");
+                    b.Navigation("Voorkeuren");
                 });
-
 #pragma warning restore 612, 618
         }
     }
