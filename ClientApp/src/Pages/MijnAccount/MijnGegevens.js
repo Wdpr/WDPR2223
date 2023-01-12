@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
 import WerknemerPortaal from "../../components/WerknemerPortalen/WerknemerPortaal";
 import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
 import VoorkeurenComponent from "../../components/VoorkeurenComponent";
+import { Link } from "react-router-dom";
 
 
 export function ToonMijnGevens() {
@@ -48,7 +48,10 @@ export function ToonMijnGevens() {
                         <h5>Totaal gedoneerd:</h5>
                         <p className="gebruikerGegevens">€{dummyDonatieBedrag}</p>
                         {dummyDonatieBedrag >= 1000 ? (
-                            <button className="donatieKnop">DonateursPortaal</button>) : null}
+                            <div>
+                            <Link to ="/DonateursHome">
+                            <button className="donatieKnop">DonateursPortaal</button></Link>
+                            </div>) : null}
 
                         <button className="wijzigGegevens" onClick={() => setToonWijzigForm(!ToonWijzigForm)}>Wijzig gegevens</button>
                     </div>

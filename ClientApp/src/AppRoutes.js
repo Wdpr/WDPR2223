@@ -8,6 +8,8 @@ import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 import { ReserveringPage } from "./Pages/ReserveringPage";
 import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
+import {DonateursHome  } from "./Pages/DonatiePage/DonateursHome";
+import {DonatiePagina  } from "./Pages/DonatiePage/DonatiePagina";
 
 const AppRoutes = [
   {
@@ -50,6 +52,14 @@ const AppRoutes = [
     path: '/Profiel',
     element: <MijnAccountPage />
   },
+  {
+    path: '/DonateursHome',
+    element: <DonateursHome />
+  },
+  {
+    path: '/Doneren',
+    element: <DonatiePagina />
+  }
 ];
 
 

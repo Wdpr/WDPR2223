@@ -1,4 +1,6 @@
 /* Provide sufficient contrast against white background */
+@import "donerenStyle.css";
+
 body {
   background-color: #3D3D3D;
   color: white;
@@ -18,13 +20,6 @@ code {
   border-color: #1861ac;
 }
 
-.bannerFoto{
-  width: 1500px;
-  height: 400px;
-  box-sizing: border-box;
-  
-}
-
 .voorstellingCard{
   background-color: #45505a;
   display: flex;
@@ -33,7 +28,7 @@ code {
   height: 150px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   color: white;
-  ;
+  min-width: 700px;
 }
 
 .voorstellingCard > img{
@@ -54,6 +49,7 @@ code {
   padding-bottom: 20px;
   padding-right: 20px;
   text-align: center;
+  width: 225px;
 }
 
 .cardVoorstellingInfo > ul{
@@ -98,16 +94,32 @@ code {
 
 .voorstellingMiniCards {
   display: flex;
+  justify-content: center;
 }
 
 .voorstellingMiniCard > img{
   width: 190px;
   height: 285px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .voorstellingMiniCard {
   display: inline-block;
   margin: 0px 10px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 15px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.voorstellingMiniCard:hover {
+  display: inline-block;
+  margin: 0px 10px;
+  text-decoration: none;
+  color: #000000;
 }
 
 .footer {
@@ -162,7 +174,7 @@ code {
 
 .CreateForm{
   color: black;
-  background-color: rgb(90, 7, 7);
+  background-color: #590808;
   width: 500px;
   align-items: center;
   padding-top: 30px;
@@ -249,3 +261,67 @@ code {
 .formFieldLink:hover {
   color: #ff0000;
 }
+
+.homeCards{
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-bottom: 2px dotted #922929;
+  border-top: 2px dotted #922929;
+  padding-top: 40px;
+  padding-bottom:  40px;
+}
+
+.homeCards > h1{
+  font-size: 25px;
+  font-weight: bold;
+  color: #922929;
+  text-transform: uppercase;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.LinkNaarProgrammering:hover{
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.LinkNaarProgrammering{
+  color: #922929;
+  font-weight: bold;
+  font-size: 17px;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 2px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+.KleinTekstje > h2{
+  font-size: 25px;
+  font-weight: bold;
+  color: #8a1616;
+  text-decoration: underline;
+  margin-bottom: 15px;
+}
+
+.KleinTekstje{
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  margin-top: 5px;
+  max-width: 500px;
+}
+
+.tekstjesHomePage{
+  display: flex;
+  justify-content: center;
+}
+
+.VoorstellingPageContainer{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
