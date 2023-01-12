@@ -4,6 +4,7 @@ using Laak.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    partial class TheaterContextModelSnapshot : ModelSnapshot
+    [Migration("20221228211818_rang nullable")]
+    partial class rangnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +26,32 @@ namespace wdpr.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Laak.Models.Artiest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BandId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Naam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BandId");
+
+                    b.ToTable("Artiest");
+                });
+
+            modelBuilder.Entity("Laak.Models.Band", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +69,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artiesten");
+                    b.ToTable("Band");
                 });
 
             modelBuilder.Entity("Laak.Models.Reservering", b =>
@@ -96,28 +125,6 @@ namespace wdpr.Migrations
                     b.ToTable("Stoel");
                 });
 
-            modelBuilder.Entity("Laak.Models.Voorkeur", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BezoekerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("voorkeurNaam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BezoekerId");
-
-                    b.ToTable("Voorkeuren");
-                });
-
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
                 {
                     b.Property<int>("Id")
@@ -127,6 +134,9 @@ namespace wdpr.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ArtiestId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BandId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Datum")
@@ -155,6 +165,8 @@ namespace wdpr.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtiestId");
+
+                    b.HasIndex("BandId");
 
                     b.HasIndex("ZaalId");
 
@@ -393,6 +405,10 @@ namespace wdpr.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Intresse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("Bezoeker");
                 });
 
@@ -438,24 +454,23 @@ namespace wdpr.Migrations
                         .HasForeignKey("ReserveringId");
                 });
 
-            modelBuilder.Entity("Laak.Models.Voorkeur", b =>
-                {
-                    b.HasOne("Laak.Models.Bezoeker", null)
-                        .WithMany("voorkeuren")
-                        .HasForeignKey("BezoekerId");
-                });
-
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
                 {
                     b.HasOne("Laak.Models.Artiest", "Artiest")
                         .WithMany()
                         .HasForeignKey("ArtiestId");
 
+                    b.HasOne("Laak.Models.Band", "Band")
+                        .WithMany("Voorstellingen")
+                        .HasForeignKey("BandId");
+
                     b.HasOne("Laak.Models.Zaal", "Zaal")
                         .WithMany()
                         .HasForeignKey("ZaalId");
 
                     b.Navigation("Artiest");
+
+                    b.Navigation("Band");
 
                     b.Navigation("Zaal");
                 });
@@ -522,12 +537,6 @@ namespace wdpr.Migrations
                 {
                     b.Navigation("Stoelen");
                 });
-
-            modelBuilder.Entity("Laak.Models.Bezoeker", b =>
-                {
-                    b.Navigation("voorkeuren");
-                });
-
 #pragma warning restore 612, 618
         }
     }

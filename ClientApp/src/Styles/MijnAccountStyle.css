@@ -1,0 +1,191 @@
+
+.containervoorMijnGegevensEnMijnReserveringen {
+    display: flex;
+    justify-content: center;
+
+}
+
+/*--------------------- Mijn Gegevens gedeelte --------------------------*/
+.mijnGegevens {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    width: 325px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mijnGegevens > h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #ca3939;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.mijnGegevens > h5 {
+    margin-bottom: -1px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #838b8f;
+    border-bottom: 2px dotted #000000;
+    max-width: 250px;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    ;
+}
+
+.gebruikerGegevens{
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.wijzigGegevens{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(194, 206, 194);
+    width: 250px;
+    margin-left: 5px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+button.wijzigGegevens:focus:not(:active) {
+    background-color: rgb(144, 150, 144);
+  }
+
+
+/*------------------ Wijzig gegevens Portaal-----------------*/
+
+.wijzigGegevensContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.wijzigGegevensPortaal{
+    border: #000000;
+
+    width: 500px;
+}
+
+.wijzigGegevensPortaal > h1{
+    color: #ca3939;
+    font-size: 1em;
+    margin-left: 35px;
+}
+
+.knoppenContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.keuzeWatWijzigen li {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 8px 16px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+.naamDiv, .wachtwoordDiv, .emailDiv {
+    margin-left: 60px;
+    margin-bottom: 20px;
+}
+
+.voorkeurenDiv {
+    margin-left: 20px;
+}
+
+.voorkeurenDiv > h2 {
+    font-size: 1.3em;
+}
+
+.voorkeurKnop{
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 100px;
+}
+
+
+.black-btn{
+    background-color: #000000;
+    color: white;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 120px;
+}
+
+
+.white-btn{
+    background-color: #ffffff;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 120px;
+}
+
+
+
+/*-------------------- Mijn Reservering gedeelte ---------------*/
+
+.mijnReserveringen{
+    background-color: rgb(76, 76, 82);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 600px;
+    padding-top: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mijnReserveringen > h1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: rgb(202, 57, 57);
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+
+.checkboxText {
+    margin-top: 15px;
+    font-size: 20px;
+    color: rgb(202, 57, 57);
+    display: flex;
+
+
+}
+
+.checkboxAdmin{
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(202, 57, 57);
+    margin-left: 10px;
+    margin-top: -10px;
+}
+
+/* Adminportaal */
+
+.adminPortaal, .werknemerPortaal {
+    border-radius: 2px;
+    border-color: #000000;
+    border-style: double;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 15px;
+    border-left: #000000;
+    border-right: #000000;
+    margin-bottom: 20px;
+}
+
+.werknemerPortaal{
+    margin-bottom: 75px;
+}
+
+

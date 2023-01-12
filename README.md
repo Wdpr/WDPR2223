@@ -28,7 +28,7 @@ Hier volgen de stappen die je moet nemen om correct een connectie te maken met S
     },
 "AllowedHosts": "*",
 "ConnectionStrings": {
-  "WDPRDatabase": "Server={ServerNaam};Database={DatabaseNaam};Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true"
+  "WDPRDatabase": "Server=ServerNaam;Database=DatabaseNaam;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true"
 }
 }
 ```
