@@ -30,9 +30,6 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BandId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Img")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,30 +40,7 @@ namespace wdpr.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BandId");
-
-                    b.ToTable("Artiest");
-                });
-
-            modelBuilder.Entity("Laak.Models.Band", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Img")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Naam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Band");
+                    b.ToTable("Artiesten");
                 });
 
             modelBuilder.Entity("Laak.Models.Reservering", b =>
@@ -155,9 +129,6 @@ namespace wdpr.Migrations
                     b.Property<int?>("ArtiestId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BandId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("datetime2");
 
@@ -184,8 +155,6 @@ namespace wdpr.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtiestId");
-
-                    b.HasIndex("BandId");
 
                     b.HasIndex("ZaalId");
 
@@ -438,13 +407,6 @@ namespace wdpr.Migrations
                     b.HasDiscriminator().HasValue("Medewerker");
                 });
 
-            modelBuilder.Entity("Laak.Models.Artiest", b =>
-                {
-                    b.HasOne("Laak.Models.Band", null)
-                        .WithMany("Artiest")
-                        .HasForeignKey("BandId");
-                });
-
             modelBuilder.Entity("Laak.Models.Reservering", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", "Bezoeker")
@@ -472,7 +434,7 @@ namespace wdpr.Migrations
             modelBuilder.Entity("Laak.Models.Voorkeur", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", null)
-                        .WithMany("voorkeuren")
+                        .WithMany("Voorkeuren")
                         .HasForeignKey("BezoekerId");
                 });
 
@@ -482,17 +444,11 @@ namespace wdpr.Migrations
                         .WithMany()
                         .HasForeignKey("ArtiestId");
 
-                    b.HasOne("Laak.Models.Band", "Band")
-                        .WithMany("Voorstellingen")
-                        .HasForeignKey("BandId");
-
                     b.HasOne("Laak.Models.Zaal", "Zaal")
                         .WithMany()
                         .HasForeignKey("ZaalId");
 
                     b.Navigation("Artiest");
-
-                    b.Navigation("Band");
 
                     b.Navigation("Zaal");
                 });
@@ -548,13 +504,6 @@ namespace wdpr.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Laak.Models.Band", b =>
-                {
-                    b.Navigation("Artiest");
-
-                    b.Navigation("Voorstellingen");
-                });
-
             modelBuilder.Entity("Laak.Models.Reservering", b =>
                 {
                     b.Navigation("Stoelen");
@@ -562,7 +511,7 @@ namespace wdpr.Migrations
 
             modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
-                    b.Navigation("voorkeuren");
+                    b.Navigation("Voorkeuren");
                 });
 #pragma warning restore 612, 618
         }
