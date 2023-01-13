@@ -13,14 +13,12 @@ export function VoegArtiestToeAanLijst() {
             setError(true)
         }
         else{
-            
             fetch("api/artiest/NieuweArtiest", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     Naam: artiestNaam,
                     Img: "image",
-
                 })
             }).then(response => {
                 console.log(response)
@@ -44,11 +42,6 @@ export function VoegArtiestToeAanLijst() {
                         <button className="btn-Artiest-Aanmaken" type="submit">Add</button>
                         </div>                      
                     </div>
-                    
-                       
-                            
-                       
-                    
                 </div>
             </div>
             <div className="col-sm-4">

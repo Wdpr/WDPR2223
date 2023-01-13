@@ -8,6 +8,7 @@ import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 import { ReserveringPage } from "./Pages/ReserveringPage";
 import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
+import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 
 const AppRoutes = [
   {
@@ -50,7 +51,11 @@ const AppRoutes = [
     path: '/Profiel',
     element: <MijnAccountPage />
   },
-];
+  {
+    path: '/ArtiestList',
+    element: <AList />
+  },
+  ];
 
 
 export default AppRoutes;

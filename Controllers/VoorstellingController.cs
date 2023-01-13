@@ -37,14 +37,15 @@ public class VoorstellingController : ControllerBase
     public Voorstelling PostVoorstelling(VoorstellingModel model)
     { Voorstelling voorstelling = new Voorstelling{
         
-        Naam = model.Naam,
+        Naam = model.naam,
         Img = model.img,
         Prijs = model.prijs,
         Genre = model.genre,
         Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
-        Datum = model.DatumTijd,
-        Tijd = model.Tijdsduur,
-        Artiest = model.artiest,
+        Datum = model.datumTijd,
+        Tijd = model.tijdsduur,
+        Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
+        
         
         
         
@@ -69,16 +70,16 @@ public class VoorstellingController : ControllerBase
 
 public class VoorstellingModel{
 
-    public string Naam{get;set;}
-    public string img { get; set; }
-public DateTime? DatumTijd { get; set;}
+    public string? naam{get;set;}
+    public string? img { get; set; }
+public DateTime? datumTijd { get; set;}
 
-public DateTime? Tijdsduur { get; set; }
+public DateTime? tijdsduur { get; set; }
     public int prijs { get; set; }
 
-    public string genre { get; set; }
+    public string? genre { get; set; }
 
     public int zaal { get; set; }
 
-    public Artiest? artiest { get; set; }
+    public int artiest { get; set; }
 }
