@@ -17,6 +17,7 @@ public class ZaalController : ControllerBase{
     }
 
     [HttpGet]
+    [Route("getZalen")]
     public async Task<IEnumerable<Zaal>> GetZalen(){
     
         return await _context.Zalen.ToListAsync();
