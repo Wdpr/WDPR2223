@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20230111200444_1")]
-    partial class _1
+    [Migration("20230112181534_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,81 @@ namespace wdpr.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artiesten");
+                });
+
+            modelBuilder.Entity("Laak.Models.Reservering", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BezoekerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TotaalPrijs")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoorstellingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BezoekerId");
+
+                    b.HasIndex("VoorstellingId");
+
+                    b.ToTable("Reserveringen");
+                });
+
+            modelBuilder.Entity("Laak.Models.Stoel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Rang")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ReserveringId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RijNr")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoelNr")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReserveringId");
+
+                    b.ToTable("Stoel");
+                });
+
+            modelBuilder.Entity("Laak.Models.Voorkeur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BezoekerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("voorkeurNaam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BezoekerId");
+
+                    b.ToTable("Voorkeuren");
                 });
 
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
@@ -97,7 +172,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AantalDerderRang")
+                    b.Property<int?>("AantalDerdeRang")
                         .HasColumnType("int");
 
                     b.Property<int?>("AantalEersteRang")
@@ -317,15 +392,53 @@ namespace wdpr.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Laak.Models.Account", b =>
+            modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Naam")
+                    b.HasDiscriminator().HasValue("Bezoeker");
+                });
+
+            modelBuilder.Entity("Laak.Models.Medewerker", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Functie")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Account");
+                    b.HasDiscriminator().HasValue("Medewerker");
+                });
+
+            modelBuilder.Entity("Laak.Models.Reservering", b =>
+                {
+                    b.HasOne("Laak.Models.Bezoeker", "Bezoeker")
+                        .WithMany()
+                        .HasForeignKey("BezoekerId");
+
+                    b.HasOne("Laak.Models.Voorstelling", "Voorstelling")
+                        .WithMany()
+                        .HasForeignKey("VoorstellingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bezoeker");
+
+                    b.Navigation("Voorstelling");
+                });
+
+            modelBuilder.Entity("Laak.Models.Stoel", b =>
+                {
+                    b.HasOne("Laak.Models.Reservering", null)
+                        .WithMany("Stoelen")
+                        .HasForeignKey("ReserveringId");
+                });
+
+            modelBuilder.Entity("Laak.Models.Voorkeur", b =>
+                {
+                    b.HasOne("Laak.Models.Bezoeker", null)
+                        .WithMany("Voorkeuren")
+                        .HasForeignKey("BezoekerId");
                 });
 
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
@@ -392,6 +505,16 @@ namespace wdpr.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Laak.Models.Reservering", b =>
+                {
+                    b.Navigation("Stoelen");
+                });
+
+            modelBuilder.Entity("Laak.Models.Bezoeker", b =>
+                {
+                    b.Navigation("Voorkeuren");
                 });
 #pragma warning restore 612, 618
         }

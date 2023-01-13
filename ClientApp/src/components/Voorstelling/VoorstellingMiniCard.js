@@ -1,10 +1,12 @@
 import React from 'react'
+import { Link, NavLink } from "react-router-dom";
+import img from '../../assets/guido-weijers.jpg'
 
-export const VoorstellingMiniCard = (props) => {
+export const VoorstellingMiniCard = ({voorstelling}) => {
     return (
-        <a href={'/voorstelling'+props.id} className='voorstellingMiniCard'>
-            <img src={props.img} alt={props.alt} />
-            <p>{props.alt}</p>
-        </a >
+        <NavLink tag={Link} to={'/voorstelling/'+voorstelling.id} className='voorstellingMiniCard'>
+            <img src={img} alt={voorstelling.naam} />
+            <p>{voorstelling.naam}</p>
+        </NavLink >
     )
 }

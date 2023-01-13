@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Laak.Context;
 using Laak.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Laak.Controllers;
 
@@ -23,6 +24,8 @@ public class VoorstellingController : ControllerBase
         return context.Voorstellingen;
     }
 
+    // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
+    [Authorize]
     [HttpGet("{id}")]
     public Voorstelling GetVoorstelling(int id)
     {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace wdpr.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,7 +45,7 @@ namespace wdpr.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Functie = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -74,7 +74,7 @@ namespace wdpr.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AantalEersteRang = table.Column<int>(type: "int", nullable: true),
                     AantalTweedeRang = table.Column<int>(type: "int", nullable: true),
-                    AantalDerderRang = table.Column<int>(type: "int", nullable: true)
+                    AantalDerdeRang = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,6 +188,25 @@ namespace wdpr.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Voorkeuren",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    voorkeurNaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BezoekerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Voorkeuren", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Voorkeuren_AspNetUsers_BezoekerId",
+                        column: x => x.BezoekerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Voorstellingen",
                 columns: table => new
                 {
@@ -214,6 +233,53 @@ namespace wdpr.Migrations
                         name: "FK_Voorstellingen_Zalen_ZaalId",
                         column: x => x.ZaalId,
                         principalTable: "Zalen",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reserveringen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VoorstellingId = table.Column<int>(type: "int", nullable: false),
+                    BezoekerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TotaalPrijs = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reserveringen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reserveringen_AspNetUsers_BezoekerId",
+                        column: x => x.BezoekerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Reserveringen_Voorstellingen_VoorstellingId",
+                        column: x => x.VoorstellingId,
+                        principalTable: "Voorstellingen",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stoel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RijNr = table.Column<int>(type: "int", nullable: false),
+                    StoelNr = table.Column<int>(type: "int", nullable: false),
+                    Rang = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReserveringId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stoel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stoel_Reserveringen_ReserveringId",
+                        column: x => x.ReserveringId,
+                        principalTable: "Reserveringen",
                         principalColumn: "Id");
                 });
 
@@ -257,6 +323,26 @@ namespace wdpr.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reserveringen_BezoekerId",
+                table: "Reserveringen",
+                column: "BezoekerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reserveringen_VoorstellingId",
+                table: "Reserveringen",
+                column: "VoorstellingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stoel_ReserveringId",
+                table: "Stoel",
+                column: "ReserveringId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Voorkeuren_BezoekerId",
+                table: "Voorkeuren",
+                column: "BezoekerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Voorstellingen_ArtiestId",
                 table: "Voorstellingen",
                 column: "ArtiestId");
@@ -286,13 +372,22 @@ namespace wdpr.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Voorstellingen");
+                name: "Stoel");
+
+            migrationBuilder.DropTable(
+                name: "Voorkeuren");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Reserveringen");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Voorstellingen");
 
             migrationBuilder.DropTable(
                 name: "Artiesten");
