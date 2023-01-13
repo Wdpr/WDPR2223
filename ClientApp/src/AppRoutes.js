@@ -5,6 +5,7 @@ import { LoginPage } from "./Pages/Login/LoginPage";
 import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
 import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
 import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
+import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 
 const AppRoutes = [
   {
@@ -34,6 +35,10 @@ const AppRoutes = [
   {
     path: '/AddArtiest',
     element: <VoegArtiestToeAanLijst />
+  },
+  {
+    path: '/ArtiestList',
+    element: <AList />
   },
   ];
 
