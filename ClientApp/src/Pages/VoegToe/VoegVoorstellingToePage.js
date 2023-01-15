@@ -62,7 +62,7 @@ export function VoorstellingAdding() {
 
     async function fetchZaalData(){
         try{
-            const response = await fetch("api/zaal/getZalen");
+            const response = await fetch("api/zaal");
             const responseJSON = await response.json();
             console.log(responseJSON);
             setZaalData(responseJSON);
