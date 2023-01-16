@@ -4,10 +4,22 @@ import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './Styles/custom.css';
 
+// const setAuthToken = token => {
+//   if (token) {
+//     axios.defaults.headers.common["Authorization"] = Bearer $(token);
+//   }
+//   else {
+//     delete axios.defaults.headers.common["Authorization"];
+//   }
+// }
+
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
+    // const token = sessionStorage.getItem('token')
+    // if (token) setAuthToken(token)
+
     return (
       <Layout>
         <Routes>

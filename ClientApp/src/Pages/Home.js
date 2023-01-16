@@ -19,7 +19,9 @@ export class Home extends Component {
   }
 
   populateVoorstellingenData() {
-    fetch('api/Voorstelling')
+    fetch('api/Voorstelling', {
+      headers : {"Authorize": "Bearer "+ sessionStorage.getItem("token")}
+    })
       .then(response => response.json())
       .then(data => {
         this.setState({ voorstellingen: data, loading: false });
