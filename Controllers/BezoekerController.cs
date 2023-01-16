@@ -1,9 +1,13 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Laak.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Laak.Controllers;
 
@@ -20,6 +24,7 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
+    [Authorize]
     [HttpGet]
     public IEnumerable<IdentityUser> GetBezoekers()
     {
@@ -72,16 +77,29 @@ public class BezoekerController : ControllerBase
     [Route("login")]
     public async Task<IActionResult> login(LoginModel loginModel)
     {
-        // de userManager zoek in de Context naar een Idetity met dezelfde Naam. Dit betekent wel dat iedereen een unieke naam moet hebben. Dit kan wel verholpen worden
-        var bezoeker = await userManager.FindByEmailAsync(loginModel.Email);
-        // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
-        if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
-        {
-            // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
-            await signInManager.SignInAsync(bezoeker, true);
-            Console.WriteLine("ingelogd als " + bezoeker.UserName);
-            return Ok(bezoeker);
-        }
+        // deze code is uit de demo code van school gehaald.
+        var _user = await userManager.FindByEmailAsync(loginModel.Email);
+        if (_user != null)
+            if (await userManager.CheckPasswordAsync(_user, loginModel.Wachtwoord))
+            {
+                var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
+
+                var signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, _user.UserName) };
+                var roles = await userManager.GetRolesAsync(_user);
+                foreach (var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                var tokenOptions = new JwtSecurityToken
+                (
+                    issuer: "https://localhost:44468",
+                    audience: "https://localhost:44468",
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(10),
+                    signingCredentials: signingCredentials
+                );
+                return Ok(new { Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions) });
+            }
+
         return Unauthorized();
     }
 
@@ -131,4 +149,4 @@ public class BezoekerController : ControllerBase
         public string Wachtwoord { get; set; }
         public string Functie { get; set; }
     }
-    }
+}
