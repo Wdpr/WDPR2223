@@ -35,6 +35,7 @@ public class ZaalController : ControllerBase{
     }
 
     [HttpPost]
+    [Route("nieuweZaal")]
     public async Task<ActionResult<Zaal>> PostZaal(Zaal zaal){
         _context.Zalen.Add(zaal);
         await _context.SaveChangesAsync();

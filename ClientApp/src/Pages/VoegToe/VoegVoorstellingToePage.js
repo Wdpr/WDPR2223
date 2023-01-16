@@ -26,11 +26,12 @@ export function VoorstellingAdding() {
 
     async function submitHandler(e) {
         e.preventDefault();
-      await fetchZaalData();
+     
         if (voorstellingNaam.length == 0 || zaalnummer == 0 || prijs == 0 || artiest.length == 0 || datumTijd.length == 0 || tijdsduur.length == 0) {
             setError(true);
         }
         else if(isNaN(zaalnummer) || isNaN(prijs)){ 
+            await fetchZaalData();
             setInvalidErrorZaal(true);
             setInvalidErrorPrijs(true);
             zaalData.forEach(zaal => {if(zaal.id != zaalnummer){
