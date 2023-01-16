@@ -9,6 +9,7 @@ import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 import { ReserveringPage } from "./Pages/ReserveringPage";
 import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
 import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
+import { VoegZaalToe } from "./Pages/ZalenToevoegen/ZaalAdd"; 
 
 const AppRoutes = [
   {
@@ -54,6 +55,10 @@ const AppRoutes = [
   {
     path: '/ArtiestList',
     element: <AList />
+  },
+  {
+    path: '/AddZalen',
+    element: <VoegZaalToe />
   },
   ];
 

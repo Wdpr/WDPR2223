@@ -9,45 +9,67 @@ namespace Laak.Controllers;
 
 public class ArtiestController : ControllerBase
 {
-private TheaterContext context;
+    private TheaterContext context;
 
 
 
- public ArtiestController(TheaterContext context)
+    public ArtiestController(TheaterContext context)
     {
         this.context = context;
     }
 
-[HttpGet]
-[Route("alleArtiesten")]
-public IEnumerable<Artiest> getAlleArtiesten(){
-return context.Artiesten;
-}
+    [HttpGet]
+    [Route("alleArtiesten")]
+    public IEnumerable<Artiest> getAlleArtiesten()
+    {
+        return context.Artiesten;
+    }
 
 
-[HttpGet("{id}")]
+    [HttpGet("{id}")]
     public Artiest GetArtiesten(int id)
     {
         return context.Artiesten.SingleOrDefault(v => v.Id == id);
     }
 
- [HttpPost]
+    [HttpPost]
     [Route("NieuweArtiest")]
     public Artiest PostArtiest(ArtiestModel model)
-    { Artiest a = new Artiest{
-        Naam = model.Naam,
-        Img = model.Img,
-       
-    };
+    {
+        Artiest a = new Artiest
+        {
+            Naam = model.Naam,
+            Img = model.Img,
+
+        };
         Console.WriteLine("Artiest model");
         context.Add(a);
         context.SaveChanges();
         return a;
-   
+
+    }
+
+    [HttpDelete]
+    [Route("DeleteArtiest")]
+    public void DeleteArtiest(int id)
+    {
+        foreach (Artiest artiesten in context.Artiesten)
+        {
+            if (id == artiesten.Id)
+            {
+                context.Remove(artiesten);
+                context.SaveChanges();
+            }
+        }
+
+
     }
 }
 
-public class ArtiestModel{
+
+
+public class ArtiestModel
+{
 
     public string Naam { get; set; }
     public string Img { get; set; }

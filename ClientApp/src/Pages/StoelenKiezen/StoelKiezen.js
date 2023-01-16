@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import{ useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -174,7 +174,7 @@ const StoelKiezen = ({ voorstelling }) => {
               ? ' Geen.'
               : selectedSeats.map((seat, index) => (
                 <div key={index}>
-                  Rij {seat.rijnr + 1}, Stoel {seat.stoelnr + 1}, Categorie {categories[seat.rijnr][seat.stoelnr]}              </div>
+                  Rij {seat.rijnr + 1}, Stoel {seat.stoelnr + 1}, Categorie {categories[seat.rijnr][seat.stoelnr]}</div>
               ))}
           </div>
           <div className="totaalPrijs">

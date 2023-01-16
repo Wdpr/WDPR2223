@@ -8,8 +8,10 @@ export function VoorstellingAdding() {
     const [datumTijd, setDatumTijd] = useState("");
     const [tijdsduur, setTijdsduur] = useState("");
     const [genre, setGenre] = useState("");
-    const [artiest, setArtiest] = useState("");
+    const [artiest, setArtiest] = useState(0);
     const [prijs, setPrijs] = useState(0);
+
+    const[zaalData, setZaalData] = useState([]);
 
     const [error, setError] = useState(false);
 
@@ -17,20 +19,25 @@ export function VoorstellingAdding() {
 
     const [invalidErrorPrijs, setInvalidErrorPrijs] = useState(false);
 
+    const [invalidErrorZaal2, setInvalidErrorZaal2] = useState(false);
+
 
 
 
     async function submitHandler(e) {
         e.preventDefault();
-
+     
         if (voorstellingNaam.length == 0 || zaalnummer == 0 || prijs == 0 || artiest.length == 0 || datumTijd.length == 0 || tijdsduur.length == 0) {
-            setError(true)   
+            setError(true);
         }
         else if(isNaN(zaalnummer) || isNaN(prijs)){ 
+            await fetchZaalData();
             setInvalidErrorZaal(true);
             setInvalidErrorPrijs(true);
-        }
-        else{
+            zaalData.forEach(zaal => {if(zaal.id != zaalnummer){
+                setInvalidErrorZaal2(true);
+            }})
+        }else{
             fetch("api/voorstelling/niewuweVoorstelling", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -54,6 +61,19 @@ export function VoorstellingAdding() {
 
     }
 
+    async function fetchZaalData(){
+        try{
+            const response = await fetch("api/zaal");
+            const responseJSON = await response.json();
+            console.log(responseJSON);
+            setZaalData(responseJSON);
+    }catch{
+    
+    }
+    }
+
+
+
     return (
         <form onSubmit={submitHandler}>
             <div className="container">
@@ -70,7 +90,7 @@ export function VoorstellingAdding() {
                                 <label className="labelInput">zaalnummer</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
-                                <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidErrorZaal &&  (isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
+                                <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidErrorZaal &&  (isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}{invalidErrorZaal2?<label className="label-invalidValue">Zaal bestaat niet</label>: ""}</div>
                                 <label className="labelInput">datum/tijd voorstelling</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="jjjj-mm-dd" />
@@ -86,12 +106,11 @@ export function VoorstellingAdding() {
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
                                 <NavLink tag={Link} className="text-dark" to="/ArtiestList"><button className="button-artiestlijst">lijst artiesten</button></NavLink>                             
-                                <div className="background-warning">{error && artiest.length <= 0 ? <label className="warning-no-input">artiest mag niet leeg zijn</label> : ""}</div>
+                                <div className="background-warning">{error && artiest == 0 ? <label className="warning-no-input">artiest mag niet leeg zijn</label> :""}</div>
                                 <label className="verplicht2">*</label>
                                 <label className="labelInput">prijs</label>
                                 <input type="text" id="voorstellingPrijs" onChange={(e) => setPrijs(e.target.value)} name="prijs" className="form-control" placeholder="00.00$" />
                                 <div className="background-warning">{error && prijs == 0 ?<label className="warning-no-input">prijs mag niet leeg zijn</label> : ""}{invalidErrorPrijs && (isNaN(prijs))?<label className="label-invalidValue">ongeldige waarde</label>: ""}</div>
-
                                 <div className="button-artiest-div"><label className="voeg-artiest-toe-indicator">Nieuwe artiest: </label> <NavLink tag={Link} className="text-dark" to="/AddArtiest">
                                     <button className="btn-Artiest-Add">&#43; artiest</button>
                                     </NavLink></div>
