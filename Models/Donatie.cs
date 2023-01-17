@@ -1,8 +1,9 @@
 namespace Laak.Models;
 
-public class Voorkeur
+public class Donatie
 {
     public int Id { get; set; }
-    public string voorkeurNaam { get; set; }
+    public int Bedrag { get; set; }
+    public DateTime Datum { get; set; }
     public string BezoekerId { get; set; }
 }
