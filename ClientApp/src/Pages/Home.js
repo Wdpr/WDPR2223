@@ -20,7 +20,7 @@ export class Home extends Component {
 
   populateVoorstellingenData() {
     fetch('api/Voorstelling', {
-      headers : {"Authorization": "Bearer "+ sessionStorage.getItem(token)}
+      headers : {"Authorization": "Bearer "+ sessionStorage.getItem("token")}   // dit moet nog uitgezocht worden. 
     })
       .then(response => response.json())
       .then(data => {
@@ -37,13 +37,13 @@ export class Home extends Component {
             <h1>Laak</h1>
           </div>
         </div>
-        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</span></p>}
+        {sessionStorage.getItem("username") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("username"))}</span></p>}
         <br />
         <br />
         <br />
         <div className="voorstellingMiniCards">
-          {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.map(voorstelling => {
-            return <VoorstellingMiniCard voorstelling={voorstelling} />
+          {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.map((voorstelling, index) => {
+            return <VoorstellingMiniCard key={index} voorstelling={voorstelling} />
           })}
         </div>
       </>

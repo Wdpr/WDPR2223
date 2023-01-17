@@ -18,8 +18,7 @@ public class VoorstellingController : ControllerBase
         this.context = context;
     }
 
-    [Authorize]
-    [HttpGet]
+[HttpGet]
     public IEnumerable<Voorstelling> GetAlleVoorstelling()
     {
         return context.Voorstellingen;

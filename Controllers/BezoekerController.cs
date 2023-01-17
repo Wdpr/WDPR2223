@@ -77,29 +77,12 @@ public class BezoekerController : ControllerBase
     [Route("login")]
     public async Task<IActionResult> login(LoginModel loginModel)
     {
-        // deze code is uit de demo code van school gehaald.
-        var _user = await userManager.FindByEmailAsync(loginModel.Email);
-        if (_user != null)
-            if (await userManager.CheckPasswordAsync(_user, loginModel.Wachtwoord))
-            {
-                var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
-
-                var signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, _user.UserName) };
-                var roles = await userManager.GetRolesAsync(_user);
-                foreach (var role in roles)
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                var tokenOptions = new JwtSecurityToken
-                (
-                    issuer: "https://localhost:44468",
-                    audience: "https://localhost:44468",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(10),
-                    signingCredentials: signingCredentials
-                );
-                return Ok(new { userName = _user.UserName, Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions) });
-            }
-
+        var user = await userManager.FindByEmailAsync(loginModel.Email);
+        if (user == null) return NotFound();
+        if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord)) {
+            await signInManager.SignInAsync(user, true);
+            return Ok(user.UserName);
+        }
         return Unauthorized();
     }
 
