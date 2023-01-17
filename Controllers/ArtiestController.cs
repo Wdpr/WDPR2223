@@ -10,8 +10,7 @@ namespace Laak.Controllers;
 public class ArtiestController : ControllerBase
 {
     private TheaterContext context;
-
-    public ArtiestController(TheaterContext context)
+    
     public ArtiestController(TheaterContext context)
     {
         this.context = context;
