@@ -24,12 +24,11 @@ export class NavMenu extends Component {
   }
 
   LogUit() {
-    sessionStorage.removeItem('gebruiker');
+    sessionStorage.removeItem('username');
     window.location.href = "/";
   }
 
   render() {
-    console.log('navmenu render')
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
@@ -46,7 +45,7 @@ export class NavMenu extends Component {
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/overons">Over Ons</NavLink>
               </NavItem>
-              {sessionStorage.getItem('gebruiker') ?
+              {sessionStorage.getItem('username') ?
                 <>
                   <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/profiel">Profiel</NavLink>
