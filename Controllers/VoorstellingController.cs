@@ -33,9 +33,10 @@ public class VoorstellingController : ControllerBase
     }
 
     [HttpPost]
-    [Route("niewuweVoorstelling")]
+    [Route("nieuweVoorstelling")]
     public Voorstelling PostVoorstelling(VoorstellingModel model)
-    { Voorstelling voorstelling = new Voorstelling{
+    { 
+        Voorstelling voorstelling = new Voorstelling{
         
         Naam = model.naam,
         Img = model.img,
@@ -46,40 +47,30 @@ public class VoorstellingController : ControllerBase
         Tijd = model.tijdsduur,
         Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
         
-        
-        
-        
-        
     };
+
         Console.WriteLine("Voorstelling model");
         context.Voorstellingen.Add(voorstelling);
         context.SaveChanges();
         return voorstelling;
    
     }
-    /*  !!! ik weet niet hoe je met SqlServer een foreign key meegeeft in een post request
-    {
-    "Naam": "Lubach de Grote",
-    "Img": "img",
-    "Prijs": 5,
-    "Genre": "Comedy"
+
+    public class VoorstellingModel{
+
+        public string? naam{get;set;}
+        public string? img { get; set; }
+        public DateTime? datumTijd { get; set;}
+
+        public DateTime? tijdsduur { get; set; }
+        public int prijs { get; set; }
+
+        public string? genre { get; set; }
+
+        public int zaal { get; set; }
+
+        public int artiest { get; set; }
+
     }
-    */
 
-}
-
-public class VoorstellingModel{
-
-    public string? naam{get;set;}
-    public string? img { get; set; }
-public DateTime? datumTijd { get; set;}
-
-public DateTime? tijdsduur { get; set; }
-    public int prijs { get; set; }
-
-    public string? genre { get; set; }
-
-    public int zaal { get; set; }
-
-    public int artiest { get; set; }
 }

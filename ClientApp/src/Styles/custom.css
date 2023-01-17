@@ -1,4 +1,6 @@
 /* Provide sufficient contrast against white background */
+@import "VoorstellingStyle.css";
+
 body {
   background-color: #3D3D3D;
   color: white;
@@ -147,7 +149,6 @@ code {
   text-transform: uppercase;
   margin-right: 25px;
   font-family: 'Courier New', Courier, monospace;
-
 }
 
 .loginForm > h2 {

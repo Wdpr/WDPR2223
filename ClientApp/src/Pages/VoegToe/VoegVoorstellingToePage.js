@@ -26,6 +26,21 @@ export function VoorstellingAdding() {
 
     async function submitHandler(e) {
         e.preventDefault();
+
+        console.log(tijdsduur);
+        // Tijd en Datum naar DATETIME omzetten
+        const tijd = tijdsduur;
+        const tijdSplit = tijd.split(':');
+        const tijdObject = new Date(0, 0, 0, tijdSplit[0], tijdSplit[1]);
+        const tijdISO = tijdObject.toISOString();
+        console.log(tijdISO);
+
+        console.log(datumTijd)
+        const datum = datumTijd;
+        const datumObject = new Date(datum);
+        const datumISO = datumObject.toISOString();
+        console.log(datumISO);
+
      
         if (voorstellingNaam.length == 0 || zaalnummer == 0 || prijs == 0 || artiest.length == 0 || datumTijd.length == 0 || tijdsduur.length == 0) {
             setError(true);
@@ -38,7 +53,7 @@ export function VoorstellingAdding() {
                 setInvalidErrorZaal2(true);
             }})
         }else{
-            fetch("api/voorstelling/niewuweVoorstelling", {
+            fetch("api/voorstelling/nieuweVoorstelling", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -47,14 +62,16 @@ export function VoorstellingAdding() {
                 img: "image",
                 Prijs: prijs,
                 Genre: genre,
-                Tijd:  tijdsduur,
-                datum: datumTijd,
+                Tijd:  tijdISO,
+                datum: datumISO,
                 Artiest: artiest,
             })
         }).then(response => {
-            console.log(response)
-            response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
-            
+            if (response.status === 405) {
+                alert("This server does not support the POST method for the specified endpoint.");
+            } else {
+                response.ok ? alert("voorstelling toegevoegd") : alert("poging mislukt")
+            }
             })
            }
           

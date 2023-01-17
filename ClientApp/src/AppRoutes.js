@@ -10,6 +10,7 @@ import { ReserveringPage } from "./Pages/ReserveringPage";
 import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
 import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 import { VoegZaalToe } from "./Pages/ZalenToevoegen/ZaalAdd"; 
+import { VoorstellingDetails } from "./components/Voorstelling/VoorstellingDetails";
 
 const AppRoutes = [
   {
@@ -19,6 +20,10 @@ const AppRoutes = [
   {
     path: '/voorstelling',
     element: <VoorstellingPage />
+  },
+  {
+    path: '/voorstelling/:id',
+    element: <VoorstellingDetails />
   },
   {
     path: '/overons',

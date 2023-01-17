@@ -1,6 +1,12 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
-export function VoorstellingBigCard({info}) {
+export function VoorstellingBigCard({ info }) {
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate('/voorstelling/' + info.id, { state: info })
+    }
 
     return (
         <div >
@@ -22,7 +28,9 @@ export function VoorstellingBigCard({info}) {
                 </div>
                 <div className='cardInfoPrijs'>
                     <ul>
-                        <li><button>Toon Info</button></li>
+                        <li>
+                            <button onClick={() => handleClick()}>Toon Info</button>
+                        </li>
                         <li>{info.prijs}</li>
                     </ul>
                 </div>
