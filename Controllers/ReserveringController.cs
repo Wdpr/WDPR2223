@@ -1,5 +1,6 @@
 using Laak.Context;
 using Laak.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laak.Controllers;
@@ -16,12 +17,14 @@ public class ReserveringController : ControllerBase
         this.context = context;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Get()
     {
         return Ok(context.Reserveringen);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
@@ -33,6 +36,7 @@ public class ReserveringController : ControllerBase
         return Ok(reservering);
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Post([FromBody] ReserveringModel reserveringModel)
     {
@@ -41,8 +45,6 @@ public class ReserveringController : ControllerBase
         var bezoeker = context.Bezoekers.SingleOrDefault(b => b.UserName == reserveringModel.BezoekerUserName);
         var voorstelling = context.Voorstellingen.Find(reserveringModel.VoorstellingId);
         if (voorstelling == null || bezoeker == null) return NotFound();
-
-
 
         var reservering = new Reservering
         {
@@ -56,6 +58,7 @@ public class ReserveringController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
     }
 
+    [Authorize]
     [HttpPost]
     [Route("fakepay")]
     public IActionResult fakePay([FromBody] BetalingModel betalingModel)
@@ -65,18 +68,18 @@ public class ReserveringController : ControllerBase
         Console.WriteLine(betalingModel.reference);
         return Ok();
     }
+}
 
-    public class ReserveringModel
-    {
-        public int VoorstellingId { get; set; }
-        public string BezoekerUserName { get; set; }
-        public int TotaalPrijs { get; set; }
-        public List<Stoel> Stoelen { get; set; }
-    }
+public class ReserveringModel
+{
+    public int VoorstellingId { get; set; }
+    public string BezoekerUserName { get; set; }
+    public int TotaalPrijs { get; set; }
+    public List<Stoel> Stoelen { get; set; }
+}
 
-    public class BetalingModel
-    {
-        public string succes { get; set; }
-        public string reference { get; set; }
-    }
+public class BetalingModel
+{
+    public string succes { get; set; }
+    public string reference { get; set; }
 }

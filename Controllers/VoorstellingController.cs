@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Laak.Context;
 using Laak.Models;
@@ -18,27 +17,26 @@ public class VoorstellingController : ControllerBase
         this.context = context;
     }
 
-[HttpGet]
+    [HttpGet]
     public IEnumerable<Voorstelling> GetAlleVoorstelling()
     {
         return context.Voorstellingen;
     }
 
-    // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
-    [Authorize]
     [HttpGet("{id}")]
     public Voorstelling GetVoorstelling(int id)
     {
         return context.Voorstellingen.SingleOrDefault(v => v.Id == id);
     }
 
+    // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
+    [Authorize]
     [HttpPost]
     [Route("niewuweVoorstelling")]
     public Voorstelling PostVoorstelling(VoorstellingModel model)
     {
         Voorstelling voorstelling = new Voorstelling
         {
-
             Naam = model.naam,
             Img = model.img,
             Prijs = model.prijs,
@@ -47,27 +45,12 @@ public class VoorstellingController : ControllerBase
             Datum = model.datumTijd,
             Tijd = model.tijdsduur,
             Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
-
-
-
-
-
         };
-        Console.WriteLine("Voorstelling model");
         context.Voorstellingen.Add(voorstelling);
         context.SaveChanges();
         return voorstelling;
 
     }
-    /*  !!! ik weet niet hoe je met SqlServer een foreign key meegeeft in een post request
-    {
-    "Naam": "Lubach de Grote",
-    "Img": "img",
-    "Prijs": 5,
-    "Genre": "Comedy"
-    }
-    */
-
 }
 
 public class VoorstellingModel

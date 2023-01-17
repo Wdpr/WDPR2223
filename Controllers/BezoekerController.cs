@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -55,8 +54,6 @@ public class BezoekerController : ControllerBase
     [Route("registreer/medewerker")]
     public async Task<IActionResult> RegistreerMedewerker(RegistreerModel registreerModel)
     {
-        Console.WriteLine(registreerModel.ToString());
-
         var medewerker = new Medewerker
         {
             Email = registreerModel.Email,
@@ -64,7 +61,6 @@ public class BezoekerController : ControllerBase
             PasswordHash = registreerModel.Wachtwoord,
             Functie = registreerModel.Functie,
         };
-        Console.WriteLine("Medewerker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
         // het wachtwoord geven we mee om het te checken of het een sterk wachtwoord is. 
         var resultaat = await userManager.CreateAsync(medewerker, medewerker.PasswordHash);
@@ -79,13 +75,15 @@ public class BezoekerController : ControllerBase
     {
         var user = await userManager.FindByEmailAsync(loginModel.Email);
         if (user == null) return NotFound();
-        if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord)) {
+        if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord))
+        {
             await signInManager.SignInAsync(user, true);
             return Ok(user.UserName);
         }
         return Unauthorized();
     }
 
+    [Authorize]
     [HttpPost]
     [Route("update/email")]
     public async Task<IActionResult> UpdateBezoekerEmail(UpdateEmailModel updateModel)
@@ -107,29 +105,28 @@ public class BezoekerController : ControllerBase
             return new BadRequestObjectResult(result);
         }
     }
+}
 
-    public class UpdateEmailModel
-    {
-        public string CurrentEmail { get; set; }
-        public string NewEmail { get; set; }
-    }
+public class UpdateEmailModel
+{
+    public string CurrentEmail { get; set; }
+    public string NewEmail { get; set; }
+}
 
+public class LoginModel
+{
+    // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
+    // De required stuurt eventueel bericht terug met de errorMessage als het niet is ingevuld.
+    [Required(ErrorMessage = "Email is verplicht")]
+    public string Email { get; set; }
+    [Required(ErrorMessage = "Wachtwoord is verplicht")]
+    public string Wachtwoord { get; set; }
+}
 
-    public class LoginModel
-    {
-        // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
-        // De required stuurt eventueel bericht terug met de errorMessage als het niet is ingevuld.
-        [Required(ErrorMessage = "Email is verplicht")]
-        public string Email { get; set; }
-        [Required(ErrorMessage = "Wachtwoord is verplicht")]
-        public string Wachtwoord { get; set; }
-    }
-
-    public class RegistreerModel
-    {
-        public string Gebruikersnaam { get; set; }
-        public string Email { get; set; }
-        public string Wachtwoord { get; set; }
-        public string Functie { get; set; }
-    }
+public class RegistreerModel
+{
+    public string Gebruikersnaam { get; set; }
+    public string Email { get; set; }
+    public string Wachtwoord { get; set; }
+    public string Functie { get; set; }
 }
