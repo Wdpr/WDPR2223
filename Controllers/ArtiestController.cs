@@ -12,6 +12,7 @@ public class ArtiestController : ControllerBase
     private TheaterContext context;
 
     public ArtiestController(TheaterContext context)
+    public ArtiestController(TheaterContext context)
     {
         this.context = context;
     }
@@ -45,6 +46,20 @@ public class ArtiestController : ControllerBase
         context.Add(a);
         context.SaveChanges();
         return a;
+    }
+
+    [HttpDelete]
+    [Route("DeleteArtiest")]
+    public void DeleteArtiest(int id)
+    {
+        foreach (Artiest artiesten in context.Artiesten)
+        {
+            if (id == artiesten.Id)
+            {
+                context.Remove(artiesten);
+                context.SaveChanges();
+            }
+        }
     }
 }
 

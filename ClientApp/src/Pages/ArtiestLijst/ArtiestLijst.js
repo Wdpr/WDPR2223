@@ -4,7 +4,8 @@ import {useState, useEffect} from 'react';
 export function AList(){
 
 const[artiestData, setArtiestData] = useState([]);
-useEffect(()=>{
+useEffect(()=>{fetchArtiestData()}, []);
+
 async function fetchArtiestData(){
     try{
         const response = await fetch("api/artiest/alleArtiesten");
@@ -16,8 +17,6 @@ async function fetchArtiestData(){
 }
 }
 
-fetchArtiestData();
-}, []);
 
 
 return (
@@ -26,7 +25,8 @@ return (
     artiestData.map(artiest=>{
       return(
         <div>
-
+         {artiest.naam}
+         {artiest.id}
 
         </div>
        

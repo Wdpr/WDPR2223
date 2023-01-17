@@ -3,6 +3,12 @@ import React from 'react'
 export const OverOns = () => {
     return (
         <div className="container">
+            <div className="beginBanner">
+                    <div className="beginBannerText">
+                        <h4>Theater</h4>
+                        <h1>Laak</h1>
+                    </div>
+                </div>
             <h1>Over Ons</h1>
             <p>Wij zijn de WDPR LEGENDS</p>
             <p>nice</p>

@@ -17,6 +17,7 @@ public class ZaalController : ControllerBase{
     }
 
     [HttpGet]
+    [Route("getZalen")]
     public async Task<IEnumerable<Zaal>> GetZalen(){
     
         return await _context.Zalen.ToListAsync();
@@ -34,6 +35,7 @@ public class ZaalController : ControllerBase{
     }
 
     [HttpPost]
+    [Route("nieuweZaal")]
     public async Task<ActionResult<Zaal>> PostZaal(Zaal zaal){
         _context.Zalen.Add(zaal);
         await _context.SaveChangesAsync();
