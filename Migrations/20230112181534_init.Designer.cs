@@ -4,6 +4,7 @@ using Laak.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wdpr.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    partial class TheaterContextModelSnapshot : ModelSnapshot
+    [Migration("20230112181534_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,31 +44,6 @@ namespace wdpr.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artiesten");
-                });
-
-            modelBuilder.Entity("Laak.Models.Donatie", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Bedrag")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BezoekerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BezoekerId");
-
-                    b.ToTable("Donaties");
                 });
 
             modelBuilder.Entity("Laak.Models.Reservering", b =>
@@ -130,7 +108,6 @@ namespace wdpr.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BezoekerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("voorkeurNaam")
@@ -433,22 +410,6 @@ namespace wdpr.Migrations
                     b.HasDiscriminator().HasValue("Medewerker");
                 });
 
-            modelBuilder.Entity("Laak.Models.Artiest", b =>
-                {
-                    b.HasOne("Laak.Models.Band", null)
-                        .WithMany("Artiest")
-                        .HasForeignKey("BandId");
-                });
-
-            modelBuilder.Entity("Laak.Models.Donatie", b =>
-                {
-                    b.HasOne("Laak.Models.Bezoeker", null)
-                        .WithMany("Donaties")
-                        .HasForeignKey("BezoekerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Laak.Models.Reservering", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", "Bezoeker")
@@ -477,10 +438,7 @@ namespace wdpr.Migrations
                 {
                     b.HasOne("Laak.Models.Bezoeker", null)
                         .WithMany("Voorkeuren")
-
-                        .HasForeignKey("BezoekerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BezoekerId");
                 });
 
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
@@ -556,7 +514,6 @@ namespace wdpr.Migrations
 
             modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
-                    b.Navigation("Donaties");
                     b.Navigation("Voorkeuren");
                 });
 #pragma warning restore 612, 618
