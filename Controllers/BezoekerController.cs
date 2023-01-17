@@ -71,17 +71,43 @@ public class BezoekerController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> login(LoginModel loginModel)
+    public async Task<IActionResult> Login([FromBody] LoginModel gebruikerLogin)
     {
-        var user = await userManager.FindByEmailAsync(loginModel.Email);
-        if (user == null) return NotFound();
-        if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord))
-        {
-            await signInManager.SignInAsync(user, true);
-            return Ok(user);
-        }
+        var _user = await userManager.FindByEmailAsync(gebruikerLogin.Email);
+        if (_user != null)
+            if (await userManager.CheckPasswordAsync(_user, gebruikerLogin.Wachtwoord))
+            {
+                var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
+
+                var signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, _user.UserName) };
+                var roles = await userManager.GetRolesAsync(_user);
+                foreach (var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                var tokenOptions = new JwtSecurityToken
+                (
+                    issuer: "https://localhost:7047",
+                    audience: "https://localhost:7047",
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(10),
+                    signingCredentials: signingCredentials
+                );
+                return Ok(new { Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions) });
+            }
+
         return Unauthorized();
     }
+    // public async Task<IActionResult> login(LoginModel loginModel)
+    // {
+    //     var user = await userManager.FindByEmailAsync(loginModel.Email);
+    //     if (user == null) return NotFound();
+    //     if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord))
+    //     {
+    //         await signInManager.SignInAsync(user, true);
+    //         return Ok(user);
+    //     }
+    //     return Unauthorized();
+    // }
 
     [Authorize]
     [HttpPost]

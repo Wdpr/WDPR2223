@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Laak.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class ZaalController : ControllerBase
 {
@@ -17,7 +18,6 @@ public class ZaalController : ControllerBase
         _context = context;
     }
 
-    [Authorize]
     [HttpGet]
     [Route("getZalen")]
     public async Task<IEnumerable<Zaal>> GetZalen()
@@ -25,7 +25,6 @@ public class ZaalController : ControllerBase
         return await _context.Zalen.ToListAsync();
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<Zaal>> GetZaal(int id)
     {
@@ -37,7 +36,6 @@ public class ZaalController : ControllerBase
         return zaal;
     }
 
-    [Authorize]
     [HttpPost]
     [Route("nieuweZaal")]
     public async Task<ActionResult<Zaal>> PostZaal(Zaal zaal)
