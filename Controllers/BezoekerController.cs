@@ -78,7 +78,7 @@ public class BezoekerController : ControllerBase
         if (await userManager.CheckPasswordAsync(user, loginModel.Wachtwoord))
         {
             await signInManager.SignInAsync(user, true);
-            return Ok(user.UserName);
+            return Ok(user);
         }
         return Unauthorized();
     }

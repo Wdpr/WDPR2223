@@ -24,7 +24,6 @@ export const RegistreerForm = () => {
         e.preventDefault();
 
         if (!emailEnWachtwoordControle(e)) return
-        console.log("email en wachtwoord zijn goed")
 
         fetch("api/bezoeker/registreer", {
             method: "POST",
@@ -36,7 +35,6 @@ export const RegistreerForm = () => {
                 functie: 'functie'
             })
         }).then(response => {
-            console.log(response)
             if (response.ok) {
                 alert("registreren gelukt")
                 navigate('/login')
