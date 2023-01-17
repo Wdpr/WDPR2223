@@ -17,6 +17,16 @@ const StoelKiezen = ({ voorstelling }) => {
   const [zaalLaden, setZaalLaden] = useState(false)
   
 
+  const [reserveringen, setReserveringen] = useState([]);
+  console.log(reserveringen)
+
+  //haal de reserveringen op voor het vullen van de al geboekte stoelen
+  async function haalReserveringenOp() {
+    const responsReserveringen = await fetch('api/reservering/')
+    const dataReserveringen = await responsReserveringen.json();
+    const filteredReserveringen = dataReserveringen.filter(reservering => reservering.voorstellingId === state.id)
+    setReserveringen(filteredReserveringen);
+  }
 
   async function haalZaalOp(zaal) {
     setZaalLaden(true)
@@ -33,11 +43,23 @@ const StoelKiezen = ({ voorstelling }) => {
   //haalt de stoelen uit de zaal in de state
   useEffect(() => {
     haalZaalOp(state.zaal.id)
+    haalReserveringenOp()
   }, [])
 
   useEffect(() => {
-    maakStoelen()
-  }, [zaalLaden])
+    maakStoelen();
+    if (reserveringen.length > 0) {
+      reserveringen.forEach((reservering) => {
+        reservering.stoelen.forEach((stoel) => {
+          setSeats((prevSeats) => {
+            const newSeats = [...prevSeats];
+            newSeats[stoel.rijNr][stoel.stoelNr] = 2;
+            return newSeats;
+          });
+        });
+      });
+    }
+  }, [reserveringen, zaalLaden]);
 
 
   function berekenAantalRijenPerCategorie(aantalStoelen, rangnr) {
@@ -178,6 +200,7 @@ const StoelKiezen = ({ voorstelling }) => {
             <button onClick={handleReserveerButton} className="button">Reserveer</button>
           </div>
         </div>
+        
 
       </div>
     </>

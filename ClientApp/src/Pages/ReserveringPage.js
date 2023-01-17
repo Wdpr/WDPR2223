@@ -60,7 +60,8 @@ export const ReserveringPage = () => {
                 "Stoelen": stoelen
             })
         })
-        .then(response => console.log(response))
+        .then(response => console.log(response)
+        )
 
     }
 
@@ -75,7 +76,7 @@ export const ReserveringPage = () => {
                 {stoelen.map((stoel, key) => <ul key={key}>
                                                             <li>Stoel: {stoel.stoelnr+ 1}</li> 
                                                             <li>Rij: {stoel.rijnr+ 1}</li> 
-                                                            <li>Categorie: {stoel.categorie}</li> 
+                                                            <li>Rang: {stoel.categorie}</li> 
                                                             <li>Prijs: €{stoel.prijs}</li>
                                                             </ul>)}
                 </div>
