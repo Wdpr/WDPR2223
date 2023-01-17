@@ -1,15 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+
+import { useLocation} from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export function VoorstellingDetails() {
     const state = useLocation().state;
+    const navigate = useNavigate();
+    console.log(state)
+
+    function handleClick() {
+        navigate('/stoelkiezen', { state: state })
+    }
 
     return (
         <div className='VoorstellingInfoPagina'>
             
             <div className='VoorstellingInfoDeel'>
-                    <img src='https://images.unsplash.com/photo-1607998803461-4e9aef3be418?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' className='VoorstellingFoto' ></img>
+                    <img src='https://images.unsplash.com/photo-1607998803461-4e9aef3be418?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' 
+                    className='VoorstellingFoto'
+                    alt= 'Foto van een theater' ></img>
 
                 <div className='VoorstellingInfoContainer'>
                     
@@ -49,7 +58,7 @@ export function VoorstellingDetails() {
                         </div>
                     </div>
 
-                                <button className='buttonNaarStoelen'>Bestel hier uw kaarten</button>
+                                <button  className='buttonNaarStoelen' onClick={() => handleClick()} >Bestel hier uw kaarten</button>
                     <h6><Link to='/voorstelling' >Wilt u terug naar de volledige programmering?</Link></h6>
                 </div>
                 

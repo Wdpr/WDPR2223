@@ -4,6 +4,7 @@ using Laak.Context;
 using Laak.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Laak.Controllers;
 
@@ -21,7 +22,7 @@ public class VoorstellingController : ControllerBase
     [HttpGet]
     public IEnumerable<Voorstelling> GetAlleVoorstelling()
     {
-        return context.Voorstellingen;
+        return context.Voorstellingen.AsQueryable().Include(v => v.Zaal);
     }
 
     // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
@@ -29,7 +30,7 @@ public class VoorstellingController : ControllerBase
     [HttpGet("{id}")]
     public Voorstelling GetVoorstelling(int id)
     {
-        return context.Voorstellingen.SingleOrDefault(v => v.Id == id);
+        return context.Voorstellingen.AsQueryable().Include(v => v.Zaal).SingleOrDefault(v => v.Id == id);
     }
 
     [HttpPost]
@@ -42,7 +43,7 @@ public class VoorstellingController : ControllerBase
         Img = model.img,
         Prijs = model.prijs,
         Genre = model.genre,
-        Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
+        ZaalId = context.Zalen.Where(zaal => zaal.Id == model.zaal).Select(z => z.Id).SingleOrDefault(),
         Datum = model.datumTijd,
         Tijd = model.tijdsduur,
         Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),

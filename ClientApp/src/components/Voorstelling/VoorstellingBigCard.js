@@ -24,7 +24,7 @@ export function VoorstellingBigCard({ info }) {
                         <li>{dag}</li>
                         <li>{alleenDatum}</li>
                         <li>{alleenTijd}</li>
-                        
+                        <li>{info.zaal.id}</li>
                     </ul>
                 </div>
                 <div className='cardVoorstellingInfo'>

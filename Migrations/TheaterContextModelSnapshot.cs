@@ -152,7 +152,7 @@ namespace wdpr.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArtiestId")
+                    b.Property<int>("ArtiestId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Datum")
@@ -175,7 +175,7 @@ namespace wdpr.Migrations
                     b.Property<DateTime?>("Tijd")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ZaalId")
+                    b.Property<int>("ZaalId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -433,13 +433,6 @@ namespace wdpr.Migrations
                     b.HasDiscriminator().HasValue("Medewerker");
                 });
 
-            modelBuilder.Entity("Laak.Models.Artiest", b =>
-                {
-                    b.HasOne("Laak.Models.Band", null)
-                        .WithMany("Artiest")
-                        .HasForeignKey("BandId");
-                });
-
             modelBuilder.Entity("Laak.Models.Donatie", b =>
                 {
                     b.HasOne("Laak.Models.Bezoeker", null)
@@ -477,7 +470,6 @@ namespace wdpr.Migrations
                 {
                     b.HasOne("Laak.Models.Bezoeker", null)
                         .WithMany("Voorkeuren")
-
                         .HasForeignKey("BezoekerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -487,11 +479,15 @@ namespace wdpr.Migrations
                 {
                     b.HasOne("Laak.Models.Artiest", "Artiest")
                         .WithMany()
-                        .HasForeignKey("ArtiestId");
+                        .HasForeignKey("ArtiestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Laak.Models.Zaal", "Zaal")
                         .WithMany()
-                        .HasForeignKey("ZaalId");
+                        .HasForeignKey("ZaalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Artiest");
 
@@ -557,6 +553,7 @@ namespace wdpr.Migrations
             modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
                     b.Navigation("Donaties");
+
                     b.Navigation("Voorkeuren");
                 });
 #pragma warning restore 612, 618

@@ -262,3 +262,8 @@ Migrations/20230112204300_idnaarString.Designer.cs
 Migrations/20230112211750_idvanBezoekerVerwijderd.cs
 Migrations/20230112211750_idvanBezoekerVerwijderd.Designer.cs
 Migrations/TheaterContextModelSnapshot.cs
+Migrations/20230112181534_init.cs
+Migrations/20230112181534_init.Designer.cs
+Migrations/20230117144813_2.cs
+Migrations/20230117144813_2.Designer.cs
+Migrations/TheaterContextModelSnapshot.cs

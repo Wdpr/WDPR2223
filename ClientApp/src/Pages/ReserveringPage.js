@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export const ReserveringPage = () => {
     const navigate = useNavigate();
-    const stoelen = JSON.parse(sessionStorage.getItem("rStoelen"))
-    const prijs = sessionStorage.getItem("rPrijs")
-    const voorstelling = sessionStorage.getItem("rVoorstelling")
+    const state = useLocation().state;
+    console.log(state)
 
-    console.log(stoelen)
+    const stoelen = state.bestelling.stoelen
+    const prijs = state.bestelling.prijs
 
+
+
+    
     const [fakePay, setFakePay] = useState()
 
     // deze functie maakt gebruik van de fakepay api gegeven vanuit school
@@ -50,7 +54,7 @@ export const ReserveringPage = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                "VoorstellingId": 1,
+                "VoorstellingId": state.id,
                 "BezoekerUsername": gebruiker.userName,
                 "TotaalPrijs": prijs,
                 "Stoelen": stoelen
@@ -62,20 +66,26 @@ export const ReserveringPage = () => {
 
     return (
         <div>
-            <h1>Reservering Pagina</h1>
+            <h1>{state.naam}</h1>
             <div>
-                <p>
-                    U heeft {stoelen.length} stoelen geboekt. Voor de voorstelling: {voorstelling}
-                    <br />
-                    De stoelen zijn:
-                    <br />
-                    {stoelen.map((stoel, key) => <span key={key}>- rij: {stoel.rijnr+ 1}, stoel: {stoel.stoelnr+ 1} -</span>)}
-                    <br />
-                    U heeft een prijs van {prijs} euro
-                </p>
+                
+                <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
+                    
+                <div>
+                {stoelen.map((stoel, key) => <ul key={key}>
+                                                            <li>Stoel: {stoel.stoelnr+ 1}</li> 
+                                                            <li>Rij: {stoel.rijnr+ 1}</li> 
+                                                            <li>Categorie: {stoel.categorie}</li> 
+                                                            <li>Prijs: €{stoel.prijs}</li>
+                                                            </ul>)}
+                </div>
+                <br></br>   
+                <p>Dit komt op een totaalprijs van €{prijs}</p>   
+                    
+                
                 <span>Bent u zeker van uw reservering?</span>
             </div>
-            <button onClick={() => naarBetaling()}>Bevestig en ga naar betaling</button>
+            <button onClick={() => postReservering()}>Bevestig en ga naar betaling</button>
             {fakePay ? <p dangerouslySetInnerHTML={{ __html: fakePay }}></p> : null}
 
         </div>
