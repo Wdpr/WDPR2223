@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const StoelKiezen = ({ voorstelling }) => {
   const navigate = useNavigate();
   const state = useLocation().state;
-  console.log(state);
+  
   
   // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd. 
   //                           ||| Waarde 2 = gereserveerd. 
@@ -16,9 +16,8 @@ const StoelKiezen = ({ voorstelling }) => {
 
   const [zaalLaden, setZaalLaden] = useState(false)
   
-
   const [reserveringen, setReserveringen] = useState([]);
-  console.log(reserveringen)
+  
 
   //haal de reserveringen op voor het vullen van de al geboekte stoelen
   async function haalReserveringenOp() {
@@ -33,6 +32,7 @@ const StoelKiezen = ({ voorstelling }) => {
     console.log('Loading data...')
     var respons = await fetch('api/zaal/' + zaal)
     var data = await respons.json();
+    haalReserveringenOp()
     setEersteRang(data.aantalEersteRang)
     setTweedeRang(data.aantalTweedeRang)
     setDerdeRang(data.aantalDerdeRang)
@@ -42,8 +42,8 @@ const StoelKiezen = ({ voorstelling }) => {
 
   //haalt de stoelen uit de zaal in de state
   useEffect(() => {
+    
     haalZaalOp(state.zaal.id)
-    haalReserveringenOp()
   }, [])
 
   useEffect(() => {
@@ -179,9 +179,11 @@ const StoelKiezen = ({ voorstelling }) => {
           ))}
           <span>
             <br></br>
-            <p>| Eersterang  €{state.prijs} <span><button className="seat-button category-1" /> </span>
+            <p> Eersterang  €{state.prijs} <span><button className="seat-button category-1" /> </span>
               | Tweederang €{state.prijs * 1.4} <span><button className="seat-button category-2" /> </span>
-              | Derderang €{state.prijs * 1.8} <span><button className="seat-button category-3" /> </span></p>
+              | Derderang €{state.prijs * 1.8} <span><button className="seat-button category-3" /> </span>
+              | Bezet <span><button className="seat-button reserved" /> </span>
+              </p>
           </span>
         </div>
 
