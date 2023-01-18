@@ -113,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.And("de bezoeker het wachtwoord WDpr123! invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
-    testRunner.And("de bezoeker de request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("de bezoeker de login request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
     testRunner.Then("wordt er een account gemaakt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -152,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.And("de bezoeker zijn wachtwoord WDpr123! invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 19
-    testRunner.And("de bezoeker de request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("de bezoeker de registreer request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 20
     testRunner.Then("de bezoeker is ingelogd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
