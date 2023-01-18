@@ -1,3 +1,8 @@
 {
-    "unitTestProvider": "xunit"
+    "stepAssemblies": [
+        {
+            
+        }
+    ],
+    "unitTestProvider": "xUnit"
 }
