@@ -1,6 +1,7 @@
 using Laak.Context;
 using Laak.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Laak.Controllers;
 
@@ -9,7 +10,7 @@ namespace Laak.Controllers;
 public class ReserveringController : ControllerBase
 {
 
-    private readonly TheaterContext context;
+    private  TheaterContext context;
 
     public ReserveringController(TheaterContext context)
     {
@@ -17,9 +18,9 @@ public class ReserveringController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Get()
+    public IEnumerable<Reservering> GetReserveringen()
     {
-        return Ok(context.Reserveringen);
+        return context.Reserveringen.AsQueryable().Include(r => r.Stoelen).Include(r => r.Voorstelling);
     }
 
     [HttpGet("{id}")]
@@ -53,7 +54,7 @@ public class ReserveringController : ControllerBase
         };
         context.Reserveringen.Add(reservering);
         context.SaveChanges();
-        return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
+        return Ok(reservering);
     }
 
     [HttpPost]

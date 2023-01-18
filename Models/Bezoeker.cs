@@ -4,7 +4,7 @@ namespace Laak.Models;
 
 public class Bezoeker : IdentityUser
 {
-    public int Id { get; set; }
-    public string Intresse { get; set; }
+    public List<Voorkeur> Voorkeuren { get; set; }
+    public List<Donatie> Donaties { get; set; }
 
 }

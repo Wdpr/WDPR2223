@@ -1,0 +1,141 @@
+.form-control{
+    width: 500px;
+}
+
+.label1{
+    float: left;
+    padding-top: 8px;
+    padding-right: 20px;
+}
+
+.verplicht{
+    float:right;
+    padding-right: 200px;
+    padding-top: 10px;
+}
+
+
+.col-sm-12{
+    padding-bottom: 650px;
+}
+
+.verplicht2{
+    float:right;
+    margin-right: 305px;
+    margin-top: 34px; 
+}
+
+.button-artiestlijst{
+position: relative;
+float:right;
+margin-top:-38px;
+margin-right:320px ;
+padding-bottom: 2px;
+padding-top: 8px;
+border-style: solid;
+border-top-right-radius: 6px;
+border-bottom-right-radius: 6px;
+border-color: crimson;
+background-color: rgb(27, 27, 27);
+color: crimson;
+border-width: 2px;
+cursor: pointer;
+transition: background-color 0.2s, color 0.2s, opacity 0.15s;
+}
+
+.button-artiestlijst:active{
+   opacity: 0.8;
+}
+
+.optioneel1{
+    float:right;
+    margin-top:30px;
+    margin-right: 235px;
+}
+
+.warning-no-input{
+    color: red;   
+}
+
+.label-invalidValue{
+    color:red;
+}
+
+
+.background-warning-artiest{
+margin-left: 110px;
+}
+
+.col-Voorstelling, .col-Artiest{
+    background-color: rgb(27, 27, 27);
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    display:inline-block;
+}
+
+
+
+.btn-Artiest-Add, .btn-Save, .btn-Artiest-Aanmaken{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: crimson;
+    background-color: rgb(27, 27, 27);
+    color: crimson;
+    border-width: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, opacity 0.15s;
+}
+
+
+.btn-Save:hover, .btn-Artiest-Add:hover, .btn-Artiest-Aanmaken:hover, .button-artiestlijst:hover{
+background-color: crimson;
+color: rgb(27, 27, 27)
+}
+
+
+.btn-Save:active, .btn-Artiest-Add:active{
+    opacity: 0.5;
+}
+
+.btn-Save{
+float: left;
+margin-right: 50px;
+padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-bottom: 5px;
+}
+
+.btn-Artiest-Add{
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.btn-Artiest-Aanmaken{
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.button-artiest-div{
+    margin-top: 20px;
+    float: right;
+    margin-right: 60px;
+}
+
+.voeg-artiest-toe-indicator{
+    color: crimson;
+   
+}
+
+.button-save-div{
+    margin-left: 210px;
+    margin-top: 20px;
+    
+
+}
