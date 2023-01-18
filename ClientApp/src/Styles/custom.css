@@ -37,6 +37,10 @@ code {
   height: 150px;
 }
 
+.cardDatumInfo {
+  min-width: 100px;
+}
+
 .cardDatumInfo > ul{
   list-style-type: none;
   padding: 0;

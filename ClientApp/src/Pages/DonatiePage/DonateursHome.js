@@ -46,6 +46,8 @@ export const DonateursHome = () => {
         ? voorstellingen.filter(voorstelling => voorstelling.genre === selectedGenre)
         : voorstellingen;
 
+        filteredVoorstellingen.sort((b, a) => new Date(a.datumDateTime) - new Date(b.datumDateTime));
+
     return (
         <div>
             <div className="beginBanner">

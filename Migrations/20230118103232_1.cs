@@ -238,8 +238,9 @@ namespace wdpr.Migrations
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArtiestId = table.Column<int>(type: "int", nullable: false),
                     ZaalId = table.Column<int>(type: "int", nullable: false),
-                    Datum = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Tijd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Datum = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tijd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Speelduur = table.Column<int>(type: "int", nullable: false),
                     Prijs = table.Column<int>(type: "int", nullable: true),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

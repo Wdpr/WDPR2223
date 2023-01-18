@@ -22,7 +22,14 @@ public class VoorstellingController : ControllerBase
     [HttpGet]
     public IEnumerable<Voorstelling> GetAlleVoorstelling()
     {
-        return context.Voorstellingen.AsQueryable().Include(v => v.Zaal);
+        foreach (var voorstelling in context.Voorstellingen)
+        {
+            if(!string.IsNullOrEmpty(voorstelling.Datum))
+            voorstelling.DatumDateTime = DateTime.ParseExact(voorstelling.Datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            if(!string.IsNullOrEmpty(voorstelling.Tijd))
+            voorstelling.TijdDateTime = DateTime.ParseExact(voorstelling.Tijd, "HH:mm", CultureInfo.InvariantCulture);
+        }
+        return context.Voorstellingen.AsQueryable().Include(v => v.Zaal).Include(v => v.Artiest);
     }
 
     // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
@@ -44,8 +51,9 @@ public class VoorstellingController : ControllerBase
         Prijs = model.prijs,
         Genre = model.genre,
         ZaalId = context.Zalen.Where(zaal => zaal.Id == model.zaal).Select(z => z.Id).SingleOrDefault(),
-        Datum = model.datumTijd,
-        Tijd = model.tijdsduur,
+        Datum = model.datum,
+        Tijd = model.tijd,
+        Speelduur = model.speelduur,
         Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
         
     };
@@ -61,15 +69,12 @@ public class VoorstellingController : ControllerBase
 
         public string? naam{get;set;}
         public string? img { get; set; }
-        public DateTime? datumTijd { get; set;}
-
-        public DateTime? tijdsduur { get; set; }
+        public string? datum { get; set;}
+        public string? tijd { get; set; }
         public int prijs { get; set; }
-
+        public int speelduur { get; set; }
         public string? genre { get; set; }
-
         public int zaal { get; set; }
-
         public int artiest { get; set; }
 
     }

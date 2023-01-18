@@ -156,8 +156,9 @@ namespace wdpr.Migrations
                     b.Property<int>("ArtiestId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Datum")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Datum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
@@ -173,8 +174,12 @@ namespace wdpr.Migrations
                     b.Property<int?>("Prijs")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Tijd")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Speelduur")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tijd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ZaalId")
                         .HasColumnType("int");
