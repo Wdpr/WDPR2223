@@ -24,7 +24,7 @@ export function VoorstellingBigCard({ info }) {
                         <li>{dag}</li>
                         <li>{alleenDatum}</li>
                         <li>{alleenTijd}</li>
-                        <li>{info.zaal.id}</li>
+
                     </ul>
                 </div>
                 <div className='cardVoorstellingInfo'>
@@ -39,7 +39,7 @@ export function VoorstellingBigCard({ info }) {
                         <li>
                             <button onClick={() => handleClick()}>Toon Info</button>
                         </li>
-                        <li>{info.prijs}</li>
+                        <li>v.a. €{info.prijs}</li>
                     </ul>
                 </div>
             </div>

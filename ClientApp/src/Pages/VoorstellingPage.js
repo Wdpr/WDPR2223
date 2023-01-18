@@ -32,7 +32,7 @@ export class VoorstellingPage extends React.Component {
                 </div>
                 <div className='genreFilter'>
                     <select onChange={this.handleGenreChange}>
-                        <option value="" selected>All Genres</option>
+                        <option value="" selected>Alles</option>
                         
                         {Array.from(new Set(this.state.voorstellingen.map(voorstelling => voorstelling.genre))).map(genre => (
                             <option key={genre} value={genre}>{genre}</option>

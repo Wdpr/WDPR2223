@@ -42,10 +42,10 @@ const StoelKiezen = ({ voorstelling }) => {
 
   //haalt de stoelen uit de zaal in de state
   useEffect(() => {
-    
     haalZaalOp(state.zaal.id)
   }, [])
 
+  //maakt de stoelen aan & filtert de al gereserveerde stoelen
   useEffect(() => {
     maakStoelen();
     if (reserveringen.length > 0) {
