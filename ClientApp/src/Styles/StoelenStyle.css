@@ -68,7 +68,8 @@
     background-color: rgb(90, 7, 7);
     padding: 10px;
     border-radius: 10px;
-    width: 800px;
+    width: 700px;
+    min-width: 600px;
     align-items: center;
     text-align: center;
 }
@@ -102,4 +103,3 @@
   border-radius: 4px 4px 0px 0px;
   border-top-style: none
 }
-

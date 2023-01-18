@@ -20,7 +20,15 @@ export function ToonMijnGevens() {
         setSelectedItem(event.target.innerText);
     }
 
-
+    const haalReserveringenOp = async () => {
+        const responsReserveringen = await fetch('api/reservering/')
+        const dataReserveringen = await responsReserveringen.json();
+        const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
+        const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
+        console.log(filteredReserveringen);
+    }
+    haalReserveringenOp();
+    
     
 
     return (

@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
-export function VoorstellingBigCard({info}) {
+export function VoorstellingBigCard({ info }) {
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate('/voorstelling/' + info.id, { state: info })
+    }
+
     const datum = new Date(info.tijd);
     const alleenDatum = datum.toLocaleDateString();
     const alleenTijd = datum.toLocaleTimeString();
@@ -17,7 +24,7 @@ export function VoorstellingBigCard({info}) {
                         <li>{dag}</li>
                         <li>{alleenDatum}</li>
                         <li>{alleenTijd}</li>
-                        
+
                     </ul>
                 </div>
                 <div className='cardVoorstellingInfo'>
@@ -29,8 +36,10 @@ export function VoorstellingBigCard({info}) {
                 </div>
                 <div className='cardInfoPrijs'>
                     <ul>
-                        <li><button>Toon Info</button></li>
-                        <li>€{info.prijs}</li>
+                        <li>
+                            <button onClick={() => handleClick()}>Toon Info</button>
+                        </li>
+                        <li>v.a. €{info.prijs}</li>
                     </ul>
                 </div>
             </div>

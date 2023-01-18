@@ -1,10 +1,13 @@
 import React from "react";
 import{ useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const StoelKiezen = ({ voorstelling }) => {
   const navigate = useNavigate();
+  const state = useLocation().state;
+  
+  
   // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd. 
   //                           ||| Waarde 2 = gereserveerd. 
   const [eersteRang, setEersteRang] = useState()
@@ -12,12 +15,24 @@ const StoelKiezen = ({ voorstelling }) => {
   const [derdeRang, setDerdeRang] = useState()
 
   const [zaalLaden, setZaalLaden] = useState(false)
+  
+  const [reserveringen, setReserveringen] = useState([]);
+  
+
+  //haal de reserveringen op voor het vullen van de al geboekte stoelen
+  async function haalReserveringenOp() {
+    const responsReserveringen = await fetch('api/reservering/')
+    const dataReserveringen = await responsReserveringen.json();
+    const filteredReserveringen = dataReserveringen.filter(reservering => reservering.voorstellingId === state.id)
+    setReserveringen(filteredReserveringen);
+  }
 
   async function haalZaalOp(zaal) {
     setZaalLaden(true)
     console.log('Loading data...')
     var respons = await fetch('api/zaal/' + zaal)
     var data = await respons.json();
+    haalReserveringenOp()
     setEersteRang(data.aantalEersteRang)
     setTweedeRang(data.aantalTweedeRang)
     setDerdeRang(data.aantalDerdeRang)
@@ -25,15 +40,26 @@ const StoelKiezen = ({ voorstelling }) => {
     console.log('Data loaded!')
   }
 
-
-
+  //haalt de stoelen uit de zaal in de state
   useEffect(() => {
-    haalZaalOp(1)
+    haalZaalOp(state.zaal.id)
   }, [])
 
+  //maakt de stoelen aan & filtert de al gereserveerde stoelen
   useEffect(() => {
-    maakStoelen()
-  }, [zaalLaden])
+    maakStoelen();
+    if (reserveringen.length > 0) {
+      reserveringen.forEach((reservering) => {
+        reservering.stoelen.forEach((stoel) => {
+          setSeats((prevSeats) => {
+            const newSeats = [...prevSeats];
+            newSeats[stoel.rijNr][stoel.stoelNr] = 2;
+            return newSeats;
+          });
+        });
+      });
+    }
+  }, [reserveringen, zaalLaden]);
 
 
   function berekenAantalRijenPerCategorie(aantalStoelen, rangnr) {
@@ -65,7 +91,6 @@ const StoelKiezen = ({ voorstelling }) => {
 
 
   function maakStoelen() {
-    const totaalAantalStoelen = eersteRang + tweedeRang + derdeRang
     const aantalRijenEersteCategorie = berekenAantalRijenPerCategorie(eersteRang, 1)
     const aantalRijenTweedeCategorie = berekenAantalRijenPerCategorie(tweedeRang, 2)
     const aantalRijenDerdeCategorie = berekenAantalRijenPerCategorie(derdeRang, 3)
@@ -74,7 +99,6 @@ const StoelKiezen = ({ voorstelling }) => {
 
     //vullen van stoelen met alle waardes 0
     const initialStoelen = stoelen.map(row => row.map(seat => 0));
-
     setSeats(initialStoelen)
     //vullen van de categorieen
     setCategories(stoelen)
@@ -82,11 +106,10 @@ const StoelKiezen = ({ voorstelling }) => {
   }
 
   const [seats, setSeats] = useState([]);
-
   const [categories, setCategories] = useState([]);
 
   //prijzen per categorie
-  const prices = [100.00, 40.25, 30.50];
+  const prices = [state.prijs, state.prijs * 1.4, state.prijs * 1.8];
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -104,7 +127,7 @@ const StoelKiezen = ({ voorstelling }) => {
     const newSelectedSeats = [...selectedSeats];
     // Toevoegen aan selected
     if (newSeats[rijnr][stoelnr] === 1) {
-      newSelectedSeats.push({ rijnr, stoelnr });
+      newSelectedSeats.push({ rijnr, stoelnr, categorie: categories[rijnr][stoelnr], prijs: prices[categories[rijnr][stoelnr] - 1] });
     } else {
       // Verwijderen van selected
       newSelectedSeats.splice(
@@ -124,15 +147,10 @@ const StoelKiezen = ({ voorstelling }) => {
 
   //Placeholder functie voor het plaatsen van de bestelling
   function handleReserveerButton() {
-    console.log(selectedSeats)
-    console.log(totalPrice)
-
-    // save selected seats and total price in session storage
-    sessionStorage.setItem("rStoelen", JSON.stringify(selectedSeats))
-    sessionStorage.setItem("rPrijs", 80)                                                  // !!!! moet natuurlijk totalPrice zijn
-    sessionStorage.setItem("rVoorstelling", 1)
+    
     // go to reserveringpage
-    navigate('/reserveren')
+    state.bestelling = { stoelen: selectedSeats, prijs: totalPrice }
+    navigate('/reserveren', {state : state})
   }
 
   return (
@@ -161,9 +179,11 @@ const StoelKiezen = ({ voorstelling }) => {
           ))}
           <span>
             <br></br>
-            <p>| Eersterang  €{prices[0]} <span><button className="seat-button category-1" /> </span>
-              | Tweederang €{prices[1]} <span><button className="seat-button category-2" /> </span>
-              | Derderang €{prices[2]} <span><button className="seat-button category-3" />{ } </span></p>
+            <p> Eersterang  €{state.prijs} <span><button className="seat-button category-1" /> </span>
+              | Tweederang €{state.prijs * 1.4} <span><button className="seat-button category-2" /> </span>
+              | Derderang €{state.prijs * 1.8} <span><button className="seat-button category-3" /> </span>
+              | Bezet <span><button className="seat-button reserved" /> </span>
+              </p>
           </span>
         </div>
 
@@ -182,6 +202,7 @@ const StoelKiezen = ({ voorstelling }) => {
             <button onClick={handleReserveerButton} className="button">Reserveer</button>
           </div>
         </div>
+        
 
       </div>
     </>

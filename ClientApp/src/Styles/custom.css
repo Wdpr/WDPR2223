@@ -1,4 +1,5 @@
 /* Provide sufficient contrast against white background */
+@import "VoorstellingStyle.css";
 @import "donerenStyle.css";
 
 body {
@@ -159,7 +160,6 @@ code {
   text-transform: uppercase;
   margin-right: 25px;
   font-family: 'Courier New', Courier, monospace;
-
 }
 
 .loginForm > h2 {
@@ -325,3 +325,8 @@ code {
   margin-bottom: 40px;
 }
 
+.genreFilter{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
