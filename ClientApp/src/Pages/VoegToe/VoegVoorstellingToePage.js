@@ -3,14 +3,17 @@ import { Link, NavLink } from "react-router-dom";
 import './x.css'
 
 export function VoorstellingAdding() {
+    
+
     const [voorstellingNaam, setVoorstelllingNaam] = useState("");
     const [zaalnummer, setZaalnummer] = useState(0);
     const [datumTijd, setDatumTijd] = useState("");
     const [tijdsduur, setTijdsduur] = useState("");
     const [genre, setGenre] = useState("");
-    const [artiest, setArtiest] = useState(0);
+    const [artiest, setArtiest] = useState(0);  
     const [prijs, setPrijs] = useState(0);
 
+    
     const[zaalData, setZaalData] = useState([]);
 
     const [error, setError] = useState(false);
@@ -23,6 +26,7 @@ export function VoorstellingAdding() {
 
 
 
+  
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -48,7 +52,7 @@ export function VoorstellingAdding() {
                 Prijs: prijs,
                 Genre: genre,
                 Tijd:  tijdsduur,
-                datum: datumTijd,
+                datum:  datumTijd,
                 Artiest: artiest,
             })
         }).then(response => {

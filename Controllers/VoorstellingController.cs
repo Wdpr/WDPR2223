@@ -42,13 +42,10 @@ public class VoorstellingController : ControllerBase
         Prijs = model.prijs,
         Genre = model.genre,
         Zaal = context.Zalen.Where(zaal => zaal.Id == model.zaal).SingleOrDefault(),
-        Datum = model.datumTijd,
-        Tijd = model.tijdsduur,
+        Datum = DateTime.Parse(model.datumTijd),
+        Tijd =  DateTime.Parse(model.tijdsduur),
         Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
-        
-        
-        
-        
+
         
     };
         Console.WriteLine("Voorstelling model");
@@ -72,9 +69,9 @@ public class VoorstellingModel{
 
     public string? naam{get;set;}
     public string? img { get; set; }
-public DateTime? datumTijd { get; set;}
+public string? datumTijd { get; set;}
 
-public DateTime? tijdsduur { get; set; }
+public string? tijdsduur { get; set; }
     public int prijs { get; set; }
 
     public string? genre { get; set; }

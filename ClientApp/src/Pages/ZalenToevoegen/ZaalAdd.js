@@ -9,6 +9,13 @@ export function VoegZaalToe() {
   const [tweederng, setTweederng] = useState(0);
   const [derderng, setDerderng] = useState(0);
 
+  const [seats, setSeats] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+
+
+
+
  
 
 
@@ -71,7 +78,11 @@ export function VoegZaalToe() {
 
     const stoelen = [...aantalRijenEersteCategorie, ...aantalRijenTweedeCategorie, ...aantalRijenDerdeCategorie]
 
-        
+    const initialStoelen = stoelen.map(row => row.map(seat => 0));
+
+    setSeats(initialStoelen)
+    //vullen van de categorieen
+    setCategories(stoelen)
 
   }
 
@@ -95,7 +106,7 @@ export function VoegZaalToe() {
         </div>
       </div>
       <div className='zaal-concept'>
-      
+      {}
       </div>
     </form>
   )
