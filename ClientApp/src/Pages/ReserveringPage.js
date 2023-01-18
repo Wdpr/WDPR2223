@@ -5,21 +5,15 @@ import { useLocation } from "react-router-dom";
 export const ReserveringPage = () => {
     const navigate = useNavigate();
     const state = useLocation().state;
-    console.log(state)
 
     const stoelen = state.bestelling.stoelen
     const prijs = state.bestelling.prijs
 
-
-
-    
-    const [fakePay, setFakePay] = useState()
-
     // deze functie maakt gebruik van de fakepay api gegeven vanuit school
-    function naarBetaling() {
+    function naarBetaling(reserveringId) {
         var details = {
             'amount': prijs,
-            'reference': 'testReference',
+            'reference': reserveringId,
             'url': '/api/reservering/fakepay'
         };
 
@@ -34,16 +28,18 @@ export const ReserveringPage = () => {
         fetch('https://fakepay.azurewebsites.net/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Accept-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             body: formBody
         }
         ).then(response => response.text())
-            .then(data => { console.log(data); setFakePay(data) })
+            .then(data => navigate("/Betaling", { state: { data: data, prijs: prijs, stoelen: stoelen } }))
     }
 
-    // handelt de knop "Bevestig en ga naar betaling"
     function postReservering() {
+        let reserveringId = 0
+
         const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"))
         if (gebruiker === null) {
             alert("U moet ingelogd zijn om een reservering te maken")
@@ -59,36 +55,33 @@ export const ReserveringPage = () => {
                 "TotaalPrijs": prijs,
                 "Stoelen": stoelen
             })
-        })
-        .then(response => console.log(response)
-        )
+        }).then(response => response.json()).then(data => reserveringId = data.id)
+        return reserveringId
+    }
 
+    function Bevestig() {
+        const reserveringId = postReservering()
+        naarBetaling(reserveringId)
     }
 
     return (
         <div>
             <h1>{state.naam}</h1>
             <div>
-                
                 <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
-                    
                 <div>
-                {stoelen.map((stoel, key) => <ul key={key}>
-                                                            <li>Stoel: {stoel.stoelnr+ 1}</li> 
-                                                            <li>Rij: {stoel.rijnr+ 1}</li> 
-                                                            <li>Rang: {stoel.categorie}</li> 
-                                                            <li>Prijs: €{stoel.prijs}</li>
-                                                            </ul>)}
+                    {stoelen.map((stoel, key) => <ul key={key}>
+                        <li>Stoel: {stoel.stoelnr + 1}</li>
+                        <li>Rij: {stoel.rijnr + 1}</li>
+                        <li>Rang: {stoel.categorie}</li>
+                        <li>Prijs: €{stoel.prijs}</li>
+                    </ul>)}
                 </div>
-                <br></br>   
-                <p>Dit komt op een totaalprijs van €{prijs}</p>   
-                    
-                
+                <br />
+                <p>Dit komt op een totaalprijs van €{prijs}</p>
                 <span>Bent u zeker van uw reservering?</span>
             </div>
-            <button onClick={() => postReservering()}>Bevestig en ga naar betaling</button>
-            {fakePay ? <p dangerouslySetInnerHTML={{ __html: fakePay }}></p> : null}
-
+            <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
         </div>
     );
 }

@@ -13,6 +13,7 @@ import {DonatiePagina  } from "./Pages/DonatiePage/DonatiePagina";
 import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 import { VoegZaalToe } from "./Pages/ZalenToevoegen/ZaalAdd"; 
 import { VoorstellingDetails } from "./components/Voorstelling/VoorstellingDetails";
+import { Betaling } from "./components/Betaling";
 
 const AppRoutes = [
   {
@@ -54,6 +55,10 @@ const AppRoutes = [
   {
     path: '/Reserveren',
     element: <ReserveringPage />
+  },
+  {
+    path: '/Betaling',
+    element: <Betaling />
   },
   {
     path: '/Profiel',
