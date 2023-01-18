@@ -12,6 +12,10 @@ git branch - laat zien welke branches lokaal gebruikt worden
 git checkout [branchnaam] - verandert je lokale active branch naar gespecifeerde branchnaam
 ```
 
+## beginnen met testen
+sws moet je de ```dotnet restore``` commando uitvoeren. Dan daarna met je in de terminal navigeren naar "/ClientApp/" om daar ```npm install``` te doen.
+Dit doe je om de packages up te daten. zo weten we zeker dat de testen werken.
+
 ## Connectie met database
 Hier volgen de stappen die je moet nemen om correct een connectie te maken met SQLServer:
 1. Zorg eerst dat je ssms hebt geinstalleerd en dat je een normale database kunt maken en runnen. Controleer ook of de dotnet ef tool up to date is. Dat kan met ```dotnet tool update --global dotnet-ef```
