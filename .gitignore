@@ -234,36 +234,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-Migrations/20221223114744_1.cs
-Migrations/20221223114744_1.Designer.cs
-Migrations/20221228160255_reserveringen.cs
-Migrations/20221228160255_reserveringen.Designer.cs
-Migrations/20221228211818_rang nullable.cs
-Migrations/20221228211818_rang nullable.Designer.cs
-Migrations/20230109171037_voorkeuren.cs
-Migrations/20230109171037_voorkeuren.Designer.cs
-Migrations/20230110133600_voorkeurentest.cs
-Migrations/20230110133600_voorkeurentest.Designer.cs
-Migrations/20230112172418_InitialCreate.cs
-Migrations/20230112172418_InitialCreate.Designer.cs
-Migrations/TheaterContextModelSnapshot.cs
-Migrations/20221223114744_1.cs
-Migrations/20221223114744_1.Designer.cs
-Migrations/20221228160255_reserveringen.cs
-Migrations/20221228160255_reserveringen.Designer.cs
-Migrations/20221228211818_rang nullable.cs
-Migrations/20221228211818_rang nullable.Designer.cs
-Migrations/20230109171037_voorkeuren.cs
-Migrations/20230109171037_voorkeuren.Designer.cs
-Migrations/20230110133600_voorkeurentest.cs
-Migrations/20230110133600_voorkeurentest.Designer.cs
-Migrations/20230112204300_idnaarString.cs
-Migrations/20230112204300_idnaarString.Designer.cs
-Migrations/20230112211750_idvanBezoekerVerwijderd.cs
-Migrations/20230112211750_idvanBezoekerVerwijderd.Designer.cs
-Migrations/TheaterContextModelSnapshot.cs
-Migrations/20230112181534_init.cs
-Migrations/20230112181534_init.Designer.cs
-Migrations/20230117144813_2.cs
-Migrations/20230117144813_2.Designer.cs
-Migrations/TheaterContextModelSnapshot.cs
+
+/Migrations/
