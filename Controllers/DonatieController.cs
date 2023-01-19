@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class DonatieController : ControllerBase
 {
     private TheaterContext context;
@@ -21,7 +20,6 @@ public class DonatieController : ControllerBase
         return context.Donaties;
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public Donatie GetDonatie(int id)
     {

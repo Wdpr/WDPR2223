@@ -23,7 +23,6 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
-    [Authorize]
     [HttpGet]
     public IEnumerable<IdentityUser> GetBezoekers()
     {
@@ -73,26 +72,29 @@ public class BezoekerController : ControllerBase
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel gebruikerLogin)
     {
-        var _user = await userManager.FindByEmailAsync(gebruikerLogin.Email);
-        if (_user != null)
-            if (await userManager.CheckPasswordAsync(_user, gebruikerLogin.Wachtwoord))
+        var user = await userManager.FindByEmailAsync(gebruikerLogin.Email);
+        if (user != null)
+            if (await userManager.CheckPasswordAsync(user, gebruikerLogin.Wachtwoord))
             {
-                var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
+                // Generate a unique key for each user
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
+                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, _user.UserName) };
-                var roles = await userManager.GetRolesAsync(_user);
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.NameIdentifier, user.Id) };
+                var roles = await userManager.GetRolesAsync(user);
                 foreach (var role in roles)
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 var tokenOptions = new JwtSecurityToken
                 (
-                    issuer: "https://localhost:7047",
-                    audience: "https://localhost:7047",
+                    issuer: "https://localhost:44468",
+                    audience: "https://localhost:44468",
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(10),
-                    signingCredentials: signingCredentials
+                    expires: DateTime.Now.AddMinutes(100),
+                    signingCredentials: credentials
                 );
-                return Ok(new { Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions) });
+                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                return Ok(new { Token = token, UserId = user.Id });
+
             }
 
         return Unauthorized();
@@ -109,7 +111,6 @@ public class BezoekerController : ControllerBase
     //     return Unauthorized();
     // }
 
-    [Authorize]
     [HttpPost]
     [Route("update/email")]
     public async Task<IActionResult> UpdateBezoekerEmail(UpdateEmailModel updateModel)

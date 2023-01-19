@@ -5,6 +5,9 @@ using Laak.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Azure.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -21,23 +24,27 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     opt.Password.RequireUppercase = false;
     opt.Password.RequireNonAlphanumeric = false;
 })
-    .AddEntityFrameworkStores<TheaterContext>()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<TheaterContext>();
+
+// var jwtToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+// var handler = new JwtSecurityTokenHandler();
+// var token = handler.ReadJwtToken(jwtToken);
+// var userId = token.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
-{
-    opt.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = "https://localhost:44468",
-        ValidAudience = "https://localhost:44468",
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"))
-    };
-});
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:44468",
+            ValidAudience = "https://localhost:44468",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"))
+        };
+    });
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

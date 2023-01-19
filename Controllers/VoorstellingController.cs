@@ -30,7 +30,6 @@ public class VoorstellingController : ControllerBase
     }
 
     // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
-    [Authorize]
     [HttpPost]
     [Route("niewuweVoorstelling")]
     public Voorstelling PostVoorstelling(VoorstellingModel model)

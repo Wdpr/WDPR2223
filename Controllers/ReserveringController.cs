@@ -17,14 +17,12 @@ public class ReserveringController : ControllerBase
         this.context = context;
     }
 
-    [Authorize]
     [HttpGet]
     public IActionResult Get()
     {
         return Ok(context.Reserveringen);
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
@@ -36,7 +34,6 @@ public class ReserveringController : ControllerBase
         return Ok(reservering);
     }
 
-    [Authorize]
     [HttpPost]
     public IActionResult Post([FromBody] ReserveringModel reserveringModel)
     {
@@ -58,7 +55,6 @@ public class ReserveringController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
     }
 
-    [Authorize]
     [HttpPost]
     [Route("fakepay")]
     public IActionResult fakePay([FromBody] BetalingModel betalingModel)

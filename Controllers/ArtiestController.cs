@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace Laak.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 public class ArtiestController : ControllerBase
 {
@@ -17,7 +16,6 @@ public class ArtiestController : ControllerBase
         this.context = context;
     }
 
-    [Authorize]
     [HttpGet]
     [Route("alleArtiesten")]
     public IEnumerable<Artiest> getAlleArtiesten()
@@ -25,14 +23,12 @@ public class ArtiestController : ControllerBase
         return context.Artiesten;
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public Artiest GetArtiesten(int id)
     {
         return context.Artiesten.SingleOrDefault(v => v.Id == id);
     }
 
-    [Authorize]
     [HttpPost]
     [Route("NieuweArtiest")]
     public Artiest PostArtiest(ArtiestModel model)

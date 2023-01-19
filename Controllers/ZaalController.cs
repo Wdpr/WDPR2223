@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace Laak.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 public class ZaalController : ControllerBase
 {
