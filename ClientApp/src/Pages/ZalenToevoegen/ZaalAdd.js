@@ -80,7 +80,7 @@ export function VoegZaalToe() {
   return (
     <form onSubmit={submitHandler}>
       <div className='container'>
-
+        <h1>Voeg Zaal Toe</h1>
         <div className='input-eersterang-div'>
           <input type="text" id="eersterang" onChange={(e) => setEersterng(e.target.value)} className="input-firstclass" placeholder="aantal eersterangs"></input>
         </div>

@@ -44,14 +44,6 @@ const AppRoutes = [
     element: <StoelKiezenPage />
   },  
   {
-    path: '/AddVoorstelling',
-    element: <VoorstellingAdding />
-  }, 
-  {
-    path: '/AddArtiest',
-    element: <VoegArtiestToeAanLijst />
-  },
-  {
     path: '/Reserveren',
     element: <ReserveringPage />
   },
@@ -71,10 +63,7 @@ const AppRoutes = [
     path: '/ArtiestList',
     element: <AList />
   },
-  {
-    path: '/AddZalen',
-    element: <VoegZaalToe />
-  },
+
   ];
 
 

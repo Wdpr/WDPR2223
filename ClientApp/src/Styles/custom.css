@@ -269,9 +269,9 @@ code {
 .homeCards{
   text-align: center;
   margin-top: 40px;
-  margin-bottom: 40px;
-  border-bottom: 2px dotted #922929;
-  border-top: 2px dotted #922929;
+  margin-bottom: 30px;
+  border-bottom: 2px dotted #e22727;
+  border-top: 2px dotted #e22727;
   padding-top: 40px;
   padding-bottom:  40px;
 }
@@ -279,7 +279,7 @@ code {
 .homeCards > h1{
   font-size: 25px;
   font-weight: bold;
-  color: #922929;
+  color: #e22727;
   text-transform: uppercase;
   text-decoration: underline;
   margin-bottom: 20px;
@@ -291,7 +291,7 @@ code {
 }
 
 .LinkNaarProgrammering{
-  color: #922929;
+  color: #e22727;
   font-weight: bold;
   font-size: 17px;
   border-color: #000000;
@@ -305,7 +305,7 @@ code {
 .KleinTekstje > h2{
   font-size: 25px;
   font-weight: bold;
-  color: #8a1616;
+  color: #e22727;
   text-decoration: underline;
   margin-bottom: 15px;
 }

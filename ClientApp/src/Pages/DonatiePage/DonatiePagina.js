@@ -34,14 +34,15 @@ export class DonatiePagina extends React.Component {
             .then(res => {
                 if (res.ok) {
                     alert("Donatie is toegevoegd");
-                    
+                    window.location.href = "/DonateursHome"
                 } else {
-                    throw new Error("Could not add the donatie");
+                    throw new Error("Donatie niet gelukt");
                 }
             })
             .catch(err => {
                 console.error(err);
-                alert("Could not add the donatie. 2de then");
+                alert("Donatie niet gelukt. Mogelijk personeel");
+                
             });
     }
 

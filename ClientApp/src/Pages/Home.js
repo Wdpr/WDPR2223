@@ -53,7 +53,7 @@ export class Home extends Component {
                 <h1 >Nieuwste voorstellingen</h1>
                   <div className="voorstellingMiniCards">
                     {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.slice(0, 4).map(voorstelling => {
-                      return <VoorstellingMiniCard voorstelling={voorstelling} />
+                      return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
                     })}
                   </div>
 
