@@ -19,11 +19,14 @@ namespace Laak.Tests.Steps
         private RestResponse response;
 
         private BezoekerController.LoginModel LoginModel;
-        private BezoekerController.RegistreerModel RegistreerModel = new BezoekerController.RegistreerModel();
+        private BezoekerController.RegistreerModel RegistreerModel;
 
         public BezoekerSteps(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
+            client = new RestClient("https://localhost:5001");
+            LoginModel = new BezoekerController.LoginModel();
+            RegistreerModel = new BezoekerController.RegistreerModel();
         }
 
         // test van het registreren van een bezoeker
@@ -50,7 +53,6 @@ namespace Laak.Tests.Steps
         [When(@"de bezoeker de registreer request verstuurd")]
         public async void WhenDeBezoekerDeRequestVerstuurdRegistreer()
         {
-            var client = new RestClient("http://localhost:7177");
             var request = new RestRequest("/api/bezoeker/registreer", Method.Post);
             request.AddJsonBody(RegistreerModel);
             response = await client.ExecuteAsync(request);
@@ -66,7 +68,7 @@ namespace Laak.Tests.Steps
         [Given(@"een bezoeker heeft een account")]
         public void GivenEenBezoekerHeeftEenAccount()
         {
-
+            //
         }
         [When(@"de bezoeker zijn email (.*) invult")]
         public void WhenDeBezoekerZijnEmailPeterMail_ComInvult(string eamil)
@@ -81,10 +83,14 @@ namespace Laak.Tests.Steps
         [When(@"de bezoeker de login request verstuurd")]
         public void WhenDeBezoekerDeRequestVerstuurdLogin()
         {
+            var request = new RestRequest("/api/bezoeker/login", Method.Post);
+            request.AddJsonBody(LoginModel);
+            response = client.Execute(request);
         }
         [Then(@"de bezoeker is ingelogd")]
         public void ThenDeBezoekerIsIngelogd()
         {
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
