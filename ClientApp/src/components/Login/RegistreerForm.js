@@ -8,11 +8,21 @@ export const RegistreerForm = () => {
     const [wachtwoord, setWachtwoord] = useState("");
 
     const emailEnWachtwoordControle = (e) => {
-        if (email.includes("@") && email.includes(".")) {
-            if (wachtwoord.length >= 6) {
+        var tekens = /[^0-9a-zA-Z]+$/;
+        var kleineletters = /[a-z]+/;
+        var hoofdletters = /[A-Z]+/;
+        var cijfers = /[0-9]+/;
+
+        if (email.includes("@") && email.includes(".") && email.length >= 6 && email.length <= 35) {
+            if (wachtwoord.length >= 6 &&
+                wachtwoord.length <= 24 && 
+                wachtwoord.match(tekens) && 
+                wachtwoord.match(kleineletters) && 
+                wachtwoord.match(hoofdletters) && 
+                wachtwoord.match(cijfers) ) {
                 return true
             }
-            alert("wachtwoord moet minimaal 6 karakters lang zijn");
+            alert("U moet voldoen aan de eisen voor de invoervelden");
         }
         else {
             alert("email is niet geldig");
@@ -49,7 +59,7 @@ export const RegistreerForm = () => {
             <div >
                 <label className="formFieldLabel">
                     Gebruikersnaam
-                    <input className="formFieldInput" type="text" name="Voornaam" placeholder="Vul uw voornaam in" onChange={(e) => setGebruikersnaam(e.target.value)} />
+                    <input className="formFieldInput" type="text" name="Gebruikersnaam" placeholder="Vul uw gebruikersnaam in" onChange={(e) => setGebruikersnaam(e.target.value)} />
                 </label>
             </div>
             <div >
@@ -61,8 +71,16 @@ export const RegistreerForm = () => {
             <div>
                 <label className="formFieldLabel">
                     Wachtwoord
-                    <input className="formFieldInput" type="Wachtwoord" name="Password" placeholder="Vul uw wachtwoord in" onChange={(e) => setWachtwoord(e.target.value)} />
+                    <input className="formFieldInput" type="password" name="Password" placeholder="Vul uw wachtwoord in" onChange={(e) => setWachtwoord(e.target.value)} />
                 </label>
+            </div>
+            <div className='wachtwoordEisen'>
+                <ul >
+                    <li>Wachtwoord moet 6 tot 24 karakters lang zijn</li>
+                    <li>Wachtwoord moet minimaal 1 hoofdletter bevatten</li>
+                    <li>Wachtwoord moet minimaal 1 cijfer bevatten</li>
+                    <li>Wachtwoord moet minimaal 1 speciaal teken bevatten</li>
+                </ul>
             </div>
             <div>
                 <button className='formFieldButton' type="submit">Registreren</button>

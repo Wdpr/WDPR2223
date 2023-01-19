@@ -4,15 +4,13 @@ import { VoorstellingPage } from "./Pages/VoorstellingPage";
 import { LoginPage } from "./Pages/Login/LoginPage";
 import { CreateAccountPage } from "./Pages/Login/CreateAccountPage";
 import { StoelKiezenPage } from "./Pages/StoelenKiezen/StoelKiezenPage";
-import { VoorstellingAdding } from "./Pages/VoegToe/VoegVoorstellingToePage";
-import {VoegArtiestToeAanLijst  } from "./Pages/VoegToe/VoegArtiestToePage";
 import { ReserveringPage } from "./Pages/ReserveringPage";
 import {MijnAccountPage  } from "./Pages/MijnAccount/MijnAccountPage";
 import {DonateursHome  } from "./Pages/DonatiePage/DonateursHome";
 import {DonatiePagina  } from "./Pages/DonatiePage/DonatiePagina";
 import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
-import { VoegZaalToe } from "./Pages/ZalenToevoegen/ZaalAdd"; 
 import { VoorstellingDetails } from "./components/Voorstelling/VoorstellingDetails";
+import { Contact } from "./Pages/Contact";
 
 const AppRoutes = [
   {
@@ -59,10 +57,14 @@ const AppRoutes = [
     path: '/Doneren',
     element: <DonatiePagina />
   },
-{
+  {
     path: '/ArtiestList',
     element: <AList />
   },
+  {
+    path : '/Contact',
+    element: <Contact />
+  }
 
   ];
 

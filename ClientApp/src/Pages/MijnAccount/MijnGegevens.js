@@ -11,8 +11,7 @@ export function ToonMijnGevens() {
         voorkeuren: ["Musical", "Comedy", "Drama", "Kindertheater", "Cabaret"]
     }
 
-    const dummyDonatieBedrag = 5000;
-
+    
     const navigate = useNavigate();
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);

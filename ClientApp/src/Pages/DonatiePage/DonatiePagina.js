@@ -34,7 +34,7 @@ export class DonatiePagina extends React.Component {
             .then(res => {
                 if (res.ok) {
                     alert("Donatie is toegevoegd");
-                    window.location.href = "/DonateursHome"
+                    window.location.href = "/profiel"
                 } else {
                     throw new Error("Donatie niet gelukt");
                 }

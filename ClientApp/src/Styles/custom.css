@@ -145,6 +145,18 @@ code {
   justify-content: center;
 }
 
+.wachtwoordEisen{
+  color: #b5bec2;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: -20px;
+  margin-right: 10px;
+}
+
+.wachtwoordEisen > ul{
+  list-style-type: none;
+}
+
 .loginForm{
   color: black;
   background-color: rgb(90, 7, 7);
@@ -247,7 +259,7 @@ code {
   padding: 15px 70px;
   font-size: 0.8em;
   font-weight: 500;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 100px;
 }
 

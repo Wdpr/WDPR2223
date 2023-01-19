@@ -52,7 +52,7 @@ export function LoginForm() {
             <div>
                 <label className="formFieldLabel">
                     Wachtwoord
-                    <input className="formFieldInput" type="Wachtwoord" name="Password" placeholder="Vul uw wachtwoord in" onChange={(e) => setWachtwoord(e.target.value)} />
+                    <input className="formFieldInput" type="password" name="Password" placeholder="Vul uw wachtwoord in" onChange={(e) => setWachtwoord(e.target.value)} />
                 </label>
             </div>
             <div>
