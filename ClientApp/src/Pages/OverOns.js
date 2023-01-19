@@ -10,8 +10,14 @@ export const OverOns = () => {
                     </div>
                 </div>
             <h1>Over Ons</h1>
-            <p>Wij zijn de WDPR LEGENDS</p>
-            <p>nice</p>
+            <p>OVER LAAKTHEATER
+                Laaktheater probeert kunst persoonlijk te maken. 
+                Dat betekent dat we kunst op zo veel verschillende manieren brengen 
+                dat er voor iedereen een mogelijkheid is het zich eigen te maken en te beleven. 
+                Dat kunst niet eng is of niet voor jou, maar dat kunst echt voor en van iedereen is. 
+                Als je maar een manier vindt of krijgt aangeboden die bij je past. 
+            </p>
+            
             <br />
             <h1>FAQ</h1>
             <h3>Wat is WDPR?</h3>

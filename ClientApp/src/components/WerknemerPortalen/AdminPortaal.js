@@ -35,7 +35,7 @@ const AdminPortaal = () => {
                 <form className="loginFormulier" onSubmit={submitHandler}>
                     <div >
                         <label className="formFieldLabel">
-                            Voor en achternaam
+                            userName
                             <br></br>
                             <input className="formFieldInput" type="text" name="Voornaam" placeholder="Vul de naam in" onChange={(e) => setGebruikersnaam(e.target.value)} />
                         </label>

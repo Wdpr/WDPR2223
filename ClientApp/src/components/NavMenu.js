@@ -29,7 +29,7 @@ export class NavMenu extends Component {
   }
 
   render() {
-    console.log('navmenu render')
+    
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
@@ -42,6 +42,9 @@ export class NavMenu extends Component {
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/voorstelling">Voorstellingen</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/Contact">Contact</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/overons">Over Ons</NavLink>
@@ -58,12 +61,7 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/Login">Login/Registreren</NavLink>
                 </NavItem>
               }
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/AddVoorstelling">Voorstelling Toevoegen</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/AddZalen">Zalen Toevoegen</NavLink>
-              </NavItem>
+              
             </ul>
           </Collapse>
         </Navbar>

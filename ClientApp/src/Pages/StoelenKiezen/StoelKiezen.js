@@ -109,7 +109,7 @@ const StoelKiezen = ({ voorstelling }) => {
   const [categories, setCategories] = useState([]);
 
   //prijzen per categorie
-  const prices = [state.prijs, state.prijs * 1.4, state.prijs * 1.8];
+  const prices = [state.prijs * 1.8, state.prijs * 1.4, state.prijs];
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -145,7 +145,7 @@ const StoelKiezen = ({ voorstelling }) => {
   }, 0);
 
 
-  //Placeholder functie voor het plaatsen van de bestelling
+  //functie voor het plaatsen van de bestelling
   function handleReserveerButton() {
     
     // go to reserveringpage
@@ -179,9 +179,9 @@ const StoelKiezen = ({ voorstelling }) => {
           ))}
           <span>
             <br></br>
-            <p> Eersterang  €{state.prijs} <span><button className="seat-button category-1" /> </span>
+            <p> Eersterang  €{state.prijs * 1.8} <span><button className="seat-button category-1" /> </span>
               | Tweederang €{state.prijs * 1.4} <span><button className="seat-button category-2" /> </span>
-              | Derderang €{state.prijs * 1.8} <span><button className="seat-button category-3" /> </span>
+              | Derderang €{state.prijs} <span><button className="seat-button category-3" /> </span>
               | Bezet <span><button className="seat-button reserved" /> </span>
               </p>
           </span>

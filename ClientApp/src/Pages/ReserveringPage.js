@@ -55,13 +55,21 @@ export const ReserveringPage = () => {
                 "TotaalPrijs": prijs,
                 "Stoelen": stoelen
             })
-        }).then(response => response.json()).then(data => reserveringId = data.id)
-        return reserveringId
-    }
+        })
+        .then(response => {
+            if(response.ok) {
+            alert("Reservering succesvol");
+            navigate('/profiel');
+            } else {
+            alert("Reservering mislukt");
+            }
+            })
+
 
     function Bevestig() {
         const reserveringId = postReservering()
         naarBetaling(reserveringId)
+
     }
 
     return (

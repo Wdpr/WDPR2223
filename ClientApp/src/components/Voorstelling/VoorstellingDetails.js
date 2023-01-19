@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export function VoorstellingDetails() {
     const state = useLocation().state;
     const navigate = useNavigate();
-    console.log(state)
+    
 
     function handleClick() {
         navigate('/stoelkiezen', { state: state })
@@ -24,7 +24,7 @@ export function VoorstellingDetails() {
                     
                     <div className='titels'>
                         <h1>{state.naam}</h1>
-                        <h2>{state.genre}</h2>
+                        <h2>{state.artiest.naam}</h2>
 
                         <p>
                             De prentenboeken van Harmen van Straaten zijn immens populair! 
@@ -42,18 +42,18 @@ export function VoorstellingDetails() {
                         <div className='VoorstellingInfo'>
                             <ul className='VoorstellingenLists'>
                                 <li><b>Informatie:</b></li>
-                                <li>Speelduur - 1:30</li>
-                                <li>2022-12-10</li>    
-                                <li>20:30</li>
+                                <li>{state.speelduur} minuten</li>
+                                <li>{state.datum}</li>    
+                                <li>{state.tijd}</li>
                             </ul>
                         </div>
 
                         <div className='VoorstellingInfoPrijzen'>
                             <ul>
                                 <li><b>Alle Prijzen:</b></li>
-                                <li>Eerste rang - € {state.prijs} </li>
+                                <li>Derde rang - € {state.prijs} </li>
                                 <li>Tweede rang - € {state.prijs * 1.4} </li>
-                                <li>Derde rang - € {state.prijs * 1.8} </li>
+                                <li>Eerste rang - € {state.prijs * 1.8} </li>
                             </ul>
                         </div>
                     </div>

@@ -8,9 +8,13 @@ export function VoorstellingBigCard({ info }) {
         navigate('/voorstelling/' + info.id, { state: info })
     }
 
-    const datum = new Date(info.tijd);
+    const datum = new Date(info.datumDateTime);
     const alleenDatum = datum.toLocaleDateString();
-    const alleenTijd = datum.toLocaleTimeString();
+
+    const tijd = new Date(info.tijdDateTime);
+    const options = {hour: 'numeric', minute: 'numeric', hour12: false};
+    const alleenTijd = tijd.toLocaleTimeString([],options);
+
     const dagen = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
     const dag = dagen[datum.getDay()];
 
@@ -29,7 +33,7 @@ export function VoorstellingBigCard({ info }) {
                 </div>
                 <div className='cardVoorstellingInfo'>
                     <ul>
-                        <li>{info.naam}</li>
+                        <li><b>{info.artiest.naam}</b></li>
                         
                         <li>{info.genre}</li>
                     </ul>

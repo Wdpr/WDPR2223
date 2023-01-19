@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import StoelKiezen from './StoelKiezen';
 import '../../Styles/StoelenStyle.css';
 
@@ -17,7 +16,8 @@ export function StoelKiezenPage(props) {
           </div>
       </div>
 
-      <div className="container">
+      <div className="telefoonText">
+        <p>Wilt u liever hulp bij het reserveren van stoelen? Neem contact op via ons <b>telefoonnummer: 070 393 33 48</b> </p>
         <div>    
             <StoelKiezen voorstelling={props.voorstelling}/>
           </div>
