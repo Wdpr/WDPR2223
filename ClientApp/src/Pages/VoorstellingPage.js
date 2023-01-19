@@ -10,8 +10,6 @@ export class VoorstellingPage extends React.Component {
     async componentDidMount() {
         let response = await fetch('api/Voorstelling');
         let data = await response.json();
-
-
         this.setState({ voorstellingen: data, loading: false });
     }
 

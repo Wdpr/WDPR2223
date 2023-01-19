@@ -109,7 +109,7 @@ export function VoorstellingAdding() {
                                 <input type="text" id="voorstellingGenre" onChange={(e) => setGenre(e.target.value)} name="genre" className="form-control" placeholder="genre" />                              
                                 <label className="labelInput">artiest</label>
                                 <label className="verplicht2">*</label>
-                                <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiest" />
+                                <input type="text" id="voorstellingArtiest" onChange={(e) => setArtiest(e.target.value)} name="artiest" className="form-control" placeholder="artiestId" />
                                 <NavLink tag={Link} className="text-dark" to="/ArtiestList"><button className="button-artiestlijst">lijst artiesten</button></NavLink>                             
                                 <div className="background-warning">{error && artiest === 0 ? <label className="warning-no-input">artiest mag niet leeg zijn</label> :""}</div>
                                 <label className="verplicht2">*</label>

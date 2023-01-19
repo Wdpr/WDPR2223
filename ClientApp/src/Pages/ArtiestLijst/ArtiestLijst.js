@@ -1,64 +1,20 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
+export function AList() {
+  const [artiestData, setArtiestData] = useState([]);
 
-export function AList(){
+  useEffect(() => { fetchArtiestData() }, []);
 
-const[artiestData, setArtiestData] = useState([]);
-useEffect(()=>{fetchArtiestData()}, []);
+  async function fetchArtiestData() {
+    const response = await fetch("api/artiest/alleArtiesten");
+    const responseJSON = await response.json();
+    setArtiestData(responseJSON);
+  }
 
-async function fetchArtiestData(){
-    try{
-        const response = await fetch("api/artiest/alleArtiesten");
-        const responseJSON = await response.json();
-        console.log(responseJSON);
-        setArtiestData(responseJSON);
-}catch{
-
-}
-}
-
-
-
-return (
-<div>
- {
-    artiestData.map(artiest=>{
-      return(
-        <div>
-         {artiest.naam}
-         {artiest.id}
-
-        </div>
-       
-      )
-    })
- }
-</div>
-
-
-
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  return (
+    <div>
+      <h1>Artiesten</h1>
+      {artiestData.map(artiest => <div key={artiest.id}>{artiest.id} - {artiest.naam}</div>)}
+    </div>
+  )
 }

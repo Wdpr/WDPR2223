@@ -5,8 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const StoelKiezen = ({ voorstelling }) => {
   const navigate = useNavigate();
-  const state = useLocation().state;
-  
+  const state = useLocation().state;  
   
   // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd. 
   //                           ||| Waarde 2 = gereserveerd. 
@@ -15,9 +14,7 @@ const StoelKiezen = ({ voorstelling }) => {
   const [derdeRang, setDerdeRang] = useState()
 
   const [zaalLaden, setZaalLaden] = useState(false)
-  
-  const [reserveringen, setReserveringen] = useState([]);
-  
+  const [reserveringen, setReserveringen] = useState([]);  
 
   //haal de reserveringen op voor het vullen van de al geboekte stoelen
   async function haalReserveringenOp() {
@@ -150,6 +147,7 @@ const StoelKiezen = ({ voorstelling }) => {
     
     // go to reserveringpage
     state.bestelling = { stoelen: selectedSeats, prijs: totalPrice }
+    console.log(state)
     navigate('/reserveren', {state : state})
   }
 
