@@ -10,7 +10,7 @@ namespace Laak.Controllers;
 public class ReserveringController : ControllerBase
 {
 
-    private  TheaterContext context;
+    private TheaterContext context;
 
     public ReserveringController(TheaterContext context)
     {
@@ -59,12 +59,13 @@ public class ReserveringController : ControllerBase
 
     [HttpPost]
     [Route("fakepay")]
-    public IActionResult fakePay([FromBody] BetalingModel betalingModel)
+    public IActionResult fakePay([FromForm] BetalingModel betalingModel)
     {
         Console.WriteLine("fakePay");
         Console.WriteLine(betalingModel.succes);
         Console.WriteLine(betalingModel.reference);
         return Ok();
+        // new RedirectResult("https://localhost:44468/profiel")
     }
 
     public class ReserveringModel
@@ -79,5 +80,6 @@ public class ReserveringController : ControllerBase
     {
         public string succes { get; set; }
         public string reference { get; set; }
+        public string accoutn { get; set; }
     }
 }

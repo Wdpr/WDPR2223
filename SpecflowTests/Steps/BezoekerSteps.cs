@@ -24,7 +24,7 @@ namespace Laak.Tests.Steps
         public BezoekerSteps(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            client = new RestClient("https://localhost:5001");
+            client = new RestClient("https://localhost:44468");
             LoginModel = new BezoekerController.LoginModel();
             RegistreerModel = new BezoekerController.RegistreerModel();
         }

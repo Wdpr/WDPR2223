@@ -141,13 +141,10 @@ const StoelKiezen = ({ voorstelling }) => {
     return total + prices[categories[seat.rijnr][seat.stoelnr] - 1];
   }, 0);
 
-
   //functie voor het plaatsen van de bestelling
   function handleReserveerButton() {
-    
     // go to reserveringpage
     state.bestelling = { stoelen: selectedSeats, prijs: totalPrice }
-    console.log(state)
     navigate('/reserveren', {state : state})
   }
 

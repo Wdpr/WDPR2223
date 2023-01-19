@@ -14,7 +14,7 @@ export const ReserveringPage = () => {
         var details = {
             'amount': prijs,
             'reference': reserveringId,
-            'url': '/api/reservering/fakepay'
+            'url': 'https://localhost:44468/api/reservering/fakepay'
         };
 
         var formBody = [];
@@ -58,39 +58,37 @@ export const ReserveringPage = () => {
         })
             .then(response => {
                 if (response.ok) {
-                    alert("Reservering succesvol");
-                    navigate('/profiel');
+                    console.log("Reservering succesvol");
                 } else {
-                    alert("Reservering mislukt");
+                    console.log("Reservering mislukt");
+                    console.log(response);
                 }
             })
-
-
-        function Bevestig() {
-            const reserveringId = postReservering()
-            naarBetaling(reserveringId)
-
-        }
-
-        return (
-            <div>
-                <h1>{state.naam}</h1>
-                <div>
-                    <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
-                    <div>
-                        {stoelen.map((stoel, key) => <ul key={key}>
-                            <li>Stoel: {stoel.stoelnr + 1}</li>
-                            <li>Rij: {stoel.rijnr + 1}</li>
-                            <li>Rang: {stoel.categorie}</li>
-                            <li>Prijs: €{stoel.prijs}</li>
-                        </ul>)}
-                    </div>
-                    <br />
-                    <p>Dit komt op een totaalprijs van €{prijs}</p>
-                    <span>Bent u zeker van uw reservering?</span>
-                </div>
-                <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
-            </div>
-        );
     }
+
+    function Bevestig() {
+        const reserveringId = postReservering()
+        naarBetaling(reserveringId)
+    }
+
+    return (
+        <div>
+            <h1>{state.naam}</h1>
+            <div>
+                <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
+                <div>
+                    {stoelen.map((stoel, key) => <ul key={key}>
+                        <li>Stoel: {stoel.stoelnr + 1}</li>
+                        <li>Rij: {stoel.rijnr + 1}</li>
+                        <li>Rang: {stoel.categorie}</li>
+                        <li>Prijs: €{stoel.prijs}</li>
+                    </ul>)}
+                </div>
+                <br />
+                <p>Dit komt op een totaalprijs van €{prijs}</p>
+                <span>Bent u zeker van uw reservering?</span>
+            </div>
+            <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
+        </div>
+    );
 }
