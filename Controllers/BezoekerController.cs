@@ -113,7 +113,6 @@ public class BezoekerController : ControllerBase
         public string NewEmail { get; set; }
     }
 
-
     public class LoginModel
     {
         // dit model bestaat om ervoor te zorgen dat de post body in de front-end niet ingewikkeld hoef te worden
@@ -131,4 +130,4 @@ public class BezoekerController : ControllerBase
         public string Wachtwoord { get; set; }
         public string Functie { get; set; }
     }
-    }
+}
