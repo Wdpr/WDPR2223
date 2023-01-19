@@ -1,9 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WerknemerPortaal from "../../components/WerknemerPortalen/WerknemerPortaal";
 import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
 import VoorkeurenComponent from "../../components/VoorkeurenComponent";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export function ToonMijnGevens() {
@@ -13,23 +13,33 @@ export function ToonMijnGevens() {
 
     const dummyDonatieBedrag = 5000;
 
+    const navigate = useNavigate();
+
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [reserveringen, setReserveringen] = useState([]);
+    const [bezoeker, setBezoeker] = useState([]);
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
     }
 
-    const haalReserveringenOp = async () => {
-        const responsReserveringen = await fetch('api/reservering/')
-        const dataReserveringen = await responsReserveringen.json();
-        const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
-        const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
-        console.log(filteredReserveringen);
-    }
-    haalReserveringenOp();
-    
-    
+    function DonateursPortaalButton() {
+        // go to Donateursportaal
+        navigate('/DonateursHome', {state:{bezoeker : bezoeker} })
+      }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const responsReserveringen = await fetch('api/reservering/')
+            const dataReserveringen = await responsReserveringen.json();
+            const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
+            setBezoeker(gebruiker);
+            const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
+            setReserveringen(filteredReserveringen);
+        };
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -53,13 +63,9 @@ export function ToonMijnGevens() {
                         <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).voorkeuren}</p>
 
 
-                        <h5>Totaal gedoneerd:</h5>
-                        <p className="gebruikerGegevens">€{dummyDonatieBedrag}</p>
-                        {dummyDonatieBedrag >= 1000 ? (
-                            <div>
-                            <Link to ="/DonateursHome">
-                            <button className="donatieKnop">DonateursPortaal</button></Link>
-                            </div>) : null}
+                        <h5>Het Donatie Platform:</h5>
+                            <button onClick={DonateursPortaalButton} className="donatieKnop">DonateursPortaal</button>
+                        
 
                         <button className="wijzigGegevens" onClick={() => setToonWijzigForm(!ToonWijzigForm)}>Wijzig gegevens</button>
                     </div>
@@ -67,6 +73,40 @@ export function ToonMijnGevens() {
 
                 <div className="mijnReserveringen">
                     <h1>Mijn reserveringen</h1>
+                    
+                    <div className='alMijnReserveringen'>
+                            {reserveringen.map(reservering => {
+                                return (
+                                    <div key = {reservering.id}>
+                                        <h1 className="titelVoorstelling">{reservering.voorstelling.naam}</h1>
+                                        <div className="reserveringCard"> 
+
+                                            <div className="infoVanVoorstelling">
+                                                    <ul>
+                                                        <li>Zaal {reservering.voorstelling.zaalId}</li>
+                                                        <li>{reservering.voorstelling.datum}</li>
+                                                        <li>{reservering.voorstelling.tijd}</li>
+                                                    </ul>
+                                            </div>  
+
+                                            <div className="alleStoelen">
+                                                <ul>
+                                                    <li><b>Stoelen: {reservering.stoelen.length}</b></li>
+                                                    
+                                                </ul>        
+                                            </div>
+                                            <div className="totaalprijs">
+                                                <ul>
+                                                    <li >Totaal Prijs: € {reservering.totaalPrijs}</li>
+                                                    <li>Code: {reservering.id}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                </div>
+                                )
+                            })}
+                    </div>
 
                 </div>
             </div>
@@ -177,7 +217,8 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? (
+            {/* {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? ( */}
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' || JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin'  ? (
                     <div className="werknemerPortaal">
                         <WerknemerPortaal />
                     </div>
@@ -185,7 +226,7 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? (
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin' ? (
                     <div className="adminPortaal">
                         <AdminPortaal />
                     </div>

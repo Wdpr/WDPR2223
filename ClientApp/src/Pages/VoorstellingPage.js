@@ -50,11 +50,11 @@ export class VoorstellingPage extends React.Component {
                         {this.state.loading ? "loading..." : filteredVoorstellingen.map(voorstelling => {
                             const vandaagVoorPlus = new Date();                           
                             const datum = new Date(voorstelling.datumDateTime);                           
-                            const plus300 = new Date(vandaagVoorPlus.setDate(vandaagVoorPlus.getDate() + 300));                           console.log( '=====================' + vandaagVoorPlus)
-                            const huidigeDatum = new Date();                           console.log('plus 300 = ' + plus300);
+                            const plus300 = new Date(vandaagVoorPlus.setDate(vandaagVoorPlus.getDate() + 300));                           
+                            const huidigeDatum = new Date();
 
                             if ((datum > huidigeDatum) && (datum < plus300)) {
-                                console.log(datum + 'is groter dan ' + huidigeDatum + '');
+                                
                                 return (
                                     <VoorstellingBigCard key={voorstelling.id} info={voorstelling} />
                                 )         

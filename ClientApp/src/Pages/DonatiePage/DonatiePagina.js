@@ -17,12 +17,13 @@ export class DonatiePagina extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    
+
     handleSubmit(e) {
         e.preventDefault();
 
         const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
         const bezoekerId = gebruiker.id;
-        console.log(bezoekerId);
         const donatie = { Bedrag: this.state.donatieBedrag, Datum: new Date(), BezoekerId: bezoekerId};
         
         fetch("api/donatie/nieuweDonatie", {
@@ -31,8 +32,11 @@ export class DonatiePagina extends React.Component {
             body: JSON.stringify(donatie)
         })
             .then(res => {
-                if (!res.ok) {
-                    throw new Error("Could not add the donatie 1ste then");
+                if (res.ok) {
+                    alert("Donatie is toegevoegd");
+                    
+                } else {
+                    throw new Error("Could not add the donatie");
                 }
             })
             .catch(err => {
@@ -41,6 +45,8 @@ export class DonatiePagina extends React.Component {
             });
     }
 
+    
+
     render() {
         return (
             <div>
@@ -48,14 +54,15 @@ export class DonatiePagina extends React.Component {
                     <div className="beginBannerText">
                         <h4>Donateurs</h4>
                         <h1>Home</h1>
-                        <h1>{JSON.parse(sessionStorage.getItem("gebruiker")).id}</h1>
+                        
                     </div>
                 </div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div>
+                            <br />
                             <label>
-                                Donatie bedrag
+                                Donatie bedrag: 
                                 <input type="number" name="donatieBedrag" placeholder="Vul het bedrag in" onChange={this.handleChange} />
                             </label>
                         </div>

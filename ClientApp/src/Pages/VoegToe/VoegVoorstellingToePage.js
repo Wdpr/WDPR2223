@@ -131,3 +131,5 @@ export function VoorstellingAdding() {
         </form>
     )
 }
+
+export default VoorstellingAdding;

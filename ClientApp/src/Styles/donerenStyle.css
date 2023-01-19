@@ -59,3 +59,11 @@
     padding: 4px;
     width: 700px;
 }
+
+.naamDiv{
+    text-align: center
+}
+
+.naamDiv > table {
+    margin: 0 auto;
+}

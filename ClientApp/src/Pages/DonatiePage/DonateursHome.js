@@ -1,28 +1,31 @@
 import React, { useState } from 'react'
 import { VoorstellingBigCard } from '../../components/Voorstelling/VoorstellingBigCard';
+import { useLocation } from "react-router-dom";
+import { useEffect } from 'react';
 
 export const DonateursHome = () => {
+    const state = useLocation().state;
+
+
     const [voorstellingen, setVoorstellingen] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedGenre, setSelectedGenre] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [donaties, setDonaties] = useState([]);
+    const [totaalGedoneerd, setDonatieTotaal] = useState(0);
 
-    const dummydonaties = [
-        {
-            bedrag:7800,
-            datum: "2021-02-18",
-        },
-        {
-            bedrag:20,
-            datum: "2024-12-24",
-        },
-        {
-            bedrag:1235,
-            datum: "2021-11-38",
-        },
-    ];
+    useEffect(() => {
+        const fetchDonaties = async () => {
+            const response = await fetch("api/donatie");
+            const data = await response.json();
+            const totaleBedrag = 0;
+            setDonaties(data.filter(donatie => donatie.bezoekerId === state.bezoeker.id));
+            setDonatieTotaal(data.filter(donatie => donatie.bezoekerId === state.bezoeker.id).reduce((a, b) => a + b.bedrag, 0));
+        };
+        fetchDonaties();
+    }, [state.bezoeker.id]);
 
-    var donatieTotaal = 0;
+    
 
     const handleGenreChange = (event) => {
         setSelectedGenre(event.target.value);
@@ -41,6 +44,8 @@ export const DonateursHome = () => {
         }
         fetchData();
     }, []);
+
+    var donatieTotaal = 0;
 
     const filteredVoorstellingen = selectedGenre
         ? voorstellingen.filter(voorstelling => voorstelling.genre === selectedGenre)
@@ -71,6 +76,7 @@ export const DonateursHome = () => {
                         Als donateur bent u namelijk de eerste die op de hoogte bent van onze programmering en de eerste die kaarten kan bestellen. Daarnaast wordt U ook uitgenodigd voor speciale events.
                         Laten we samen zorgen voor een bloeiende theaterwereld.
                     </p>
+                    <p>Indien u totaal €1000 heeft gedoneerd, krijgt u toegang tot de speciale programmering! </p>
                 </div>
                 <div className="donateursKnop">
                     <button><a className="donatieLink" href="/Doneren">Klik hier om te doneren!</a></button>
@@ -80,17 +86,21 @@ export const DonateursHome = () => {
             <div>
                 <div className="knoppenContainer">
                     <ul className="keuzeWatWijzigen">
+                    {totaalGedoneerd >= 1000 && (
                         <li onClick={handleClick} >Bekijk de volledige programmering</li>
+                    )}
                         <li onClick={handleClick} >Bekijk mijn transacties</li>
                     </ul>
                 </div>
 
+
+            
                 {selectedItem === 'Bekijk de volledige programmering' && (
                     <div className="naamDiv" >
                         <h1>Volledige programmering</h1>
                         <div className='genreFilter'>
-                        <select onChange={handleGenreChange}>
-                            <option value="" selected>All Genres</option>
+                        <select defaultValue="" onChange={handleGenreChange}>
+                            <option value="" defaultValue>All Genres</option>
                             {Array.from(new Set(voorstellingen.map(voorstelling => voorstelling.genre))).map(genre => (
                                 <option key={genre} value={genre}>{genre}</option>
                             ))}
@@ -115,28 +125,30 @@ export const DonateursHome = () => {
                         <h1>Mijn transacties</h1>
 
                         <table className='donatieTabel'>
+                            <tbody>
                             <tr>
                                 <th>Naam</th>
                                 <th>Bedrag</th>
                                 <th>Datum</th>
                             </tr>
 
-                            {dummydonaties.map(donatie => {
+                            
+                            {donaties.map((donatie, index) => {
                                 donatieTotaal += donatie.bedrag;
+                                const correcteDatum = donatie.datum.split("T")[0];
                                 return (
-                                    <tr>
+                                    <tr key={donatie.id}>
                                         <td>{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</td>
-                                        <td>{donatie.bedrag}</td>
-                                        <td>{donatie.datum}</td>
+                                        <td>€ {donatie.bedrag}</td>
+                                        <td>{correcteDatum}</td>
                                     </tr>
-                                
                                 )
-                                
                             }
                             )}
+                            </tbody>
                         </table>
-
-                        <p>U heeft totaal €{donatieTotaal} gedoneerd</p>
+                        <br></br>
+                        <p><b>U heeft totaal € {donatieTotaal} gedoneerd!</b></p>
 
                     </div>
                 )}

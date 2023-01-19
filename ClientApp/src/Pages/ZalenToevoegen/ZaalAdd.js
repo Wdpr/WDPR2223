@@ -105,7 +105,7 @@ export function VoegZaalToe() {
 }
 
 
-
+export default VoegZaalToe;
 
 
 

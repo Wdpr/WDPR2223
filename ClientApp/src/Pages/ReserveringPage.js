@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 export const ReserveringPage = () => {
     const navigate = useNavigate();
     const state = useLocation().state;
-    console.log(state)
 
     const stoelen = state.bestelling.stoelen
     const prijs = state.bestelling.prijs
@@ -60,9 +59,14 @@ export const ReserveringPage = () => {
                 "Stoelen": stoelen
             })
         })
-        .then(response => console.log(response)
-        )
-
+        .then(response => {
+            if(response.ok) {
+            alert("Reservering succesvol");
+            navigate('/profiel');
+            } else {
+            alert("Reservering mislukt");
+            }
+            })
     }
 
     return (
