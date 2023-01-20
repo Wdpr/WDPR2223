@@ -165,4 +165,4 @@ public class BezoekerController : ControllerBase
         public string Wachtwoord { get; set; }
         public string Functie { get; set; }
     }
-    }
+}

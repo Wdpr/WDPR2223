@@ -11,6 +11,7 @@ import {DonatiePagina  } from "./Pages/DonatiePage/DonatiePagina";
 import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 import { VoorstellingDetails } from "./components/Voorstelling/VoorstellingDetails";
 import { Contact } from "./Pages/Contact";
+import { Betaling } from "./components/Betaling";
 
 const AppRoutes = [
   {
@@ -46,6 +47,10 @@ const AppRoutes = [
     element: <ReserveringPage />
   },
   {
+    path: '/Betaling',
+    element: <Betaling />
+  },
+  {
     path: '/Profiel',
     element: <MijnAccountPage />
   },
@@ -65,8 +70,6 @@ const AppRoutes = [
     path : '/Contact',
     element: <Contact />
   }
-
-  ];
-
+];
 
 export default AppRoutes;

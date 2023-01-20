@@ -54,7 +54,7 @@ public class ReserveringController : ControllerBase
         };
         context.Reserveringen.Add(reservering);
         context.SaveChanges();
-        return CreatedAtAction(nameof(Get), new { id = reservering.Id }, reservering);
+        return Ok(reservering);
     }
 
     [HttpPost]
