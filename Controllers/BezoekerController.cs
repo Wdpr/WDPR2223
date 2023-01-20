@@ -24,12 +24,13 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
-    [HttpGet]
-    [Route("{id}")]
+    [Authorize]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetBezoekers(string id)
     {
         var user = await userManager.FindByIdAsync(id);
         if (user == null) return NotFound();
+        Console.WriteLine(user.Email);
         return Ok(user);
     }
 
@@ -95,7 +96,7 @@ public class BezoekerController : ControllerBase
                     issuer: "https://localhost:44468",
                     audience: "https://localhost:44468",
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(10),
+                    expires: DateTime.Now.AddMinutes(100),
                     signingCredentials: signingCredentials
                 );
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);

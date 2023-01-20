@@ -1,11 +1,22 @@
 export default function GebruikerHook(gebruikerId) {
-    console.log(gebruikerId)
+    const token = sessionStorage.getItem("token")
+    console.log(token)
+    let gebruiker = null;
+
+    if (token == null) {
+        console.log("Geen token gevonden")
+        return
+    }
+
     fetch("api/bezoeker/" + gebruikerId, {
         method: "GET",
-        headers: { "Authentication": "application/json" },
-    }).then(response => response.ok? response.json() : null).then(data => {
+        headers: { "Authorization": "Bearer " + token },
+    }).then(response => response.json()).then(data => {
         if (data !== null) {
-            return data
-        } 
-    })   
+            gebruiker = data
+        }
+    })
+
+    console.log(gebruiker)
+    return gebruiker;
 }
