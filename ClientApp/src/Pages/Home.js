@@ -36,7 +36,7 @@ export class Home extends Component {
           </div>
         </div>
 
-        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</span></p>}
+        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).username}</span></p>}
         
           <div className='HomePageInfoContainer'> 
 
