@@ -4,8 +4,6 @@ import WerknemerPortaal from "../../components/WerknemerPortalen/WerknemerPortaa
 import AdminPortaal from "../../components/WerknemerPortalen/AdminPortaal";
 import VoorkeurenComponent from "../../components/VoorkeurenComponent";
 import { useNavigate } from "react-router-dom";
-import GebruikerHook from "../../GebruikerHook";
-
 
 export function ToonMijnGevens() {
     const navigate = useNavigate();
