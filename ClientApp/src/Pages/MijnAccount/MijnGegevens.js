@@ -16,7 +16,7 @@ export function ToonMijnGevens() {
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [reserveringen, setReserveringen] = useState([]);
-    const [bezoeker, setBezoeker] = useState([]);
+    const [bezoeker, setBezoeker] = useState();
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
@@ -31,19 +31,24 @@ export function ToonMijnGevens() {
         const haalReserveringOp = async () => {
             const responsReserveringen = await fetch('api/reservering/', {
                 method: "GET",
-                headers: { "Authorization": "Bearer "+ sessionStorage.getItem("token")},
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem("token") },
             })
             const dataReserveringen = await responsReserveringen.json();
-            const gebruikerId = JSON.parse(sessionStorage.getItem("gebruiker")).id;
-            const gebruiker = GebruikerHook(gebruikerId);
-            setBezoeker(gebruiker);
+            const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
             const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
             setReserveringen(filteredReserveringen);
         };
         const haalGebruikerOp = async () => {
             const gebruikerId = JSON.parse(sessionStorage.getItem("gebruiker")).id;
-            const bezoeker = GebruikerHook(gebruikerId);
-            setBezoeker(bezoeker)
+            const token = sessionStorage.getItem("token");
+            fetch("api/bezoeker/" + gebruikerId, {
+                method: "GET",
+                headers: { "Authorization": "Bearer " + token },
+            }).then(response => response.json()).then(data => {
+                if (data !== null) {
+                    setBezoeker(data)
+                }
+            })
         }
         haalReserveringOp();
         haalGebruikerOp();
@@ -65,7 +70,7 @@ export function ToonMijnGevens() {
                         <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).username}</p>
 
                         <h5>Email:</h5>
-                        <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).email}</p>
+                        <p className="gebruikerGegevens">{bezoeker ? bezoeker.email : null}</p>
 
                         <h5>Voorkeuren</h5>
                         <ul className="gebruikerGegevens">
@@ -73,7 +78,7 @@ export function ToonMijnGevens() {
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
-                        <p className="gebruikerGegevens">{JSON.parse(sessionStorage.getItem("gebruiker")).voorkeuren}</p>
+                        <p className="gebruikerGegevens">{bezoeker ? bezoeker.voorkeuren : null}</p>
 
 
                         <h5>Het Donatie Platform:</h5>
@@ -88,7 +93,7 @@ export function ToonMijnGevens() {
                     <h1>Mijn reserveringen</h1>
 
                     <div className='alMijnReserveringen'>
-                        {reserveringen.map(reservering => {
+                        {reserveringen ? reserveringen.map(reservering => {
                             return (
                                 <div key={reservering.id}>
                                     <h1 className="titelVoorstelling">{reservering.voorstelling.naam}</h1>
@@ -118,7 +123,7 @@ export function ToonMijnGevens() {
 
                                 </div>
                             )
-                        })}
+                        }) : null}
                     </div>
 
                 </div>
@@ -230,20 +235,19 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-                {/* {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? ( */}
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' || JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'admin' ? (
+                {bezoeker ? bezoeker.functie === "admin" ? (
                     <div className="werknemerPortaal">
                         <WerknemerPortaal />
                     </div>
-                ) : null}
+                ) : null : null}
             </div>
 
             <div>
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'admin' ? (
+                {bezoeker ? bezoeker.functie === 'admin' ? (
                     <div className="adminPortaal">
                         <AdminPortaal />
                     </div>
-                ) : null}
+                ) : null : null}
             </div>
         </div>
 

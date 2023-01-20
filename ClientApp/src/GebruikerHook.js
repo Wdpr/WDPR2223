@@ -5,7 +5,7 @@ export default function GebruikerHook(gebruikerId) {
 
     if (token == null) {
         console.log("Geen token gevonden")
-        return
+        return null;
     }
 
     fetch("api/bezoeker/" + gebruikerId, {
@@ -13,10 +13,10 @@ export default function GebruikerHook(gebruikerId) {
         headers: { "Authorization": "Bearer " + token },
     }).then(response => response.json()).then(data => {
         if (data !== null) {
-            gebruiker = data
+            return data
         }
     })
 
-    console.log(gebruiker)
+    console.log("blabal")
     return gebruiker;
 }
