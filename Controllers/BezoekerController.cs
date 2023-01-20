@@ -25,9 +25,12 @@ public class BezoekerController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<IdentityUser> GetBezoekers()
+    [Route("{id}")]
+    public async Task<IActionResult> GetBezoekers(string id)
     {
-        return userManager.Users.ToList();
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null) return NotFound();
+        return Ok(user);
     }
 
     [HttpPost]
