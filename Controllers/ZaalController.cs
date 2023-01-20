@@ -8,7 +8,6 @@ namespace Laak.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-
 public class ZaalController : ControllerBase{
     
     private readonly TheaterContext _context;

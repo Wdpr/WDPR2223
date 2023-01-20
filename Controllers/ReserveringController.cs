@@ -1,5 +1,6 @@
 using Laak.Context;
 using Laak.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace Laak.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ReserveringController : ControllerBase
 {
     private  TheaterContext context;
