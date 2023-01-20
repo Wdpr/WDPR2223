@@ -6,10 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const StoelKiezen = ({ voorstelling }) => {
   const navigate = useNavigate();
   const state = useLocation().state;
-  
-  
-  // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd. 
-  //                           ||| Waarde 2 = gereserveerd. 
+  // Stoelen. waarde 0 = leeg. ||| Waarde 1 = geselecteerd ||| Waarde 2 = gereserveerd. 
   const [eersteRang, setEersteRang] = useState()
   const [tweedeRang, setTweedeRang] = useState()
   const [derdeRang, setDerdeRang] = useState()
@@ -17,11 +14,18 @@ const StoelKiezen = ({ voorstelling }) => {
   const [zaalLaden, setZaalLaden] = useState(false)
   
   const [reserveringen, setReserveringen] = useState([]);
-  
 
   //haal de reserveringen op voor het vullen van de al geboekte stoelen
   async function haalReserveringenOp() {
-    const responsReserveringen = await fetch('api/reservering/')
+    const token = sessionStorage.getItem("token")
+    if (token === null) {
+      alert("U moet ingelogd zijn om een reservering te maken")
+      navigate("/login")
+    }
+    const responsReserveringen = await fetch('api/reservering/', {
+      method: "GET",
+      headers: { "Authorization": "Bearer " + token }
+    })
     const dataReserveringen = await responsReserveringen.json();
     const filteredReserveringen = dataReserveringen.filter(reservering => reservering.voorstellingId === state.id)
     setReserveringen(filteredReserveringen);
@@ -74,8 +78,6 @@ const StoelKiezen = ({ voorstelling }) => {
       }
       return array
     }
-
-
     if (aantalStoelen === 0) {
       return 0
     }
@@ -86,15 +88,12 @@ const StoelKiezen = ({ voorstelling }) => {
       return maakLijst(10)
     }
     return maakLijst(20)
-
   }
-
 
   function maakStoelen() {
     const aantalRijenEersteCategorie = berekenAantalRijenPerCategorie(eersteRang, 1)
     const aantalRijenTweedeCategorie = berekenAantalRijenPerCategorie(tweedeRang, 2)
     const aantalRijenDerdeCategorie = berekenAantalRijenPerCategorie(derdeRang, 3)
-
     const stoelen = [...aantalRijenEersteCategorie, ...aantalRijenTweedeCategorie, ...aantalRijenDerdeCategorie]
 
     //vullen van stoelen met alle waardes 0

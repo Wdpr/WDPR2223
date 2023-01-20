@@ -8,7 +8,6 @@ namespace Laak.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class ReserveringController : ControllerBase
 {
     private  TheaterContext context;
@@ -19,11 +18,13 @@ public class ReserveringController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IEnumerable<Reservering> GetReserveringen()
     {
         return context.Reserveringen.AsQueryable().Include(r => r.Stoelen).Include(r => r.Voorstelling);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
@@ -35,6 +36,7 @@ public class ReserveringController : ControllerBase
         return Ok(reservering);
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Post([FromBody] ReserveringModel reserveringModel)
     {
