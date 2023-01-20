@@ -46,9 +46,10 @@ export const ReserveringPage = () => {
             navigate("/login")
         }
 
+        const token = sessionStorage.getItem("token")
         fetch("api/reservering", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Authentication": "Bearer " + token },	
             body: JSON.stringify({
                 "VoorstellingId": state.id,
                 "BezoekerUsername": gebruiker.userName,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { VoorstellingBigCard } from '../../components/Voorstelling/VoorstellingBigCard';
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useEffect } from 'react';
 
 export const DonateursHome = () => {
@@ -16,7 +16,15 @@ export const DonateursHome = () => {
 
     useEffect(() => {
         const fetchDonaties = async () => {
-            const response = await fetch("api/donatie");
+            const token = sessionStorage.getItem("token");
+            if (token === null) {
+                alert("U bent niet ingelogd")
+                Navigate("/login")
+            };
+            const response = await fetch("api/donatie", {
+                method: "GET",
+                headers: {"Authorization": "Bearer " + token}
+            });
             const data = await response.json();
             const totaleBedrag = 0;
             setDonaties(data.filter(donatie => donatie.bezoekerId === state.bezoeker.id));
