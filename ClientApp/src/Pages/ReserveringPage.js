@@ -73,6 +73,7 @@ export const ReserveringPage = () => {
         }
 
         return (
+        <div>
             <div>
                 <h1>{state.naam}</h1>
                 <div>
@@ -89,10 +90,10 @@ export const ReserveringPage = () => {
                     <p>Dit komt op een totaalprijs van €{prijs}</p>
                     <span>Bent u zeker van uw reservering?</span>
                 </div>
-                <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
+                
             </div>
-
             <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
+
         </div>
     );
 }
