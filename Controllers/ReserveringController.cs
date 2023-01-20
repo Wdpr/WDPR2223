@@ -58,7 +58,7 @@ public class ReserveringController : ControllerBase
 
     [HttpPost]
     [Route("fakepay")]
-    public IActionResult fakePay([FromBody] BetalingModel betalingModel)
+    public IActionResult fakePay([FromForm] BetalingModel betalingModel)
     {
         Console.WriteLine("fakePay");
         Console.WriteLine(betalingModel.succes);
@@ -76,6 +76,7 @@ public class ReserveringController : ControllerBase
 
     public class BetalingModel
     {
+        public string account { get; set; }
         public string succes { get; set; }
         public string reference { get; set; }
     }

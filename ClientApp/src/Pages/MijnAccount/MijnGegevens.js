@@ -57,7 +57,6 @@ export function ToonMijnGevens() {
         if (bezoeker.functie === 'admin') {
             bezoeker.voorkeuren = "niet mogelijk"
         }
-        console.log(bezoeker)
         const stringVanVoorkeuren = bezoeker.voorkeuren;
         const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
         setVoorkeuren(teTonenVoorkeuren);

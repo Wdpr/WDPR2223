@@ -7,13 +7,12 @@ export function AList() {
   useEffect(() => { fetchArtiestData() }, []);
 
   async function fetchArtiestData() {
-    const toke = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const response = await fetch("api/artiest", {
       method: "GET",
       headers: { "Authorization": "Bearer " + token},
     });
     const responseJSON = await response.json();
-    console.log(responseJSON);
     setArtiestData(responseJSON);
   }
 
