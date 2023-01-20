@@ -63,7 +63,7 @@ public class ReserveringController : ControllerBase
         Console.WriteLine("fakePay");
         Console.WriteLine(betalingModel.succes);
         Console.WriteLine(betalingModel.reference);
-        return Ok();
+        return Redirect("https://localhost:44468/");
     }
 
     public class ReserveringModel
