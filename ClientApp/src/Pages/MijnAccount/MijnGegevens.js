@@ -84,7 +84,6 @@ export function ToonMijnGevens() {
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
-                        <p className="gebruikerGegevens">{bezoeker ? bezoeker.voorkeuren : null}</p>
 
 
                         <h5>Het Donatie Platform:</h5>
