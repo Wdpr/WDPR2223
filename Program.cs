@@ -19,7 +19,24 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>( opt => {
 })
     .AddEntityFrameworkStores<TheaterContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddAuthentication();
+
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(opt =>
+{
+    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "https://localhost:44468",
+        ValidAudience = "https://localhost:44468",
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"))
+    };
+});
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
