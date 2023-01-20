@@ -111,6 +111,8 @@ code {
 }
 
 .voorstellingMiniCard {
+  background:rgba(0, 0, 0, 0);
+  border: 0px;
   display: inline-block;
   margin: 0px 10px;
   text-decoration: none;

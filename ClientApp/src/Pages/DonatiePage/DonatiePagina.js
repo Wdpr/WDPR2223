@@ -1,75 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+export function DonatiePagina () {
+    const navigate = useNavigate();
+    const [donatieBedrag, setDonatieBedrag] = useState(0);
 
-export class DonatiePagina extends React.Component {
-    constructor(props) {
-        super(props);
+    const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
+    const token = sessionStorage.getItem("token");
+    if (gebruiker == null) {
+        alert("U moet ingelogd zijn om een donatie te kunnen doen");
+        navigate("/login");
+    }
 
-        this.state = {
-            donatieBedrag: ""
+    function handleSubmit(e) {
+        e.preventDefault();
+        const donatie = {
+            Bedrag: donatieBedrag,
+            Datum: new Date(),
+            BezoekerId: gebruiker.id
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
-
-    
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
-        const bezoekerId = gebruiker.id;
-        const donatie = { Bedrag: this.state.donatieBedrag, Datum: new Date(), BezoekerId: bezoekerId};
-        
         fetch("api/donatie/nieuweDonatie", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
             body: JSON.stringify(donatie)
         })
             .then(res => {
                 if (res.ok) {
                     alert("Donatie is toegevoegd");
-                    window.location.href = "/profiel"
+                    navigate("/profiel");
                 } else {
                     throw new Error("Donatie niet gelukt");
                 }
             })
             .catch(err => {
                 console.error(err);
-                alert("Donatie niet gelukt. Mogelijk personeel");           
+                alert("Donatie niet gelukt. Mogelijk personeel");
             });
-    }    
+    }
 
-    render() {
-        return (
-            <div>
-                <div className="beginBanner">
-                    <div className="beginBannerText">
-                        <h4>Donateurs</h4>
+
+    return (
+        <>
+            <div className="beginBanner">
+                <div className="beginBannerText">
+                    <h4>Donateurs</h4>
                     <h1>Home</h1>
-                    </div>
-                </div>
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <br />
-                            <label>
-                                Donatie bedrag: 
-                                <input type="number" name="donatieBedrag" placeholder="Vul het bedrag in" onChange={this.handleChange} />
-                            </label>
-                        </div>
-                        <div>
-                            <button type="submit">Doneer</button>
-                        </div>
-                    </form>
                 </div>
             </div>
-        );
-    }
+            <div>
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <div>
+                        <br />
+                        <label>
+                            Donatie bedrag:
+                            <input type="number" name="donatieBedrag" placeholder="Vul het bedrag in" onChange={(e) => setDonatieBedrag(e.target.value)} />
+                        </label>
+                    </div>
+                    <div>
+                        <button >Doneer</button>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
 }
-    

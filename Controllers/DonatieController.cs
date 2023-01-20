@@ -23,7 +23,6 @@ public class DonatieController : ControllerBase
         return context.Donaties;
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public Donatie GetDonatie(int id)
     {
@@ -32,11 +31,22 @@ public class DonatieController : ControllerBase
 
     [HttpPost]
     [Route("nieuweDonatie")]
-    public Donatie PostDonatie(Donatie donatie)
+    public Donatie PostNewDonatie(PostDonatie postDonatie)
     {
-        Console.WriteLine("Donatie toegevoegd Controllerclass bericht");
-        context.Donaties.Add(donatie);
+        var donatie = new Donatie
+        {
+            Bedrag = postDonatie.Bedrag,
+            Datum = postDonatie.Datum,
+            BezoekerId = postDonatie.BezoekerId
+        };
+        context.Add(donatie);
         context.SaveChanges();
         return donatie;
+    }
+
+    public class PostDonatie {
+        public int Bedrag { get; set; }
+        public DateTime Datum { get; set; }
+        public string BezoekerId { get; set; }
     }
 }

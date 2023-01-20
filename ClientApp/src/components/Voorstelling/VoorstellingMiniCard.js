@@ -1,12 +1,17 @@
 import React from 'react'
-import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import img from '../../assets/guido-weijers.jpg'
 
 export const VoorstellingMiniCard = ({voorstelling}) => {
+    const navigate = useNavigate();
+    const handleClick = (e) => {
+        navigate("/Voorstelling/"+voorstelling.id, { state: voorstelling })
+    }
+
     return (
-        <NavLink tag={Link} to={'/voorstelling/'+voorstelling.id} className='voorstellingMiniCard'>
+        <button className='voorstellingMiniCard' onClick={(e) => handleClick(e)}>
             <img src={img} alt={voorstelling.naam} />
             <p>{voorstelling.naam}</p>
-        </NavLink >
+        </button >
     )
 }
