@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Laak.Controllers;
 
 [ApiController]
@@ -111,6 +112,40 @@ public class BezoekerController : ControllerBase
     {
         public string CurrentEmail { get; set; }
         public string NewEmail { get; set; }
+    }
+
+    [HttpPost]
+    [Route("voegVoorkeurenToe")]
+    public async Task<IActionResult> VoegVoorkeurenToe(VoorkeurenModel voorkeurenModel)
+    {
+        var user = await userManager.FindByEmailAsync(voorkeurenModel.Email);
+        Bezoeker bezoeker = (Bezoeker)user;
+        if (bezoeker == null)
+        {
+            Console.WriteLine("Bezoeker niet gevonden");
+            return NotFound();
+        }
+
+        bezoeker.Voorkeuren = voorkeurenModel.Voorkeuren;
+        var result = await userManager.UpdateAsync(bezoeker);
+        if (result.Succeeded)
+        {
+           
+            
+            Console.WriteLine("Voorkeuren toegevoegd");
+            return Ok();
+        }
+        else
+        {
+            return new BadRequestObjectResult(result);
+        }
+    }
+
+
+    public class VoorkeurenModel
+    {
+        public string Email { get; set; }
+        public string Voorkeuren { get; set; }
     }
 
     public class LoginModel

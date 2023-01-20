@@ -91,6 +91,10 @@ export const ReserveringPage = () => {
                 </div>
                 <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
             </div>
-        );
-    }
+
+            <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
+        </div>
+    );
+}
+
 }
