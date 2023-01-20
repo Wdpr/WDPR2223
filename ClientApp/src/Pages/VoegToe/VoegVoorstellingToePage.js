@@ -97,7 +97,7 @@ export function VoorstellingAdding() {
                                 <div className="background-warning">{error && zaalnummer == 0? <label className="warning-no-input">zaalnummer mag niet leeg zijn</label> : ""}{invalidErrorZaal &&  (isNaN(zaalnummer)) ?<label className="label-invalidValue">ongeldige waarde</label>: ""}{invalidErrorZaal2?<label className="label-invalidValue">Zaal bestaat niet</label>: ""}</div>
                                 <label className="labelInput">datum/tijd voorstelling</label>
                                 <label className="verplicht2">*</label>
-                                <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="jjjj-mm-dd" />
+                                <input type="text" id="voorstellingDatum" onChange={(e) => setDatumTijd(e.target.value)} name="datum" className="form-control" placeholder="dd-mm-jjjj" />
                                 <div className="background-warning">{error && datumTijd.length <= 0 ? <label className="warning-no-input">datum/tijd mag niet leeg zijn</label> : ""}</div>
                                 <label className="labelInput">tijdsduur</label>
                                 <label className="verplicht2">*</label>

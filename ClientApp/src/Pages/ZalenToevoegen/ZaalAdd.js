@@ -3,21 +3,19 @@ import '../../Styles/StoelenStyle.css';
 
 
 
+var button = <button>x</button>;
 
 export function VoegZaalToe() {
-  const [eersterng, setEersterng] = useState(0);
-  const [tweederng, setTweederng] = useState(0);
-  const [derderng, setDerderng] = useState(0);
+  const [eersterng, setEersterng] = useState();
+  const [tweederng, setTweederng] = useState();
+  const [derderng, setDerderng] = useState();
 
-  const [seats, setSeats] = useState([]);
+  
 
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  
 
-
-
-
- 
-
+const[input1, setInput1] = useState();
 
 
   async function submitHandler(e) {
@@ -50,7 +48,6 @@ export function VoegZaalToe() {
       return array
     }
 
-
     if (aantalStoelen === 0) {
       return 0
     }
@@ -64,6 +61,7 @@ export function VoegZaalToe() {
 
   }
 
+const [seats, setSeats] = useState([]);
 
   // useEffect(() => {
   //   maakStoelen()
@@ -71,18 +69,18 @@ export function VoegZaalToe() {
 
 
   function maakStoelen() {
-    const totaalAantalStoelen = eersterng + tweederng + derderng
-    const aantalRijenEersteCategorie = berekenAantalRijenPerCategorie(eersterng, 1)
-    const aantalRijenTweedeCategorie = berekenAantalRijenPerCategorie(tweederng, 2)
-    const aantalRijenDerdeCategorie = berekenAantalRijenPerCategorie(derderng, 3)
+    // const totaalAantalStoelen = eersterng + tweederng + derderng
+    // const aantalRijenEersteCategorie = berekenAantalRijenPerCategorie(eersterng, 1)
+    // const aantalRijenTweedeCategorie = berekenAantalRijenPerCategorie(tweederng, 2)
+    // const aantalRijenDerdeCategorie = berekenAantalRijenPerCategorie(derderng, 3)
 
-    const stoelen = [...aantalRijenEersteCategorie, ...aantalRijenTweedeCategorie, ...aantalRijenDerdeCategorie]
+    // const stoelen = [...aantalRijenEersteCategorie, ...aantalRijenTweedeCategorie, ...aantalRijenDerdeCategorie]
 
-    const initialStoelen = stoelen.map(row => row.map(seat => 0));
+    // const initialStoelen = stoelen.map(row => row.map(seat => seat = 0));
 
-    setSeats(initialStoelen)
+    // setSeats(initialStoelen)
     //vullen van de categorieen
-    setCategories(stoelen)
+    // setCategories(stoelen)
 
   }
 
@@ -99,15 +97,13 @@ export function VoegZaalToe() {
           <input type="text" id="tweederang" onChange={(e) => setTweederng(e.target.value)} className="input-secondclass" placeholder="aantal tweederangs"></input>
         </div>
         <div className='input-derderang-div'>
-          <input type="text" id="derderang" onChange={(e) => setDerderng(e.target.value)} className="input-firstclass" placeholder="aantal eersterangs"></input>
+          <input type="text" id="derderang" onChange={(e) => setDerderng(e.target.value)} className="input-thirdclass" placeholder="aantal derderangs"></input>
           <div className='button-div-zaal'>
             <button className='submit-zaal-button' type='submit'>Add</button>
           </div>
         </div>
       </div>
-      <div className='zaal-concept'>
-      {}
-      </div>
+
     </form>
   )
 
