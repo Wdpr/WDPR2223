@@ -217,7 +217,7 @@ export function ToonMijnGevens() {
 
             <div>
             {/* {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? ( */}
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' || JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin'  ? (
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' || JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'admin'  ? (
                     <div className="werknemerPortaal">
                         <WerknemerPortaal />
                     </div>
@@ -225,7 +225,7 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin' ? (
+                {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'admin' ? (
                     <div className="adminPortaal">
                         <AdminPortaal />
                     </div>

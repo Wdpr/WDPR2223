@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [Route("api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class DonatieController : ControllerBase
 {
     private TheaterContext context;
