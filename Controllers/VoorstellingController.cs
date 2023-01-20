@@ -32,8 +32,6 @@ public class VoorstellingController : ControllerBase
         return context.Voorstellingen.AsQueryable().Include(v => v.Zaal).Include(v => v.Artiest);
     }
 
-    // met Authorize wordt er gecontroleerd of de gebruiker ingelogd is. Als dat niet zo is krijgt de gebruiker een 401 error. 
-    [Authorize]
     [HttpGet("{id}")]
     public Voorstelling GetVoorstelling(int id)
     {
@@ -41,6 +39,7 @@ public class VoorstellingController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     [Route("nieuweVoorstelling")]
     public Voorstelling PostVoorstelling(VoorstellingModel model)
     { 
