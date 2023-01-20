@@ -1,7 +1,7 @@
 // import { VoorstellingBigCard } from "../../src/components/Voorstelling/VoorstellingBigCard"
 
 describe(
-    'VoorstellingPage wordt geladen',() => {
+    'VoorstellingPage wordt geladen en wordt gefilterd',() => {
         beforeEach(() => {
             cy.visit('https://localhost:44468/voorstelling')
         })
@@ -34,7 +34,7 @@ describe (
         })
         it('Should navigate to the VoorstellingDetailPage, when the button is clicked', () => {
             cy.contains('Toon Info').click();
-            cy.url().should('include', '/Voorstelling/');
+            cy.url().should('include', '/voorstelling');
         })
     })
     

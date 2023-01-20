@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export function VoorstellingBigCard({ info }) {
     const navigate = useNavigate();
 
+
     function handleClick() {
         navigate('/voorstelling/' + info.id, { state: info })
     }

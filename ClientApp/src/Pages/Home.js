@@ -70,7 +70,7 @@ export class Home extends Component {
                             if ((datum > huidigeDatum) && (datum < plus300)) {
                                 
                                 return (
-                                    <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                                    <VoorstellingMiniCard key={voorstelling.id} info={voorstelling} />
                                 )         
                             }
                     })}
