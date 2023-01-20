@@ -132,15 +132,13 @@ namespace wdpr.Migrations
 
                     b.Property<string>("BezoekerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("voorkeurNaam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BezoekerId");
 
                     b.ToTable("Voorkeuren");
                 });
@@ -425,6 +423,10 @@ namespace wdpr.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Voorkeuren")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("Bezoeker");
                 });
 
@@ -472,15 +474,6 @@ namespace wdpr.Migrations
                     b.HasOne("Laak.Models.Reservering", null)
                         .WithMany("Stoelen")
                         .HasForeignKey("ReserveringId");
-                });
-
-            modelBuilder.Entity("Laak.Models.Voorkeur", b =>
-                {
-                    b.HasOne("Laak.Models.Bezoeker", null)
-                        .WithMany("Voorkeuren")
-                        .HasForeignKey("BezoekerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Laak.Models.Voorstelling", b =>
@@ -561,8 +554,6 @@ namespace wdpr.Migrations
             modelBuilder.Entity("Laak.Models.Bezoeker", b =>
                 {
                     b.Navigation("Donaties");
-
-                    b.Navigation("Voorkeuren");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 using Laak.Context;
 using Laak.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,6 @@ namespace Laak.Controllers;
 [Route("api/[controller]")]
 public class ReserveringController : ControllerBase
 {
-
     private  TheaterContext context;
 
     public ReserveringController(TheaterContext context)
@@ -18,11 +18,13 @@ public class ReserveringController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IEnumerable<Reservering> GetReserveringen()
     {
         return context.Reserveringen.AsQueryable().Include(r => r.Stoelen).Include(r => r.Voorstelling);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
@@ -34,16 +36,13 @@ public class ReserveringController : ControllerBase
         return Ok(reservering);
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Post([FromBody] ReserveringModel reserveringModel)
     {
-        Console.WriteLine("reservering post");
-        // checks op bezoeker en voorstelling
         var bezoeker = context.Bezoekers.SingleOrDefault(b => b.UserName == reserveringModel.BezoekerUserName);
         var voorstelling = context.Voorstellingen.Find(reserveringModel.VoorstellingId);
         if (voorstelling == null || bezoeker == null) return NotFound();
-
-
 
         var reservering = new Reservering
         {

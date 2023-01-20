@@ -3,9 +3,11 @@ using Laak.Context;
 using Laak.Models;
 using Microsoft.AspNetCore.Authorization;
 
+namespace Laak.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
-
+[Authorize]
 public class DonatieController : ControllerBase
 {
     private TheaterContext context;

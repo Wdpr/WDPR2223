@@ -5,6 +5,11 @@ import { useLocation } from "react-router-dom";
 export const ReserveringPage = () => {
     const navigate = useNavigate();
     const state = useLocation().state;
+    const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"))
+    if (gebruiker === null) {
+        alert("U moet ingelogd zijn om een reservering te maken")
+        navigate("/login")
+    }
 
     const stoelen = state.bestelling.stoelen
     const prijs = state.bestelling.prijs
@@ -38,63 +43,47 @@ export const ReserveringPage = () => {
     }
 
     function postReservering() {
-        let reserveringId = 0
-
-        const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"))
-        if (gebruiker === null) {
-            alert("U moet ingelogd zijn om een reservering te maken")
-            navigate("/login")
-        }
-
+        const token = sessionStorage.getItem("token")
         fetch("api/reservering", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
             body: JSON.stringify({
                 "VoorstellingId": state.id,
-                "BezoekerUsername": gebruiker.userName,
+                "BezoekerUsername": gebruiker.username,
                 "TotaalPrijs": prijs,
                 "Stoelen": stoelen
             })
+        }).then(response => {
+            if (response.ok) {
+                console.log("Reservering succesvol");
+            } else {
+                console.log(response);
+            }
         })
-            .then(response => {
-                if (response.ok) {
-                    alert("Reservering succesvol");
-                    navigate('/profiel');
-                } else {
-                    alert("Reservering mislukt");
-                }
-            })
+    }
+    function Bevestig() {
+        postReservering()
+        naarBetaling(1)
+    }
 
-
-        function Bevestig() {
-            const reserveringId = postReservering()
-            naarBetaling(reserveringId)
-
-        }
-
-        return (
+    return (
+        <div>
+            <h1>{state.naam}</h1>
             <div>
-                <h1>{state.naam}</h1>
+                <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
                 <div>
-                    <p>U staat op het moment om de volgende {stoelen.length} stoel(en) te reserveren:</p>
-                    <div>
-                        {stoelen.map((stoel, key) => <ul key={key}>
-                            <li>Stoel: {stoel.stoelnr + 1}</li>
-                            <li>Rij: {stoel.rijnr + 1}</li>
-                            <li>Rang: {stoel.categorie}</li>
-                            <li>Prijs: €{stoel.prijs}</li>
-                        </ul>)}
-                    </div>
-                    <br />
-                    <p>Dit komt op een totaalprijs van €{prijs}</p>
-                    <span>Bent u zeker van uw reservering?</span>
+                    {stoelen.map((stoel, key) => <ul key={key}>
+                        <li>Stoel: {stoel.stoelnr + 1}</li>
+                        <li>Rij: {stoel.rijnr + 1}</li>
+                        <li>Rang: {stoel.categorie}</li>
+                        <li>Prijs: €{stoel.prijs}</li>
+                    </ul>)}
                 </div>
-                <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
+                <br />
+                <p>Dit komt op een totaalprijs van €{prijs}</p>
+                <span>Bent u zeker van uw reservering?</span>
             </div>
-
             <button onClick={() => Bevestig()}>Bevestig en ga naar betaling</button>
         </div>
     );
-}
-
 }

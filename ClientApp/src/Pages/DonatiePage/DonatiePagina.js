@@ -41,12 +41,9 @@ export class DonatiePagina extends React.Component {
             })
             .catch(err => {
                 console.error(err);
-                alert("Donatie niet gelukt. Mogelijk personeel");
-                
+                alert("Donatie niet gelukt. Mogelijk personeel");           
             });
-    }
-
-    
+    }    
 
     render() {
         return (
@@ -54,8 +51,7 @@ export class DonatiePagina extends React.Component {
                 <div className="beginBanner">
                     <div className="beginBannerText">
                         <h4>Donateurs</h4>
-                        <h1>Home</h1>
-                        
+                    <h1>Home</h1>
                     </div>
                 </div>
                 <div>

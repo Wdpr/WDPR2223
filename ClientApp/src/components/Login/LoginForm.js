@@ -32,8 +32,9 @@ export function LoginForm() {
             .then(data => {
                 console.log(data)
                 if (data) {
-                    alert("ingelogd als " + data.userName)
-                    sessionStorage.setItem('gebruiker', JSON.stringify(data))
+                    alert("ingelogd als " + data.gebruiker.userName)
+                    sessionStorage.setItem('token', data.token)
+                    sessionStorage.setItem('gebruiker', JSON.stringify({ username: data.gebruiker.userName, id: data.gebruiker.id }))
                     window.location.href = "/"          // ook mogelijk met useNavigate()
                 } else {
                     alert("inloggen mislukt")
