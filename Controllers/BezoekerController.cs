@@ -46,6 +46,7 @@ public class BezoekerController : ControllerBase
             Email = registreerModel.Email,
             UserName = registreerModel.Gebruikersnaam,
             PasswordHash = registreerModel.Wachtwoord,
+            Voorkeuren = "Komedie,Musical,Cabaret,Dans,Zang,Kindertheater,Drama"
         };
         Console.WriteLine("Bezoeker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
@@ -140,20 +141,15 @@ public class BezoekerController : ControllerBase
     public async Task<IActionResult> VoegVoorkeurenToe(VoorkeurenModel voorkeurenModel)
     {
         var user = await userManager.FindByEmailAsync(voorkeurenModel.Email);
-        Bezoeker bezoeker = (Bezoeker)user;
+        Bezoeker bezoeker = (Bezoeker) user;
         if (bezoeker == null)
         {
-            Console.WriteLine("Bezoeker niet gevonden");
             return NotFound();
         }
-
         bezoeker.Voorkeuren = voorkeurenModel.Voorkeuren;
         var result = await userManager.UpdateAsync(bezoeker);
         if (result.Succeeded)
         {
-           
-            
-            Console.WriteLine("Voorkeuren toegevoegd");
             return Ok();
         }
         else
@@ -161,7 +157,6 @@ public class BezoekerController : ControllerBase
             return new BadRequestObjectResult(result);
         }
     }
-
 
     public class VoorkeurenModel
     {

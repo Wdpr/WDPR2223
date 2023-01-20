@@ -14,6 +14,7 @@ export function ToonMijnGevens() {
     const [selectedItem, setSelectedItem] = useState(null);
     const [reserveringen, setReserveringen] = useState([]);
     const [bezoeker, setBezoeker] = useState();
+    const [voorkeuren, setVoorkeuren] = useState([])
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
@@ -34,13 +35,6 @@ export function ToonMijnGevens() {
             const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
             const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
             setReserveringen(filteredReserveringen);
-            
-            //tonen van de voorkeuren
-            const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
-            const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
-            setVoorkeuren(teTonenVoorkeuren);
-            
-            
         };
         const haalGebruikerOp = async () => {
             const gebruikerId = JSON.parse(sessionStorage.getItem("gebruiker")).id;
@@ -58,11 +52,19 @@ export function ToonMijnGevens() {
         haalGebruikerOp();
     }, []);
 
-    useEffect(() => {
-        console.log("reserveringen", reserveringen);
-        console.log("bezoeker", bezoeker);
-    }, [reserveringen, bezoeker])
+    useEffect(() => {}, [reserveringen, bezoeker])
 
+    useEffect(() => {
+        if (bezoeker == null) return
+        if (bezoeker.functie === 'admin') {
+            bezoeker.voorkeuren = "niet mogelijk"
+        }
+        console.log(bezoeker)
+        const stringVanVoorkeuren = bezoeker.voorkeuren;
+        const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
+        setVoorkeuren(teTonenVoorkeuren);
+    }, [bezoeker])
+    
     return (
         <div>
             <div className="containervoorMijnGegevensEnMijnReserveringen">
@@ -249,7 +251,7 @@ export function ToonMijnGevens() {
             <div>
                 {bezoeker ? bezoeker.functie === 'admin' ? (
                     <div className="adminPortaal">
-                        <AdminPortaal  />
+                        <AdminPortaal />
                     </div>
                 ) : null : null}
             </div>
