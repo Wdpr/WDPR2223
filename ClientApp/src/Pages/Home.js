@@ -27,6 +27,14 @@ export class Home extends Component {
   }
 
   render() {
+    const filteredVoorstellingen = this.state.selectedGenre
+    ? this.state.voorstellingen.filter()
+    : this.state.voorstellingen;
+
+    filteredVoorstellingen.sort((b, a) => new Date(a.datumDateTime) - new Date(b.datumDateTime));
+    
+
+
     return (
       <>
         <div className="beginBanner">
@@ -53,7 +61,18 @@ export class Home extends Component {
                 <h1 >Nieuwste voorstellingen</h1>
                   <div className="voorstellingMiniCards">
                     {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.slice(0, 4).map(voorstelling => {
-                      return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                      // return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                      const vandaagVoorPlus = new Date();                           
+                            const datum = new Date(voorstelling.datumDateTime);                           
+                            const plus300 = new Date(vandaagVoorPlus.setDate(vandaagVoorPlus.getDate() + 300));                           
+                            const huidigeDatum = new Date();
+
+                            if ((datum > huidigeDatum) && (datum < plus300)) {
+                                
+                                return (
+                                    <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                                )         
+                            }
                     })}
                   </div>
 

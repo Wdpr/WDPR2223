@@ -8,9 +8,6 @@ import GebruikerHook from "../../GebruikerHook";
 
 
 export function ToonMijnGevens() {
-    const dummyGebruiker = {
-        voorkeuren: ["Musical", "Comedy", "Drama", "Kindertheater", "Cabaret"]
-    }
     const navigate = useNavigate();
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
@@ -37,6 +34,13 @@ export function ToonMijnGevens() {
             const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
             const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
             setReserveringen(filteredReserveringen);
+            
+            //tonen van de voorkeuren
+            const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
+            const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
+            setVoorkeuren(teTonenVoorkeuren);
+            
+            
         };
         const haalGebruikerOp = async () => {
             const gebruikerId = JSON.parse(sessionStorage.getItem("gebruiker")).id;
@@ -74,7 +78,7 @@ export function ToonMijnGevens() {
 
                         <h5>Voorkeuren</h5>
                         <ul className="gebruikerGegevens">
-                            {dummyGebruiker.voorkeuren.map((item) => (
+                            {voorkeuren.map((item) => (
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
@@ -245,7 +249,7 @@ export function ToonMijnGevens() {
             <div>
                 {bezoeker ? bezoeker.functie === 'admin' ? (
                     <div className="adminPortaal">
-                        <AdminPortaal />
+                        <AdminPortaal  />
                     </div>
                 ) : null : null}
             </div>
