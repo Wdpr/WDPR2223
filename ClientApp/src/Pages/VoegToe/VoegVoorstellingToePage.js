@@ -70,7 +70,7 @@ export function VoorstellingAdding() {
 
     return (
         <form onSubmit={submitHandler}>
-            <div className="container">
+            <div className="container" id="container">
                 <h1>Voeg Een Voorstelling Toe</h1>
                 <div className="row">
                     <div className="col-sm-8">
@@ -79,7 +79,7 @@ export function VoorstellingAdding() {
                                 <label className="labelInput">voorstelling naam</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingNaam" onChange={(e) => setVoorstelllingNaam(e.target.value)} name="naam" className="form-control" placeholder="naam" />
-                                <div className="background-warning">{error && voorstellingNaam <= 0 ? <label className="warning-no-input">voorstelling naam mag niet leeg zijn</label> : ""}</div>
+                                <div data-cy="input-naam" className="background-warning">{error && voorstellingNaam <= 0 ? <label className="warning-no-input">voorstelling naam mag niet leeg zijn</label> : ""}</div>
                                 <label className="labelInput">zaalnummer</label>
                                 <label className="verplicht2">*</label>
                                 <input type="text" id="voorstellingZaalnummer" onChange={(e) => setZaalnummer(e.target.value)} name="zaalnummer" className="form-control" placeholder="zaalnummer" />
