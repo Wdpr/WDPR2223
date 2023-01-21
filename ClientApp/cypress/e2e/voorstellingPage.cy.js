@@ -1,4 +1,4 @@
-// import { VoorstellingBigCard } from "../../src/components/Voorstelling/VoorstellingBigCard"
+
 
 describe(
     'VoorstellingPage wordt geladen en wordt gefilterd',() => {
@@ -29,12 +29,15 @@ describe(
 
 describe (
     'Gebruiker gaat van voorstellingPage naar een specifieke voorstelling', () => {
-        beforeEach(() => {
+
+        it('Should navigate to the correct VoorstellingDetailPage, when the button is clicked', () => {
             cy.visit('https://localhost:44468/voorstelling')
+            cy.get('button').contains('Toon Info').click().then(($button) => {
+                const id = $button.data('id');
+                console.log(id);
+            cy.url().should('include', '/voorstelling/' + id);
+            })
         })
-        it('Should navigate to the VoorstellingDetailPage, when the button is clicked', () => {
-            cy.contains('Toon Info').click();
-            cy.url().should('include', '/voorstelling');
-        })
-    })
-    
+
+    }
+)

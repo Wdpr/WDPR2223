@@ -42,7 +42,7 @@ export function VoorstellingBigCard({ info }) {
                 <div className='cardInfoPrijs'>
                     <ul>
                         <li>
-                            <button className='buttonNaarVoorstelling' onClick={() => handleClick()}>Toon Info</button>
+                            <button data-id={info.id} className='buttonNaarVoorstelling' onClick={() => handleClick()}>Toon Info</button>
                         </li>
                         <li>v.a. €{info.prijs}</li>
                     </ul>
