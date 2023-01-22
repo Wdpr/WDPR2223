@@ -54,7 +54,7 @@ export class Home extends Component {
                   const datum = new Date(voorstelling.datumDateTime);
                   const plus300 = new Date().setDate(new Date().getDate() + 300);
                   if ((datum > new Date()) && (datum < plus300))
-                    return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                    return <VoorstellingMiniCard key={voorstelling.id} info={voorstelling} />
                 })}
               </div>
               <div >

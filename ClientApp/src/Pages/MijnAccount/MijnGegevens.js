@@ -30,18 +30,8 @@ export function ToonMijnGevens() {
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem("token") },
             })
             const dataReserveringen = await responsReserveringen.json();
-            //Ophalen van bezoekers zonder voorkeur/donatie
-            const responsBezoeker = await fetch('api/bezoeker/')
-            const dataBezoeker = await responsBezoeker.json();
-            //Juist bezoeker ophalen
-            console.log(dataBezoeker);
-            const ingelogdeBezoeker = dataBezoeker.find(bezoeker => bezoeker.email === JSON.parse(sessionStorage.getItem("gebruiker")).email);
-            console.log(ingelogdeBezoeker);
-
-            //setten van juiste bezoeker
-            setBezoeker(ingelogdeBezoeker);
-            const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === ingelogdeBezoeker.id)
-            //setten van juiste reserveringen
+            const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
+            const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
             setReserveringen(filteredReserveringen);
             
             //tonen van de voorkeuren
