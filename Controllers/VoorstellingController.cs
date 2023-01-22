@@ -24,10 +24,10 @@ public class VoorstellingController : ControllerBase
     {
         foreach (var voorstelling in context.Voorstellingen)
         {
-            if(!string.IsNullOrEmpty(voorstelling.Datum))
-            voorstelling.DatumDateTime = DateTime.ParseExact(voorstelling.Datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            if(!string.IsNullOrEmpty(voorstelling.Tijd))
-            voorstelling.TijdDateTime = DateTime.ParseExact(voorstelling.Tijd, "HH:mm", CultureInfo.InvariantCulture);
+            if (!string.IsNullOrEmpty(voorstelling.Datum))
+                voorstelling.DatumDateTime = DateTime.ParseExact(voorstelling.Datum, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            if (!string.IsNullOrEmpty(voorstelling.Tijd))
+                voorstelling.TijdDateTime = DateTime.ParseExact(voorstelling.Tijd, "HH:mm", CultureInfo.InvariantCulture);
         }
         return context.Voorstellingen.AsQueryable().Include(v => v.Zaal).Include(v => v.Artiest);
     }
@@ -42,33 +42,35 @@ public class VoorstellingController : ControllerBase
     [Authorize]
     [Route("nieuweVoorstelling")]
     public Voorstelling PostVoorstelling(VoorstellingModel model)
-    { 
-        Voorstelling voorstelling = new Voorstelling{
-        
-        Naam = model.naam,
-        Img = model.img,
-        Prijs = model.prijs,
-        Genre = model.genre,
-        ZaalId = context.Zalen.Where(zaal => zaal.Id == model.zaal).Select(z => z.Id).SingleOrDefault(),
-        Datum = model.datum,
-        Tijd = model.tijd,
-        Speelduur = model.speelduur,
-        Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
-        
-    };
+    {
+        Voorstelling voorstelling = new Voorstelling
+        {
+
+            Naam = model.naam,
+            Img = model.img,
+            Prijs = model.prijs,
+            Genre = model.genre,
+            ZaalId = context.Zalen.Where(zaal => zaal.Id == model.zaal).Select(z => z.Id).SingleOrDefault(),
+            Datum = model.datum,
+            Tijd = model.tijd,
+            Speelduur = model.speelduur,
+            Artiest = context.Artiesten.Where(artiest => artiest.Id == model.artiest).SingleOrDefault(),
+
+        };
 
         Console.WriteLine("Voorstelling model");
         context.Voorstellingen.Add(voorstelling);
         context.SaveChanges();
         return voorstelling;
-   
+
     }
 
-    public class VoorstellingModel{
+    public class VoorstellingModel
+    {
 
-        public string? naam{get;set;}
+        public string? naam { get; set; }
         public string? img { get; set; }
-        public string? datum { get; set;}
+        public string? datum { get; set; }
         public string? tijd { get; set; }
         public int prijs { get; set; }
         public int speelduur { get; set; }

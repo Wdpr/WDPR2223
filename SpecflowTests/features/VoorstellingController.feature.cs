@@ -19,7 +19,7 @@ namespace wdpr.SpecflowTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class BezoekerFeature : object, Xunit.IClassFixture<BezoekerFeature.FixtureData>, System.IDisposable
+    public partial class VoorstellingControllerFeature : object, Xunit.IClassFixture<VoorstellingControllerFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace wdpr.SpecflowTests.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "bezoeker.feature"
+#line 1 "VoorstellingController.feature"
 #line hidden
         
-        public BezoekerFeature(BezoekerFeature.FixtureData fixtureData, wdpr_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public VoorstellingControllerFeature(VoorstellingControllerFeature.FixtureData fixtureData, wdpr_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,8 @@ namespace wdpr.SpecflowTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SpecflowTests/features", "bezoeker", "    kan registreren\r\n    en vervolgens inloggen", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SpecflowTests/features", "VoorstellingController", "  Als een gebruiker\r\n    wil ik een lijst van alle voorstellingen krijgen\r\n    en" +
+                    " wil ik een specifieke voorstelling kunnen opvragen", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +81,14 @@ namespace wdpr.SpecflowTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="registratie")]
-        [Xunit.TraitAttribute("FeatureTitle", "bezoeker")]
-        [Xunit.TraitAttribute("Description", "registratie")]
-        [Xunit.TraitAttribute("Category", "tag5")]
-        public void Registratie()
+        [Xunit.SkippableFactAttribute(DisplayName="All Voorstellingen opvragen")]
+        [Xunit.TraitAttribute("FeatureTitle", "VoorstellingController")]
+        [Xunit.TraitAttribute("Description", "All Voorstellingen opvragen")]
+        public void AllVoorstellingenOpvragen()
         {
-            string[] tagsOfScenario = new string[] {
-                    "tag5"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("registratie", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All Voorstellingen opvragen", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,38 +100,30 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
-    testRunner.Given("een bezoeker heeft geen account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("Ik ben een gebruiker", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-    testRunner.When("de bezoeker de username peter invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.When("Ik alle voorstellingen opvraag", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
-    testRunner.And("de bezoeker de email peter@mail.com invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.Then("Alle Voorstellingen worden geretoured", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
-    testRunner.And("de bezoeker het wachtwoord WDpr123! invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 11
-    testRunner.And("de bezoeker de login request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 12
-    testRunner.Then("wordt er een account gemaakt", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("De status code moet zijn 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="login")]
-        [Xunit.TraitAttribute("FeatureTitle", "bezoeker")]
-        [Xunit.TraitAttribute("Description", "login")]
-        [Xunit.TraitAttribute("Category", "tag5")]
-        public void Login()
+        [Xunit.SkippableFactAttribute(DisplayName="View specific Voorstelling by ID")]
+        [Xunit.TraitAttribute("FeatureTitle", "VoorstellingController")]
+        [Xunit.TraitAttribute("Description", "View specific Voorstelling by ID")]
+        public void ViewSpecificVoorstellingByID()
         {
-            string[] tagsOfScenario = new string[] {
-                    "tag5"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("login", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 15
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View specific Voorstelling by ID", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -142,20 +133,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 14
+  testRunner.Given("Ik ben een gebruiker", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 15
+  testRunner.When("Ik vraag om een specifieke voorstelling met een ID", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 16
-    testRunner.Given("een bezoeker heeft een account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Then("De specifieke voorstelling wordt geretoured", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 17
-    testRunner.When("de bezoeker zijn email peter@mail.com invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 18
-    testRunner.And("de bezoeker zijn wachtwoord WDpr123! invult", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 19
-    testRunner.And("de bezoeker de registreer request verstuurd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 20
-    testRunner.Then("de bezoeker is ingelogd", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("De status code moet zijn 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -168,12 +156,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                BezoekerFeature.FeatureSetup();
+                VoorstellingControllerFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                BezoekerFeature.FeatureTearDown();
+                VoorstellingControllerFeature.FeatureTearDown();
             }
         }
     }
