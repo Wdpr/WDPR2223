@@ -21,9 +21,9 @@ describe(
 
         it('filters the performances by genre', () => {
             cy.get('.genreFilter select').select('Dans');
-            cy.get('.bigCardsContainer VoorstellingBigCard ').should('have.length.lte', 1);
             cy.get('.bigCardsContainer').should('contain' , 'Dans');
             cy.get('.bigCardsContainer').should('not.contain', 'Musical');
+            cy.get('.bigCardsContainer').should('not.contain', 'Comedy');
         })
     })
 

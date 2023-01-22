@@ -33,10 +33,9 @@ export function ToonMijnGevens() {
             const responsBezoeker = await fetch('api/bezoeker/')
             const dataBezoeker = await responsBezoeker.json();
             //Juist bezoeker ophalen
-            console.log(dataBezoeker);
+            
             const ingelogdeBezoeker = dataBezoeker.find(bezoeker => bezoeker.email === JSON.parse(sessionStorage.getItem("gebruiker")).email);
-            console.log(ingelogdeBezoeker);
-
+            
             //setten van juiste bezoeker
             setBezoeker(ingelogdeBezoeker);
             const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === ingelogdeBezoeker.id)
@@ -44,9 +43,11 @@ export function ToonMijnGevens() {
             setReserveringen(filteredReserveringen);
             
             //tonen van de voorkeuren
-            const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
-            const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
-            setVoorkeuren(teTonenVoorkeuren);
+            if(ingelogdeBezoeker && ingelogdeBezoeker.voorkeuren) {
+                const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
+                const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
+                setVoorkeuren(teTonenVoorkeuren);
+                }
             
             
         };
