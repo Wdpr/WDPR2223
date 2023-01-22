@@ -7,17 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 
 export function ToonMijnGevens() {
-    const dummyGebruiker = {
-        voorkeuren: ["Musical", "Comedy", "Drama", "Kindertheater", "Cabaret"]
-    }
-
-    
     const navigate = useNavigate();
 
     const [ToonWijzigForm, setToonWijzigForm] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [reserveringen, setReserveringen] = useState([]);
     const [bezoeker, setBezoeker] = useState([]);
+    const [voorkeuren, setVoorkeuren] = useState([]);
 
     const handleClick = (event) => {
         setSelectedItem(event.target.innerText);
@@ -30,15 +26,34 @@ export function ToonMijnGevens() {
 
     useEffect(() => {
         const fetchData = async () => {
+            //Ophalen van reserveringen
             const responsReserveringen = await fetch('api/reservering/')
             const dataReserveringen = await responsReserveringen.json();
-            const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
-            setBezoeker(gebruiker);
-            const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
+            //Ophalen van bezoekers zonder voorkeur/donatie
+            const responsBezoeker = await fetch('api/bezoeker/')
+            const dataBezoeker = await responsBezoeker.json();
+            //Juist bezoeker ophalen
+            
+            const ingelogdeBezoeker = dataBezoeker.find(bezoeker => bezoeker.email === JSON.parse(sessionStorage.getItem("gebruiker")).email);
+            
+            //setten van juiste bezoeker
+            setBezoeker(ingelogdeBezoeker);
+            const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === ingelogdeBezoeker.id)
+            //setten van juiste reserveringen
             setReserveringen(filteredReserveringen);
+            
+            //tonen van de voorkeuren
+            if(ingelogdeBezoeker && ingelogdeBezoeker.voorkeuren) {
+                const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
+                const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
+                setVoorkeuren(teTonenVoorkeuren);
+                }
+            
+            
         };
         fetchData();
     }, []);
+
 
     return (
         <div>
@@ -55,7 +70,7 @@ export function ToonMijnGevens() {
 
                         <h5>Voorkeuren</h5>
                         <ul className="gebruikerGegevens">
-                            {dummyGebruiker.voorkeuren.map((item) => (
+                            {voorkeuren.map((item) => (
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
@@ -204,7 +219,8 @@ export function ToonMijnGevens() {
 
                         {selectedItem === 'Voorkeuren' && (
                             <div className="voorkeurenDiv">
-                                <VoorkeurenComponent />
+                                
+                                <VoorkeurenComponent emailAdres = {bezoeker.email} />
                             
                             </div>
                         )}
@@ -216,7 +232,7 @@ export function ToonMijnGevens() {
             </div>
 
             <div>
-            {/* {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' ? ( */}
+            {/* {JSON.parse(sessionStorage.getItem("gebruiker")).username === 'hier je username' ? ( */}
                 {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Werknemer' || JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin'  ? (
                     <div className="werknemerPortaal">
                         <WerknemerPortaal />
@@ -227,7 +243,7 @@ export function ToonMijnGevens() {
             <div>
                 {JSON.parse(sessionStorage.getItem("gebruiker")).functie === 'Admin' ? (
                     <div className="adminPortaal">
-                        <AdminPortaal />
+                        <AdminPortaal  />
                     </div>
                 ) : null}
             </div>

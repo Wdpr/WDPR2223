@@ -346,3 +346,8 @@ code {
   justify-content: center;
   margin-top: 40px;
 }
+
+.buttonInvisible {
+  background-color: transparent;
+  border-width: 0px;
+}

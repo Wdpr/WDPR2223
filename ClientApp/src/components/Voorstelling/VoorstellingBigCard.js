@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export function VoorstellingBigCard({ info }) {
     const navigate = useNavigate();
 
+
     function handleClick() {
         navigate('/voorstelling/' + info.id, { state: info })
     }
@@ -19,7 +20,7 @@ export function VoorstellingBigCard({ info }) {
     const dag = dagen[datum.getDay()];
 
     return (
-        <div >
+        <div className='testenCards' >
             <h1 className='pageCardTitel'>{info.naam}</h1>
             <div className='voorstellingCard'>
                 { <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt='Foto van voorstelling' /> }
@@ -41,7 +42,7 @@ export function VoorstellingBigCard({ info }) {
                 <div className='cardInfoPrijs'>
                     <ul>
                         <li>
-                            <button onClick={() => handleClick()}>Toon Info</button>
+                            <button data-id={info.id} className='buttonNaarVoorstelling' onClick={() => handleClick()}>Toon Info</button>
                         </li>
                         <li>v.a. €{info.prijs}</li>
                     </ul>
