@@ -12,6 +12,8 @@ import { AList } from "./Pages/ArtiestLijst/ArtiestLijst";
 import { VoorstellingDetails } from "./components/Voorstelling/VoorstellingDetails";
 import { Contact } from "./Pages/Contact";
 import { Betaling } from "./components/Betaling";
+import {VoorstellingAdding} from "./Pages/VoegToe/VoegVoorstellingToePage";
+import {VoegArtiestToeAanLijst} from "./Pages/VoegToe/VoegArtiestToePage";
 
 const AppRoutes = [
   {
@@ -69,6 +71,14 @@ const AppRoutes = [
   {
     path : '/Contact',
     element: <Contact />
+  },
+  {
+    path : '/Voorstelling+',
+    element: <VoorstellingAdding />
+  },
+  {
+    path : '/AddArtiest',
+    element: <VoorstellingAdding />
   }
 ];
 
