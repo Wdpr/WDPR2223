@@ -8,7 +8,6 @@ describe(
                 cy.get('button[type ="submit"]').click();
                 cy.wait(1000);
                 cy.get('p span').should('have.text', 'testuser');
-                cy.visit('https://localhost:44468/Profiel')
                 
             })
         })
@@ -19,10 +18,10 @@ describe(
         })
 
         it('Er wordt een reservering getoond ', () => {
-            cy.visit('https://localhost:44468/Profiel')
             cy.fixture('testReservering.json').then(reserveringen => {
                 cy.intercept('GET', 'api/reservering', [reserveringen]).as('reserveringen')
             });
+            cy.visit('https://localhost:44468/Profiel')
             cy.get( ".mijnReserveringen").should('contain', 'testVoorstelling')
         })
 
