@@ -1,7 +1,7 @@
-// import { VoorstellingBigCard } from "../../src/components/Voorstelling/VoorstellingBigCard"
+
 
 describe(
-    'VoorstellingPage wordt geladen',() => {
+    'VoorstellingPage wordt geladen en wordt gefilterd',() => {
         beforeEach(() => {
             cy.visit('https://localhost:44468/voorstelling')
         })
@@ -21,20 +21,23 @@ describe(
 
         it('filters the performances by genre', () => {
             cy.get('.genreFilter select').select('Dans');
-            cy.get('.bigCardsContainer VoorstellingBigCard ').should('have.length.lte', 1);
             cy.get('.bigCardsContainer').should('contain' , 'Dans');
             cy.get('.bigCardsContainer').should('not.contain', 'Musical');
+            cy.get('.bigCardsContainer').should('not.contain', 'Comedy');
         })
     })
 
 describe (
     'Gebruiker gaat van voorstellingPage naar een specifieke voorstelling', () => {
-        beforeEach(() => {
+
+        it('Should navigate to the correct VoorstellingDetailPage, when the button is clicked', () => {
             cy.visit('https://localhost:44468/voorstelling')
+            cy.get('button').contains('Toon Info').click().then(($button) => {
+                const id = $button.data('id');
+                console.log(id);
+            cy.url().should('include', '/voorstelling/' + id);
+            })
         })
-        it('Should navigate to the VoorstellingDetailPage, when the button is clicked', () => {
-            cy.contains('Toon Info').click();
-            cy.url().should('include', '/Voorstelling/');
-        })
-    })
-    
+
+    }
+)

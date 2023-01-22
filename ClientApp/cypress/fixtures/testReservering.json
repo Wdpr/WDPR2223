@@ -1,0 +1,39 @@
+{
+    "bezoeker" : null,
+    "bezoekerId" : "d2fe77ba-761d-4d97-b94a-39d7234b78b7",
+    "id" : 1,
+    "stoelen" : [
+                {
+                    "id" : 1,
+                    "rijNr" : 2,
+                    "stoelNr" : 2,
+                    "rang" : null
+                },
+                {
+                    "id" : 2,
+                    "rijNr" : 3,
+                    "stoelNr" : 3,
+                    "rang" : null
+                }
+            ],
+
+    "totaalPrijs" : 320,
+    "voorstelling" : {
+                        "artiest" : null,
+                        "artiestId " : 1,
+                        "datum" : "20-02-2023",
+                        "datumDateTime" : null,
+                        "genre ": "Holiday",
+                        "id" : 8,
+                        "img" : "image",
+                        "naam" : "testVoorstelling",
+                        "prijs" : 80,
+                        "speelduur" : 120,
+                        "tijd" : "13:30",
+                        "tijdDateTime" : null,
+                        "zaal" : null,
+                        "zaalId" : 1,
+                        "voorstellingId" : 8
+                    },
+    "voorstellingId" : 8
+}

@@ -33,6 +33,15 @@ export function ToonMijnGevens() {
             const gebruiker = JSON.parse(sessionStorage.getItem("gebruiker"));
             const filteredReserveringen = dataReserveringen.filter(reservering => reservering.bezoekerId === gebruiker.id)
             setReserveringen(filteredReserveringen);
+            
+            //tonen van de voorkeuren
+            if(ingelogdeBezoeker && ingelogdeBezoeker.voorkeuren) {
+                const stringVanVoorkeuren = ingelogdeBezoeker.voorkeuren;
+                const teTonenVoorkeuren = stringVanVoorkeuren.split(",");
+                setVoorkeuren(teTonenVoorkeuren);
+                }
+            
+            
         };
         const haalGebruikerOp = async () => {
             const gebruikerId = JSON.parse(sessionStorage.getItem("gebruiker")).id;

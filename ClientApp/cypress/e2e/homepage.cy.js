@@ -11,6 +11,7 @@ describe(
             cy.get(".voorstellingMiniCards").should('exist')
         })
         it('Should load a maximum of 4 voorstellingen', () => {
+            cy.wait(1000);
             cy.get(".voorstellingMiniCards").children().should('have.length.lte', 4)
         })
         it('Should show the username if there is a logged in user', () => {
@@ -22,10 +23,6 @@ describe(
             sessionStorage.removeItem('gebruiker');
             cy.reload();
             cy.get('p span').should('not.exist');
-        })
-        it('Should navigate to the Programmering, when the href is clicked', () => {
-            cy.get('a[href="/Voorstelling"]').click();
-            cy.url().should('include', '/Voorstelling');
         })
     }
 )

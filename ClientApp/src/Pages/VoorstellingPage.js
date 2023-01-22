@@ -10,7 +10,7 @@ export class VoorstellingPage extends React.Component {
     async componentDidMount() {
         let response = await fetch('api/Voorstelling');
         let data = await response.json();
-
+        console.log(data[0]);
 
         this.setState({ voorstellingen: data, loading: false });
     }
@@ -24,7 +24,7 @@ export class VoorstellingPage extends React.Component {
             ? this.state.voorstellingen.filter(voorstelling => voorstelling.genre === this.state.selectedGenre)
             : this.state.voorstellingen;
 
-            filteredVoorstellingen.sort((b, a) => new Date(a.datumDateTime) - new Date(b.datumDateTime));
+            filteredVoorstellingen.sort((a, b) => new Date(a.datumDateTime) - new Date(b.datumDateTime));
     
             
 
