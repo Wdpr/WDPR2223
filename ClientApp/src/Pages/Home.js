@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { VoorstellingMiniCard } from '../components/Voorstelling/VoorstellingMiniCard';
-import { Link } from 'react-router-dom';
-import { NavItem, NavLink } from 'reactstrap';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -28,12 +26,9 @@ export class Home extends Component {
 
   render() {
     const filteredVoorstellingen = this.state.selectedGenre
-    ? this.state.voorstellingen.filter()
-    : this.state.voorstellingen;
-
+      ? this.state.voorstellingen.filter()
+      : this.state.voorstellingen;
     filteredVoorstellingen.sort((b, a) => new Date(a.datumDateTime) - new Date(b.datumDateTime));
-    
-
 
     return (
       <>
@@ -43,58 +38,38 @@ export class Home extends Component {
             <h1>Laak</h1>
           </div>
         </div>
-
-        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).userName}</span></p>}
-        
-          <div className='HomePageInfoContainer'> 
-
-            <div className='tekstjesHomePage'>
-              <div className='KleinTekstje'>
-                <h2>OVER LAAKTHEATER</h2>
-                <p>Laaktheater probeert kunst persoonlijk te maken. Dat betekent dat we kunst op zo veel verschillende manieren brengen dat er voor iedereen een mogelijkheid is het zich eigen te maken en te beleven. Dat kunst niet eng is of niet voor jou, maar dat kunst echt voor en van iedereen is. Als je maar een manier vindt of krijgt aangeboden die bij je past. </p>
-              </div>
+        {sessionStorage.getItem("gebruiker") == null ? <></> : <p>Ingelogd als: <span>{JSON.parse(sessionStorage.getItem("gebruiker")).username}</span></p>}
+        <div className='HomePageInfoContainer'>
+          <div className='tekstjesHomePage'>
+            <div className='KleinTekstje'>
+              <h2>OVER LAAKTHEATER</h2>
+              <p>Laaktheater probeert kunst persoonlijk te maken. Dat betekent dat we kunst op zo veel verschillende manieren brengen dat er voor iedereen een mogelijkheid is het zich eigen te maken en te beleven. Dat kunst niet eng is of niet voor jou, maar dat kunst echt voor en van iedereen is. Als je maar een manier vindt of krijgt aangeboden die bij je past. </p>
             </div>
-              
-            <div className='homeCardsContainer'>
-
-              <div className="homeCards">
-                <h1 >Nieuwste voorstellingen</h1>
-                  <div className="voorstellingMiniCards">
-                    {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.slice(0, 4).map(voorstelling => {
-                      // return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
-                      const vandaagVoorPlus = new Date();                           
-                            const datum = new Date(voorstelling.datumDateTime);                           
-                            const plus300 = new Date(vandaagVoorPlus.setDate(vandaagVoorPlus.getDate() + 300));                           
-                            const huidigeDatum = new Date();
-
-                            if ((datum > huidigeDatum) && (datum < plus300)) {
-                                
-                                return (
-                                    <VoorstellingMiniCard key={voorstelling.id} info={voorstelling} />
-                                )         
-                            }
-                    })}
-                  </div>
-
-                <div >
-                  <br />
-                  <a className='LinkNaarProgrammering' href="/Voorstelling">Bekijk hier de volledige programmering</a>
-                </div>
-
+          </div>
+          <div className='homeCardsContainer'>
+            <div className="homeCards">
+              <h1 >Nieuwste voorstellingen</h1>
+              <div className="voorstellingMiniCards">
+                {this.state.loading ? <p><em>Loading...</em></p> : this.state.voorstellingen.slice(0, 4).map(voorstelling => {
+                  const datum = new Date(voorstelling.datumDateTime);
+                  const plus300 = new Date().setDate(new Date().getDate() + 300);
+                  if ((datum > new Date()) && (datum < plus300))
+                    return <VoorstellingMiniCard key={voorstelling.id} voorstelling={voorstelling} />
+                })}
               </div>
-
-            </div>
-
-
-            <br />
-            <div className='tekstjesHomePage'>
-              <div className='KleinTekstje'>
-                <h2>SAMEN UIT, SAMEN THUIS</h2>
-                <p>Wij geven om Laak en haar bewoners en vinden dat kunst & cultuur voor iedereen toegankelijk moet zijn. Daarom kan je bij ons veel meer dan alleen naar een voorstelling kijken. Kom meedoen, een koffie drinken of een les volgen. Heb jij een goed idee? Wellicht kan Laaktheater je helpen! Zien we je binnenkort?</p>
+              <div >
+                <br />
+                <a className='LinkNaarProgrammering' href="/Voorstelling">Bekijk hier de volledige programmering</a>
               </div>
             </div>
           </div>
-        <div>
+          <br />
+          <div className='tekstjesHomePage'>
+            <div className='KleinTekstje'>
+              <h2>SAMEN UIT, SAMEN THUIS</h2>
+              <p>Wij geven om Laak en haar bewoners en vinden dat kunst & cultuur voor iedereen toegankelijk moet zijn. Daarom kan je bij ons veel meer dan alleen naar een voorstelling kijken. Kom meedoen, een koffie drinken of een les volgen. Heb jij een goed idee? Wellicht kan Laaktheater je helpen! Zien we je binnenkort?</p>
+            </div>
+          </div>
         </div>
       </>
     );

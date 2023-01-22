@@ -7,8 +7,7 @@ const AdminPortaal = () => {
     const [gebruikersnaam, setGebruikersnaam] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [wachtwoord, setWachtwoord] = React.useState('');
-    const [functie, setFunctie] = React.useState('Werknemer');
-    
+    const [functie, setFunctie] = React.useState('admin');
 
     function submitHandler(e) {
         e.preventDefault();
@@ -54,17 +53,12 @@ const AdminPortaal = () => {
                             <input className="formFieldInput" type="Wachtwoord" name="Password" placeholder="Vul het wachtwoord in" onChange={(e) => setWachtwoord(e.target.value)} />
                         </label>
                     </div>
-                    <span>
-                        <label className="checkboxText">
-                             <p>Maak Admin:</p>
-                            <input type="checkbox" name="checkbox" className="checkboxAdmin" onChange={(e) => setFunctie('Admin')}/>
-                        </label>
-                    </span>
+                    
                     <div>
                         <button className='formFieldButton' type="submit">Registreren</button>
                     </div>
                 </form>
-                
+
             </div>
 
         </div>

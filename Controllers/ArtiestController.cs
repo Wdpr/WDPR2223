@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Laak.Context;
 using Laak.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Laak.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
-
 public class ArtiestController : ControllerBase
 {
     private TheaterContext context;
@@ -19,12 +20,10 @@ public class ArtiestController : ControllerBase
     }
 
     [HttpGet]
-    [Route("alleArtiesten")]
     public IEnumerable<Artiest> getAlleArtiesten()
     {
         return context.Artiesten;
     }
-
 
     [HttpGet("{id}")]
     public Artiest GetArtiesten(int id)

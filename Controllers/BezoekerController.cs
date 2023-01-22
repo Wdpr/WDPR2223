@@ -1,9 +1,13 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Laak.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Laak.Controllers;
@@ -21,10 +25,14 @@ public class BezoekerController : ControllerBase
         this.signInManager = signInManager;
     }
 
-    [HttpGet]
-    public IEnumerable<IdentityUser> GetBezoekers()
+    [Authorize]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetBezoekers(string id)
     {
-        return userManager.Users.ToList();
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null) return NotFound();
+        Console.WriteLine(user.Email);
+        return Ok(user);
     }
 
     [HttpPost]
@@ -38,6 +46,7 @@ public class BezoekerController : ControllerBase
             Email = registreerModel.Email,
             UserName = registreerModel.Gebruikersnaam,
             PasswordHash = registreerModel.Wachtwoord,
+            Voorkeuren = "Komedie,Musical,Cabaret,Dans,Zang,Kindertheater,Drama"
         };
         Console.WriteLine("Bezoeker aangemaakt");
         // hier wordt doormiddel van de usermanager een nieuwe bezoeker gemaakt. We geven de bezoeker mee en moeten daarbij specifiek het wachtwoordt ook meegegeven 
@@ -73,16 +82,29 @@ public class BezoekerController : ControllerBase
     [Route("login")]
     public async Task<IActionResult> login(LoginModel loginModel)
     {
-        // de userManager zoek in de Context naar een Idetity met dezelfde Naam. Dit betekent wel dat iedereen een unieke naam moet hebben. Dit kan wel verholpen worden
-        var bezoeker = await userManager.FindByEmailAsync(loginModel.Email);
-        // hier wordt nagegaan of de bezoeker opgegeven in het loginModel ook kloppend is met die in de context door een hele simpele wachtwoord check.
-        if (bezoeker != null && await userManager.CheckPasswordAsync(bezoeker, loginModel.Wachtwoord))
-        {
-            // hier wordt de bezoeker ingelogd. De true zorgt ervoor dat de bezoeker ingelogd blijft. en een cookie krijgt die in de controller gecontroleerd kan worden.
-            await signInManager.SignInAsync(bezoeker, true);
-            Console.WriteLine("ingelogd als " + bezoeker.UserName);
-            return Ok(bezoeker);
-        }
+        var _user = await userManager.FindByEmailAsync(loginModel.Email);
+        if (_user != null)
+            if (await userManager.CheckPasswordAsync(_user, loginModel.Wachtwoord))
+            {
+                var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("awef98awef978haweof8g7aw789efhh789awef8h9awh89efh89awe98f89uawef9j8aw89hefawef"));
+
+                var signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, _user.UserName) };
+                var roles = await userManager.GetRolesAsync(_user);
+                foreach (var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                var tokenOptions = new JwtSecurityToken
+                (
+                    issuer: "https://localhost:44468",
+                    audience: "https://localhost:44468",
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(100),
+                    signingCredentials: signingCredentials
+                );
+                var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                Console.WriteLine(token);
+                return Ok(new { token = token, gebruiker = _user });
+            }
         return Unauthorized();
     }
 
@@ -119,20 +141,15 @@ public class BezoekerController : ControllerBase
     public async Task<IActionResult> VoegVoorkeurenToe(VoorkeurenModel voorkeurenModel)
     {
         var user = await userManager.FindByEmailAsync(voorkeurenModel.Email);
-        Bezoeker bezoeker = (Bezoeker)user;
+        Bezoeker bezoeker = (Bezoeker) user;
         if (bezoeker == null)
         {
-            Console.WriteLine("Bezoeker niet gevonden");
             return NotFound();
         }
-
         bezoeker.Voorkeuren = voorkeurenModel.Voorkeuren;
         var result = await userManager.UpdateAsync(bezoeker);
         if (result.Succeeded)
         {
-           
-            
-            Console.WriteLine("Voorkeuren toegevoegd");
             return Ok();
         }
         else
@@ -140,7 +157,6 @@ public class BezoekerController : ControllerBase
             return new BadRequestObjectResult(result);
         }
     }
-
 
     public class VoorkeurenModel
     {

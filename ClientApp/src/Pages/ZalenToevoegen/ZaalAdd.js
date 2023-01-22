@@ -1,23 +1,16 @@
 import { useState } from 'react';
 import '../../Styles/StoelenStyle.css';
 
-
-
-
 export function VoegZaalToe() {
   const [eersterng, setEersterng] = useState(0);
   const [tweederng, setTweederng] = useState(0);
   const [derderng, setDerderng] = useState(0);
 
- 
-
-
-
   async function submitHandler(e) {
     e.preventDefault();
     fetch("api/zaal/nieuweZaal", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("token") },
       body: JSON.stringify({
         AantalEersteRang: eersterng,
         AantalTweedeRang: tweederng,
@@ -26,7 +19,6 @@ export function VoegZaalToe() {
     }).then(response => {
       console.log(response)
       response.ok ? alert("Zaal succesvol toegevoegd") : alert("fout")
-
     })
   }
 

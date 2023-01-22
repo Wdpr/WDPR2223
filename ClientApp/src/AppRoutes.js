@@ -31,7 +31,7 @@ const AppRoutes = [
     element: <OverOns />
   },
   {
-    path: 'Login',
+    path: '/Login',
     element: <LoginPage />
   },
   {

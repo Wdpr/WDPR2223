@@ -6,8 +6,8 @@ export class MijnAccountPage extends React.Component {
     static displayName = MijnAccountPage.name
 
 
-        render (){
-            return (
+    render() {
+        return (
             <div>
                 <div className="beginBanner">
                     <div className="beginBannerText">
@@ -15,13 +15,11 @@ export class MijnAccountPage extends React.Component {
                         <h1>Laak</h1>
                     </div>
                 </div>
-
-
                 <div>
                     <MijnGegevens />
                 </div>
             </div>
-            )
-        }
-            
-        }
+        )
+    }
+
+}

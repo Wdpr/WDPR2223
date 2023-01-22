@@ -25,6 +25,7 @@ export class NavMenu extends Component {
 
   LogUit() {
     sessionStorage.removeItem('gebruiker');
+    sessionStorage.removeItem('token');
     window.location.href = "/";
   }
 

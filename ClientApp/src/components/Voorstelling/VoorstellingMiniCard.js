@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import img from '../../assets/guido-weijers.jpg'
 import { useNavigate } from 'react-router-dom';
 
